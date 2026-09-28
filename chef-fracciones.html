@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ff7a45">
+<title>El Chef de las Fracciones 🍕</title>
+<style>
+:root{
+  --bg1:#fff4e0; --bg2:#ffe0c2; --red:#ff5a3c; --orange:#ff9f1c; --yellow:#ffd23f;
+  --green:#2ec27e; --blue:#3a86ff; --purple:#8e44ec; --ink:#3b2a20; --card:#ffffff;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+html,body{margin:0; padding:0; min-height:100%;}
+body{
+  font-family: "Comic Sans MS","Chalkboard SE","Trebuchet MS","Segoe UI",Roboto,Arial,sans-serif;
+  color:var(--ink);
+  background: radial-gradient(circle at 20% 10%, #fff9ec 0, transparent 40%),
+              repeating-linear-gradient(45deg, var(--bg1) 0 28px, var(--bg2) 28px 56px);
+  min-height:100vh; min-height:100dvh;
+  touch-action: manipulation;
+  -webkit-user-select:none; user-select:none;
+}
+#app{max-width:620px; margin:0 auto; padding:10px 12px calc(20px + env(safe-area-inset-bottom)); min-height:100vh; min-height:100dvh; display:flex; flex-direction:column; gap:10px;}
+button{font-family:inherit; color:inherit; cursor:pointer; touch-action:manipulation; border:none;}
+.btn{
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  min-height:62px; padding:12px 18px; border-radius:20px; font-size:1.35rem; font-weight:bold;
+  background:var(--orange); color:#fff; box-shadow:0 6px 0 rgba(0,0,0,.18); transition:transform .08s;
+  text-shadow:0 1px 1px rgba(0,0,0,.2);
+}
+.btn:active{transform:translateY(4px); box-shadow:0 2px 0 rgba(0,0,0,.18);}
+.btn[disabled]{opacity:.45; filter:grayscale(.5);}
+.btn.green{background:var(--green);} .btn.blue{background:var(--blue);} .btn.red{background:var(--red);}
+.btn.purple{background:var(--purple);} .btn.white{background:#fff; color:var(--ink); text-shadow:none;}
+.btn.small{min-height:50px; font-size:1.1rem; padding:8px 14px;}
+.row{display:flex; gap:10px; justify-content:center; flex-wrap:wrap;}
+.card{background:var(--card); border-radius:24px; padding:16px; box-shadow:0 6px 18px rgba(80,40,0,.15);}
+h1{font-size:1.9rem; margin:6px 0; text-align:center; line-height:1.15;}
+h2{font-size:1.5rem; margin:4px 0; text-align:center;}
+.center{text-align:center;}
+.chef{font-size:4.2rem; text-align:center; animation:bounce 1.8s ease-in-out infinite; line-height:1.1;}
+@keyframes bounce{0%,100%{transform:translateY(0) rotate(-4deg);}50%{transform:translateY(-10px) rotate(4deg);}}
+@keyframes pop{0%{transform:scale(.6);opacity:0;}70%{transform:scale(1.08);opacity:1;}100%{transform:scale(1);}}
+@keyframes wobble{0%,100%{transform:translateX(0);}20%{transform:translateX(-10px);}40%{transform:translateX(10px);}60%{transform:translateX(-6px);}80%{transform:translateX(6px);}}
+@keyframes slideUp{from{transform:translateY(60px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+.pop{animation:pop .35s ease-out both;}
+.wobble{animation:wobble .5s ease-in-out;}
+.menu-btn{
+  display:flex; align-items:center; gap:14px; width:100%; text-align:left;
+  min-height:86px; padding:12px 16px; border-radius:24px; font-size:1.35rem; font-weight:bold; color:#fff;
+  box-shadow:0 7px 0 rgba(0,0,0,.18); animation:pop .4s ease-out both;
+}
+.menu-btn:active{transform:translateY(4px); box-shadow:0 3px 0 rgba(0,0,0,.18);}
+.menu-btn .em{font-size:2.6rem; flex:0 0 auto;}
+.menu-btn .best{display:block; font-size:.95rem; font-weight:normal; opacity:.95; margin-top:2px;}
+.m1{background:linear-gradient(135deg,#ff5a3c,#ff9f1c);} .m2{background:linear-gradient(135deg,#3a86ff,#5ec8ff);}
+.m3{background:linear-gradient(135deg,#8e44ec,#d36bff);} .m4{background:linear-gradient(135deg,#2ec27e,#8fdc5c);}
+.top{display:flex; align-items:center; gap:8px; background:#fff; border-radius:20px; padding:6px 8px; box-shadow:0 4px 10px rgba(80,40,0,.12);}
+.icon{width:52px; height:52px; border-radius:16px; font-size:1.6rem; background:#fff1dc; flex:0 0 auto; display:flex; align-items:center; justify-content:center;}
+.icon:active{transform:scale(.92);}
+.top .mid{flex:1; text-align:center; font-weight:bold; font-size:1.05rem; line-height:1.2;}
+.chip{background:#fff1dc; border-radius:14px; padding:6px 10px; font-weight:bold; font-size:1.1rem; white-space:nowrap;}
+.dots{display:flex; gap:6px; justify-content:center;}
+.dot{width:18px; height:18px; border-radius:50%; background:#fff; border:3px solid #e8c9a3;}
+.dot.ok{background:var(--green); border-color:var(--green);} .dot.bad{background:#ffb4a2; border-color:#ff8a70;}
+.dot.now{border-color:var(--orange); transform:scale(1.25);}
+.instr{display:flex; align-items:center; gap:10px; background:#fffbe6; border:3px dashed var(--yellow); border-radius:18px; padding:8px 12px; font-size:1.2rem; font-weight:bold;}
+.instr span{flex:1;}
+.stage{display:flex; flex-direction:column; align-items:center; gap:12px;}
+.pizza{width:min(78vw,300px); height:auto; display:block; filter:drop-shadow(0 6px 6px rgba(0,0,0,.18));}
+.pizza.sm{width:min(38vw,170px);} .pizza.xs{width:120px;}
+.pizza .slice{transition:fill .15s;}
+.pizza.tap .slice{cursor:pointer;}
+.pizza .slice.popnow{animation:slicepop .3s ease-out; transform-origin:100px 100px;}
+@keyframes slicepop{0%{transform:scale(1)}50%{transform:scale(1.06)}100%{transform:scale(1)}}
+.frac{display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; font-weight:bold; line-height:1; margin:0 4px;}
+.frac .fb{width:100%; min-width:1.2em; height:.12em; background:currentColor; border-radius:4px; margin:.08em 0;}
+.frac.big{font-size:3rem;} .frac.mid{font-size:2rem;} .frac.sm{font-size:1.3rem;}
+.target{display:flex; align-items:center; justify-content:center; gap:14px; background:#fff; border-radius:22px; padding:8px 18px; box-shadow:0 4px 10px rgba(80,40,0,.12);}
+.target .words{font-size:1.7rem; font-weight:bold; color:var(--red);}
+.counter{font-size:1.2rem; font-weight:bold;}
+.vs{display:flex; gap:10px; width:100%; justify-content:center; align-items:stretch;}
+.choice{flex:1; max-width:280px; background:#fff; border-radius:22px; padding:10px 6px; display:flex; flex-direction:column; align-items:center; gap:6px; box-shadow:0 6px 0 rgba(0,0,0,.12); border:4px solid transparent;}
+.choice:active{transform:translateY(3px);}
+.choice .wtxt{font-size:1.15rem; font-weight:bold;}
+.opts{display:flex; flex-direction:column; gap:10px; width:100%;}
+.opt{display:flex; align-items:center; justify-content:space-between; gap:12px; width:100%; min-height:72px; padding:8px 18px; border-radius:20px; background:#fff; font-size:1.45rem; font-weight:bold; box-shadow:0 6px 0 rgba(0,0,0,.12); border:4px solid #ffe0b3;}
+.opt:active{transform:translateY(3px);}
+.opt .frac{color:var(--blue);}
+.speakrow{display:flex; gap:10px; justify-content:center; flex-wrap:wrap;}
+.bigspeak{font-size:1.5rem; min-height:60px; min-width:200px;}
+.hint{background:#fff; border-radius:16px; padding:6px 14px; font-size:1.5rem; font-weight:bold; color:var(--red); animation:pop .3s both;}
+.fin{display:flex; align-items:center; justify-content:center; gap:14px;}
+.fbox{display:flex; flex-direction:column; align-items:center; gap:4px;}
+.field{width:96px; height:62px; border-radius:18px; background:#fff; border:4px solid #e8c9a3; font-size:2.6rem; font-weight:bold; display:flex; align-items:center; justify-content:center;}
+.field.active{border-color:var(--blue); box-shadow:0 0 0 5px rgba(58,134,255,.25);}
+.fbar{width:120px; height:8px; background:var(--ink); border-radius:6px;}
+.flabel{font-size:.95rem; font-weight:bold; opacity:.8; max-width:130px; text-align:center;}
+.keypad{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; width:100%; max-width:360px;}
+.key{min-height:54px; border-radius:16px; background:#fff; font-size:1.8rem; font-weight:bold; box-shadow:0 5px 0 rgba(0,0,0,.14);}
+.key:active{transform:translateY(3px); box-shadow:0 2px 0 rgba(0,0,0,.14);}
+.key.del{background:#ffe0d6;}
+.overlay{position:fixed; inset:0; background:rgba(40,20,0,.45); display:flex; align-items:flex-end; justify-content:center; z-index:50; padding:10px;}
+.overlay.mid{align-items:center;}
+.sheet{width:100%; max-width:560px; background:#fff; border-radius:28px; padding:18px 16px calc(18px + env(safe-area-inset-bottom)); display:flex; flex-direction:column; gap:12px; align-items:center; animation:slideUp .3s ease-out both; max-height:94vh; overflow:auto;}
+.sheet.good{border:6px solid var(--green);} .sheet.bad{border:6px solid var(--orange);}
+.sheet .big{font-size:2rem; font-weight:bold; text-align:center;}
+.sheet .msg{font-size:1.25rem; text-align:center; line-height:1.35;}
+.sheet .btn{width:100%;}
+.instr-card .em{font-size:4rem; text-align:center; animation:bounce 1.8s infinite;}
+.instr-card .txt{font-size:1.45rem; line-height:1.4; text-align:center; font-weight:bold;}
+.stars{font-size:3rem; letter-spacing:6px; text-align:center;}
+.trophy{font-size:5.5rem; text-align:center; animation:bounce 1.4s infinite;}
+.score-big{font-size:2.4rem; font-weight:bold; text-align:center; color:var(--red);}
+.toast{position:fixed; left:50%; bottom:24px; transform:translateX(-50%); background:#3b2a20; color:#fff; padding:14px 20px; border-radius:18px; font-size:1.2rem; font-weight:bold; z-index:60; animation:pop .3s both; max-width:90vw; text-align:center;}
+.names{display:flex; flex-direction:column; gap:8px;}
+.namerow{display:flex; align-items:center; gap:10px; background:#fff; border-radius:16px; padding:6px 10px; font-size:1.3rem; font-weight:bold; width:100%; text-align:left; box-shadow:0 4px 0 rgba(0,0,0,.1); min-height:60px;}
+.namerow .frac{color:var(--blue); min-width:44px;}
+.namerow .w{flex:1;}
+.small-note{font-size:.95rem; opacity:.8; text-align:center;}
+#confetti{position:fixed; inset:0; pointer-events:none; z-index:70;}
+@media (min-width:700px){ .pizza{width:320px;} .pizza.sm{width:210px;} }
+@media (max-height:700px){ .pizza{width:min(66vw,240px);} .field{height:56px;} .key{min-height:48px;} .stage{gap:8px;} }
+@media (prefers-reduced-motion: reduce){ *{animation:none !important;} }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<noscript><p style="font-size:1.4rem;text-align:center">Este juego necesita JavaScript activado.</p></noscript>
+<script>
+(function(){
+'use strict';
+
+/* ================== DATOS ================== */
+var DENOMS = [2,3,4,5,6,8,10];
+var NUM_WORDS = ['cero','un','dos','tres','cuatro','cinco','seis','siete','ocho','nueve','diez'];
+var DEN_WORDS = {2:'medio',3:'tercio',4:'cuarto',5:'quinto',6:'sexto',7:'séptimo',8:'octavo',9:'noveno',10:'décimo'};
+var QUESTIONS_PER_ROUND = 8;
+var POINTS = 10;
+
+function fracWords(n, d){
+  var w = DEN_WORDS[d];
+  if (!w || n < 0 || n > 10) return n + '/' + d;
+  return NUM_WORDS[n] + ' ' + (n === 1 ? w : w + 's');
+}
+function rnd(a, b){ return a + Math.floor(Math.random() * (b - a + 1)); }
+function pick(arr){ return arr[Math.floor(Math.random() * arr.length)]; }
+function shuffle(a){ for (var i = a.length - 1; i > 0; i--){ var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+function cmpFrac(n1, d1, n2, d2){ var x = n1 * d2 - n2 * d1; return x > 0 ? 1 : (x < 0 ? -1 : 0); }
+function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+/* ================== GUARDADO ================== */
+var STORE_KEY = 'chefFracciones.v1';
+function loadBest(){ try { var v = localStorage.getItem(STORE_KEY); var o = v ? JSON.parse(v) : {}; return (o && typeof o === 'object') ? o : {}; } catch(e){ return {}; } }
+function saveBest(o){ try { localStorage.setItem(STORE_KEY, JSON.stringify(o)); } catch(e){} }
+
+/* ================== VOZ ================== */
+var Speech = {
+  ok: false, voice: null, voices: [], loaded: false,
+  enabled: true,
+  init: function(){
+    try {
+      var saved = localStorage.getItem('chefFracciones.sound');
+      if (saved === 'off') this.enabled = false;
+    } catch(e){}
+    try {
+      if (!('speechSynthesis' in window) || typeof window.SpeechSynthesisUtterance === 'undefined') return;
+      this.ok = true;
+      var self = this;
+      var load = function(){
+        try {
+          var vs = window.speechSynthesis.getVoices() || [];
+          self.voices = vs;
+          if (vs.length) self.loaded = true;
+          self.voice = self.pickVoice(vs);
+        } catch(e){}
+      };
+      load();
+      if (window.speechSynthesis.addEventListener) window.speechSynthesis.addEventListener('voiceschanged', load);
+      else window.speechSynthesis.onvoiceschanged = load;
+      setTimeout(function(){ load(); self.loaded = true; }, 1500);
+    } catch(e){ this.ok = false; }
+  },
+  pickVoice: function(vs){
+    var norm = function(v){ return String(v.lang || '').replace('_','-').toLowerCase(); };
+    var prefs = ['es-cl','es-419','es-us','es-mx','es-ar','es-es'];
+    for (var p = 0; p < prefs.length; p++){
+      for (var i = 0; i < vs.length; i++){ if (norm(vs[i]) === prefs[p]) return vs[i]; }
+    }
+    for (var j = 0; j < vs.length; j++){ if (norm(vs[j]).indexOf('es') === 0) return vs[j]; }
+    return null;
+  },
+  /* true si probablemente no podremos oír en español */
+  unavailable: function(){ return !this.ok || (this.loaded && !this.voice); },
+  speak: function(text, force){
+    if (!this.ok || (!this.enabled && !force)) return;
+    var self = this;
+    try {
+      window.speechSynthesis.cancel();
+      setTimeout(function(){
+        try {
+          var u = new SpeechSynthesisUtterance(text);
+          if (self.voice){ u.voice = self.voice; u.lang = self.voice.lang; } else { u.lang = 'es-CL'; }
+          u.rate = 0.85; u.pitch = 1.1;
+          window.speechSynthesis.speak(u);
+        } catch(e){}
+      }, 60);
+    } catch(e){}
+  },
+  stop: function(){ try { if (this.ok) window.speechSynthesis.cancel(); } catch(e){} }
+};
+
+/* ================== PIZZA SVG ================== */
+function pizzaSVG(d, filled, opts){
+  opts = opts || {};
+  var f = [], i;
+  if (Array.isArray(filled)) f = filled.slice(); else for (i = 0; i < d; i++) f.push(i < filled);
+  var cx = 100, cy = 100, r = 88;
+  var cnt = 0; for (i = 0; i < d; i++) if (f[i]) cnt++;
+  var s = '<svg class="pizza ' + (opts.cls || '') + (opts.tap ? ' tap' : '') + '" viewBox="0 0 200 200" role="img" aria-label="Pizza con ' + cnt + ' de ' + d + ' pedazos pintados">';
+  s += '<circle cx="100" cy="100" r="98" fill="#b86f2c"/><circle cx="100" cy="100" r="93" fill="#e3a553"/>';
+  var EMPTY = '#fdebc8', FULL = '#ff6a3d', LINE = '#9a5b22';
+  if (d <= 1){
+    s += '<circle class="slice" data-i="0" cx="100" cy="100" r="' + r + '" fill="' + (f[0] ? FULL : EMPTY) + '" stroke="' + LINE + '" stroke-width="3"/>';
+  } else {
+    for (i = 0; i < d; i++){
+      var a0 = (-90 + 360 * i / d) * Math.PI / 180, a1 = (-90 + 360 * (i + 1) / d) * Math.PI / 180;
+      var x0 = cx + r * Math.cos(a0), y0 = cy + r * Math.sin(a0), x1 = cx + r * Math.cos(a1), y1 = cy + r * Math.sin(a1);
+      var large = (360 / d) > 180 ? 1 : 0;
+      var dd = 'M' + cx + ' ' + cy + ' L' + x0.toFixed(2) + ' ' + y0.toFixed(2) + ' A' + r + ' ' + r + ' 0 ' + large + ' 1 ' + x1.toFixed(2) + ' ' + y1.toFixed(2) + ' Z';
+      s += '<path class="slice' + (opts.popIndex === i ? ' popnow' : '') + '"' + (opts.tap ? ' data-act="slice"' : '') + ' data-i="' + i + '" d="' + dd + '" fill="' + (f[i] ? FULL : EMPTY) + '" stroke="' + LINE + '" stroke-width="3" stroke-linejoin="round"/>';
+    }
+    // pepperoni y queso en pedazos pintados
+    for (i = 0; i < d; i++){
+      if (!f[i]) continue;
+      var am = (-90 + 360 * (i + 0.5) / d) * Math.PI / 180;
+      var pr = d >= 8 ? 7 : (d >= 5 ? 9 : 11);
+      var spots = d <= 3 ? [0.62, 0.32] : (d <= 6 ? [0.62] : [0.66]);
+      for (var k = 0; k < spots.length; k++){
+        var off = (d <= 3 && k === 1) ? 0.5 : 0;
+        var px = cx + r * spots[k] * Math.cos(am + off), py = cy + r * spots[k] * Math.sin(am + off);
+        s += '<circle cx="' + px.toFixed(1) + '" cy="' + py.toFixed(1) + '" r="' + pr + '" fill="#c62828" pointer-events="none"/>';
+        s += '<circle cx="' + (px - pr * 0.3).toFixed(1) + '" cy="' + (py - pr * 0.3).toFixed(1) + '" r="' + (pr * 0.25).toFixed(1) + '" fill="#ef5350" pointer-events="none"/>';
+      }
+      if (d <= 4){
+        var qx = cx + r * 0.45 * Math.cos(am - 0.45), qy = cy + r * 0.45 * Math.sin(am - 0.45);
+        s += '<circle cx="' + qx.toFixed(1) + '" cy="' + qy.toFixed(1) + '" r="5" fill="#2e7d32" pointer-events="none"/>';
+      }
+    }
+  }
+  s += '</svg>';
+  return s;
+}
+function fracHTML(n, d, cls){ return '<span class="frac ' + (cls || '') + '"><span class="fn">' + n + '</span><span class="fb"></span><span class="fd">' + d + '</span></span>'; }
+
+/* ================== GENERADORES ================== */
+function uniqueList(count, gen, keyFn){
+  var out = [], seen = {}, tries = 0;
+  while (out.length < count && tries < 500){
+    tries++;
+    var q = gen(out.length);
+    var k = keyFn(q);
+    if (seen[k] && tries < 400) continue;
+    seen[k] = true; out.push(q);
+  }
+  return out;
+}
+function genPinta(){
+  return uniqueList(QUESTIONS_PER_ROUND, function(){
+    var d = pick(DENOMS);
+    var n = Math.random() < 0.08 ? d : rnd(1, d - 1);
+    return { type:'pinta', n:n, d:d, sel:[] };
+  }, function(q){ return q.n + '/' + q.d; });
+}
+function genDictado(){
+  return uniqueList(QUESTIONS_PER_ROUND, function(){
+    var d = pick(DENOMS);
+    return { type:'dictado', n:rnd(1, d - 1), d:d };
+  }, function(q){ return q.n + '/' + q.d; });
+}
+function genLeeOne(){
+  var d = pick(DENOMS), k = rnd(1, d - 1);
+  var cands = [];
+  if (d - k !== k) cands.push([d - k, d]);          // cuenta los no pintados
+  if (k + 1 <= d) cands.push([k + 1, d]);
+  if (k - 1 >= 1) cands.push([k - 1, d]);
+  var others = DENOMS.filter(function(x){ return x !== d && x >= k; });
+  if (others.length) cands.push([k, pick(others)]); // cambia el denominador
+  if (d > 2 && k < d - 1) cands.push([k, d - 1 >= k ? d - 1 : d + 1]);
+  // limpiar: únicos, distintos al correcto, válidos
+  var seen = {}; seen[k + '/' + d] = true;
+  var clean = [];
+  shuffle(cands).forEach(function(c){
+    var key = c[0] + '/' + c[1];
+    if (seen[key] || c[0] < 1 || c[0] > c[1] || !DEN_WORDS[c[1]]) return;
+    seen[key] = true; clean.push(c);
+  });
+  var extra = 0;
+  while (clean.length < 2 && extra < 50){
+    extra++;
+    var dd = pick(DENOMS), nn = rnd(1, dd - 1), kk = nn + '/' + dd;
+    if (!seen[kk]){ seen[kk] = true; clean.push([nn, dd]); }
+  }
+  var opts = shuffle([[k, d], clean[0], clean[1]]);
+  return { type:'lee', n:k, d:d, opts:opts };
+}
+function genLee(){ return uniqueList(QUESTIONS_PER_ROUND, genLeeOne, function(q){ return q.n + '/' + q.d; }); }
+
+var EQUIV = [[1,2,2,4],[1,2,3,6],[1,2,4,8],[1,2,5,10],[1,3,2,6],[1,4,2,8],[1,5,2,10],[3,4,6,8],[2,4,4,8],[2,3,4,6],[2,5,4,10],[3,5,6,10]];
+function genGrandeOne(kind){
+  var a, b, c, e;
+  if (kind === 'same'){            // mismo denominador
+    var d = pick([3,4,5,6,8,10]);
+    a = rnd(1, d - 1); do { b = rnd(1, d - 1); } while (b === a);
+    c = d; e = d;
+    return fixG(a, c, b, e, kind);
+  }
+  if (kind === 'unit'){            // un medio vs un cuarto...
+    c = pick(DENOMS); do { e = pick(DENOMS); } while (e === c);
+    return fixG(1, c, 1, e, kind);
+  }
+  if (kind === 'samenum'){         // mismo numerador
+    var n = rnd(2, 4);
+    var ds = DENOMS.filter(function(x){ return x > n; });
+    c = pick(ds); do { e = pick(ds); } while (e === c);
+    return fixG(n, c, n, e, kind);
+  }
+  var q = pick(EQUIV);             // iguales
+  return fixG(q[0], q[1], q[2], q[3], 'equal');
+}
+function fixG(n1, d1, n2, d2, kind){
+  if (Math.random() < 0.5){ var t = n1; n1 = n2; n2 = t; t = d1; d1 = d2; d2 = t; }
+  var c = cmpFrac(n1, d1, n2, d2);
+  return { type:'grande', L:[n1, d1], R:[n2, d2], ans: c > 0 ? 'left' : (c < 0 ? 'right' : 'equal'), kind:kind };
+}
+function genGrande(){
+  var kinds = shuffle(['same','same','same','unit','unit','samenum','equal','equal']);
+  return uniqueList(QUESTIONS_PER_ROUND, function(i){ return genGrandeOne(kinds[i % kinds.length]); },
+    function(q){ var a = [q.L.join('/'), q.R.join('/')].sort(); return a.join('|'); });
+}
+
+/* ================== MODOS ================== */
+var MODES = {
+  pinta:   { name:'Pinta la pizza', em:'🎨', cls:'m1', gen:genPinta,
+             instr:'Mira la fracción. Toca los pedazos de pizza para pintarlos. Cuando termines, toca "Listo".',
+             short:'Pinta los pedazos y toca "Listo".' },
+  dictado: { name:'Dictado del chef', em:'👂', cls:'m2', gen:genDictado,
+             instr:'Escucha la fracción. Arriba escribe cuántos pedazos. Abajo escribe en cuántas partes se corta. Después toca "Revisar".',
+             short:'Escucha y escribe la fracción.' },
+  grande:  { name:'¿Cuál es más grande?', em:'⚖️', cls:'m3', gen:genGrande,
+             instr:'Mira las dos pizzas. Toca la que tiene MÁS pizza pintada. Si tienen lo mismo, toca "Son iguales".',
+             short:'Toca la pizza con MÁS pizza.' },
+  lee:     { name:'Lee la pizza', em:'👀', cls:'m4', gen:genLee,
+             instr:'Mira la pizza. Cuenta los pedazos pintados y todos los pedazos. Toca la fracción correcta.',
+             short:'¿Qué fracción está pintada?' }
+};
+var MODE_ORDER = ['pinta','dictado','grande','lee'];
+var PRAISE = ['¡Bien, chef!','¡Súper, chef!','¡Excelente!','¡Eres un crack!','¡Muy bien!','¡Bacán, chef!','¡Perfecto!'];
+var CHEER = ['¡Casi, chef!','¡Buen intento!','¡No pasa nada!','¡Tú puedes!'];
+
+/* ================== ESTADO ================== */
+var $app = document.getElementById('app');
+var S = null;   // estado del juego actual
+var view = 'menu';
+
+function soundIcon(){ return Speech.enabled ? '🔊' : '🔇'; }
+
+/* ================== PANTALLAS ================== */
+function stopConfetti(){ var c = document.getElementById('confetti'); if (c && c.parentNode) c.parentNode.removeChild(c); }
+function renderMenu(){
+  view = 'menu'; S = null; Speech.stop(); closeOverlay(); stopConfetti();
+  var best = loadBest();
+  var h = '<div class="row" style="justify-content:flex-end"><button type="button" class="icon" data-act="sound" aria-label="Sonido">' + soundIcon() + '</button></div>';
+  h += '<div class="chef">👨‍🍳🍕</div>';
+  h += '<h1>El Chef de las Fracciones</h1>';
+  h += '<p class="center" style="font-size:1.3rem;margin:0 0 6px;font-weight:bold">¡Hola, Benja! ¿A qué quieres jugar?</p>';
+  MODE_ORDER.forEach(function(m, idx){
+    var M = MODES[m], b = best[m];
+    var bestTxt = b ? ('🏅 Mejor: ' + b.score + ' puntos (' + b.correct + '/' + QUESTIONS_PER_ROUND + ')') : '¡Nuevo! Pruébalo';
+    h += '<button type="button" class="menu-btn ' + M.cls + '" style="animation-delay:' + (idx * 0.07) + 's" data-act="mode" data-mode="' + m + '">' +
+         '<span class="em">' + M.em + '</span><span>' + (idx + 1) + '. ' + M.name + '<span class="best">' + bestTxt + '</span></span></button>';
+  });
+  h += '<button type="button" class="btn white" data-act="names">📖 Nombres de las fracciones</button>';
+  $app.innerHTML = h;
+}
+
+function renderNames(){
+  view = 'names'; Speech.stop();
+  var h = '<div class="top"><button type="button" class="icon" data-act="home" aria-label="Menú">🏠</button><div class="mid">📖 Nombres de las fracciones</div><button type="button" class="icon" data-act="sound">' + soundIcon() + '</button></div>';
+  h += '<div class="card"><p style="font-size:1.2rem;margin:0 0 6px"><b>Número de arriba</b> (numerador): cuántos pedazos tomo.</p><p style="font-size:1.2rem;margin:0"><b>Número de abajo</b> (denominador): en cuántas partes corto la pizza.</p></div>';
+  h += '<p class="small-note">Toca una fila para escucharla 🔊</p><div class="names">';
+  for (var d = 2; d <= 10; d++){
+    h += '<button type="button" class="namerow" data-act="say" data-n="1" data-d="' + d + '">' + fracHTML(1, d, 'sm') + '<span class="w">' + fracWords(1, d) + '</span>' + pizzaSVG(d, 1, {cls:'xs'}).replace('class="pizza xs"', 'class="pizza xs" style="width:54px"') + '</button>';
+  }
+  h += '</div><h2 style="margin-top:8px">Cuando son más de uno:</h2><div class="names">';
+  [[2,3],[3,4],[4,5],[5,6],[3,8],[7,10],[2,2]].forEach(function(p){
+    h += '<button type="button" class="namerow" data-act="say" data-n="' + p[0] + '" data-d="' + p[1] + '">' + fracHTML(p[0], p[1], 'sm') + '<span class="w">' + fracWords(p[0], p[1]) + '</span>' + pizzaSVG(p[1], p[0], {cls:'xs'}).replace('class="pizza xs"', 'class="pizza xs" style="width:54px"') + '</button>';
+  });
+  h += '</div><button type="button" class="btn" data-act="home">🏠 Volver al menú</button>';
+  $app.innerHTML = h;
+  window.scrollTo(0, 0);
+}
+
+function startMode(m){
+  if (!MODES[m]) return;
+  stopConfetti(); closeOverlay();
+  S = { mode:m, qs:MODES[m].gen(), i:0, score:0, correct:0, streak:0, bestStreak:0, results:[], locked:false,
+        num:'', den:'', field:'num', showWords:false };
+  renderInstruction();
+}
+
+function renderInstruction(){
+  view = 'instr';
+  var M = MODES[S.mode];
+  var h = '<div class="top"><button type="button" class="icon" data-act="home" aria-label="Menú">🏠</button><div class="mid">' + M.em + ' ' + M.name + '</div><button type="button" class="icon" data-act="sound">' + soundIcon() + '</button></div>';
+  h += '<div class="card instr-card pop" style="display:flex;flex-direction:column;gap:14px;margin-top:10px">';
+  h += '<div class="em">👨‍🍳</div><h2>¿Cómo se juega?</h2><div class="txt">' + esc(M.instr) + '</div>';
+  h += '<div class="small-note">Son ' + QUESTIONS_PER_ROUND + ' preguntas. ¡Sin apuro! 🐢</div>';
+  h += '<button type="button" class="btn blue small" data-act="sayinstr">🔊 Escuchar otra vez</button>';
+  h += '<button type="button" class="btn green" data-act="entendi" style="font-size:1.6rem;min-height:74px">¡Entendí! 👍</button>';
+  h += '</div>';
+  $app.innerHTML = h;
+  window.scrollTo(0, 0);
+  Speech.speak(M.instr);
+}
+
+function headerHTML(){
+  var M = MODES[S.mode];
+  var h = '<div class="top"><button type="button" class="icon" data-act="home" aria-label="Menú">🏠</button>' +
+          '<div class="mid">' + M.em + ' Pregunta ' + (S.i + 1) + ' de ' + QUESTIONS_PER_ROUND + '</div>' +
+          '<span class="chip">⭐ ' + S.score + '</span>' + (S.streak >= 2 ? '<span class="chip">🔥' + S.streak + '</span>' : '') +
+          '<button type="button" class="icon" data-act="sound" aria-label="Sonido">' + soundIcon() + '</button></div>';
+  h += '<div class="dots">';
+  for (var i = 0; i < QUESTIONS_PER_ROUND; i++){
+    var c = S.results[i] === true ? 'ok' : (S.results[i] === false ? 'bad' : (i === S.i ? 'now' : ''));
+    h += '<span class="dot ' + c + '"></span>';
+  }
+  h += '</div>';
+  h += '<div class="instr"><span>' + esc(M.short) + '</span><button type="button" class="icon" data-act="sayshort" aria-label="Escuchar">🔊</button></div>';
+  return h;
+}
+
+function renderQuestion(){
+  view = 'game'; S.locked = false; closeOverlay();
+  var q = S.qs[S.i];
+  var h = headerHTML() + '<div class="stage pop">';
+  if (q.type === 'pinta'){
+    h += '<div class="target"><span class="words">' + fracWords(q.n, q.d) + '</span>' + fracHTML(q.n, q.d, 'big') + '</div>';
+    h += '<div id="pz">' + pizzaSVG(q.d, fillArr(q), {tap:true}) + '</div>';
+    h += '<div class="counter" id="cnt">' + counterText(q) + '</div>';
+    h += '<div class="row" style="width:100%"><button type="button" class="btn white small" data-act="clear">🧽 Borrar</button><button type="button" class="btn green" style="flex:1" data-act="listo">✅ Listo</button></div>';
+  } else if (q.type === 'dictado'){
+    var noVoice = Speech.unavailable();
+    h += '<div class="speakrow"><button type="button" class="btn blue bigspeak" data-act="repeat">🔊 Repetir</button>' +
+         (noVoice || S.showWords ? '' : '<button type="button" class="btn white small" data-act="words">👀 Ver palabras</button>') + '</div>';
+    if (noVoice || S.showWords) h += '<div class="hint">' + (noVoice ? '<span style="font-size:.9rem;color:#3b2a20">🔇 No puedo hablar aquí. Lee: </span>' : '') + fracWords(q.n, q.d) + '</div>';
+    h += '<div class="fin"><div class="fbox">' +
+         '<button type="button" class="field ' + (S.field === 'num' ? 'active' : '') + '" data-act="field" data-f="num" aria-label="Número de arriba">' + (S.num || '') + '</button>' +
+         '<div class="fbar"></div>' +
+         '<button type="button" class="field ' + (S.field === 'den' ? 'active' : '') + '" data-act="field" data-f="den" aria-label="Número de abajo">' + (S.den || '') + '</button></div>' +
+         '<div class="fbox"><div class="flabel">⬆️ Arriba: cuántos pedazos</div><div style="height:30px"></div><div class="flabel">⬇️ Abajo: en cuántas partes</div></div></div>';
+    h += '<div class="keypad">';
+    [1,2,3,4,5,6,7,8,9].forEach(function(n){ h += '<button type="button" class="key" data-act="digit" data-d="' + n + '">' + n + '</button>'; });
+    h += '<button type="button" class="key del" data-act="del" aria-label="Borrar">⌫</button><button type="button" class="key" data-act="digit" data-d="0">0</button>' +
+         '<button type="button" class="key del" data-act="delall" aria-label="Borrar todo">🧽</button></div>';
+    h += '<button type="button" class="btn green" style="width:100%;max-width:360px" data-act="check" ' + (S.num && S.den ? '' : 'disabled') + '>✅ Revisar</button>';
+  } else if (q.type === 'grande'){
+    h += '<div class="vs">' + choiceCard('left', q.L) + choiceCard('right', q.R) + '</div>';
+    h += '<button type="button" class="btn purple" style="width:100%" data-act="choose" data-c="equal">🟰 Son iguales</button>';
+  } else if (q.type === 'lee'){
+    h += pizzaSVG(q.d, q.n, {});
+    h += '<div class="opts">';
+    q.opts.forEach(function(o, idx){
+      h += '<button type="button" class="opt" data-act="pickopt" data-o="' + idx + '"><span>' + fracWords(o[0], o[1]) + '</span>' + fracHTML(o[0], o[1], 'mid') + '</button>';
+    });
+    h += '</div>';
+  }
+  h += '</div>';
+  $app.innerHTML = h;
+  window.scrollTo(0, 0);
+  if (q.type === 'dictado') Speech.speak(fracWords(q.n, q.d));
+}
+function choiceCard(side, f){
+  return '<button type="button" class="choice" data-act="choose" data-c="' + side + '">' + pizzaSVG(f[1], f[0], {cls:'sm'}) +
+         fracHTML(f[0], f[1], 'mid') + '<span class="wtxt">' + fracWords(f[0], f[1]) + '</span></button>';
+}
+function fillArr(q){ var a = []; for (var i = 0; i < q.d; i++) a.push(!!q.sel[i]); return a; }
+function countSel(q){ var c = 0; for (var i = 0; i < q.d; i++) if (q.sel[i]) c++; return c; }
+function counterText(q){ return '🍕 Pintaste ' + countSel(q) + (countSel(q) === 1 ? ' pedazo' : ' pedazos'); }
+
+/* ================== RESPUESTAS ================== */
+function answer(ok, detailHTML, speakText){
+  if (S.locked) return;
+  S.locked = true;
+  S.results[S.i] = ok;
+  var gained = 0, bonus = 0;
+  if (ok){
+    S.correct++; S.streak++; S.bestStreak = Math.max(S.bestStreak, S.streak);
+    gained = POINTS; bonus = S.streak >= 2 ? Math.min(S.streak - 1, 3) * 5 : 0;
+    S.score += gained + bonus;
+  } else {
+    S.streak = 0;
+  }
+  var last = S.i + 1 >= QUESTIONS_PER_ROUND;
+  var h = '<div class="sheet ' + (ok ? 'good' : 'bad') + '">';
+  if (ok){
+    var p = pick(PRAISE);
+    h += '<div class="big">🎉 ' + p + '</div><div class="msg"><b>+' + gained + ' ⭐</b>' + (bonus ? ' &nbsp;<b>+' + bonus + ' racha 🔥' + S.streak + '</b>' : '') + '</div>';
+    if (detailHTML) h += detailHTML;
+    Speech.speak(p.replace(/[¡!]/g, ''));
+  } else {
+    h += '<div class="big">🤗 ' + pick(CHEER) + '</div>' + (detailHTML || '');
+    if (speakText) Speech.speak(speakText);
+  }
+  h += '<button type="button" class="btn ' + (ok ? 'green' : '') + '" data-act="next">' + (last ? 'Ver mi premio 🏆' : 'Siguiente ➡️') + '</button></div>';
+  openOverlay(h);
+  // actualizar marcador visible
+  var chip = $app.querySelector('.chip'); if (chip) chip.textContent = '⭐ ' + S.score;
+}
+
+function onListo(){
+  var q = S.qs[S.i], c = countSel(q);
+  if (c === 0){ toast('Primero toca los pedazos para pintarlos 🙂'); return; }
+  if (c === q.n){
+    answer(true, '<div class="msg">' + fracWords(q.n, q.d) + ' ' + fracHTML(q.n, q.d, 'sm') + ' = ' + q.n + ' de ' + q.d + ' pedazos 🍕</div>');
+  } else {
+    answer(false,
+      '<div class="msg">Pintaste <b>' + c + '</b>. Para <b>' + fracWords(q.n, q.d) + '</b> ' + fracHTML(q.n, q.d, 'sm') + ' hay que pintar <b>' + q.n + '</b> de ' + q.d + ' pedazos. Así:</div>' +
+      pizzaSVG(q.d, q.n, {cls:'sm'}),
+      'Casi. ' + fracWords(q.n, q.d) + ' es pintar ' + q.n + ' de ' + q.d + ' pedazos.');
+  }
+}
+function onCheck(){
+  var q = S.qs[S.i];
+  if (!S.num || !S.den) return;
+  var n = parseInt(S.num, 10), d = parseInt(S.den, 10);
+  var ok = (n === q.n && d === q.d);
+  if (ok){
+    answer(true, '<div class="msg">' + fracWords(q.n, q.d) + ' se escribe ' + fracHTML(q.n, q.d, 'mid') + '</div>');
+  } else {
+    var tip = '';
+    if (n === q.d && d === q.n) tip = '<div class="small-note">💡 ¡Estaban al revés! Arriba van los pedazos, abajo las partes.</div>';
+    answer(false,
+      '<div class="msg">Escribiste ' + fracHTML(S.num, S.den, 'sm') + '. La fracción era <b>' + fracWords(q.n, q.d) + '</b>, que se escribe ' + fracHTML(q.n, q.d, 'mid') + '</div>' + tip +
+      pizzaSVG(q.d, q.n, {cls:'sm'}),
+      'Casi. Era ' + fracWords(q.n, q.d) + '.');
+  }
+}
+function onChoose(c){
+  var q = S.qs[S.i];
+  var ok = c === q.ans;
+  var l = fracWords(q.L[0], q.L[1]) + ' ' + fracHTML(q.L[0], q.L[1], 'sm'), r = fracWords(q.R[0], q.R[1]) + ' ' + fracHTML(q.R[0], q.R[1], 'sm');
+  var expl, say;
+  if (q.ans === 'equal'){ expl = '<b>' + l + '</b> y <b>' + r + '</b> son iguales: ¡la misma cantidad de pizza! 🟰'; say = fracWords(q.L[0], q.L[1]) + ' y ' + fracWords(q.R[0], q.R[1]) + ' son iguales.'; }
+  else {
+    var big = q.ans === 'left' ? q.L : q.R, sm = q.ans === 'left' ? q.R : q.L;
+    expl = '<b>' + fracWords(big[0], big[1]) + ' ' + fracHTML(big[0], big[1], 'sm') + '</b> es más grande que ' + fracWords(sm[0], sm[1]) + ' ' + fracHTML(sm[0], sm[1], 'sm');
+    say = fracWords(big[0], big[1]) + ' es más grande que ' + fracWords(sm[0], sm[1]) + '.';
+  }
+  var tip = '';
+  if (q.kind === 'unit' || q.kind === 'samenum') tip = '<div class="small-note">💡 Si cortas la pizza en MÁS partes, cada pedazo es más chico.</div>';
+  else if (q.kind === 'same') tip = '<div class="small-note">💡 Los pedazos son del mismo tamaño: gana el que tiene más pedazos.</div>';
+  var pics = '<div class="vs">' +
+    '<div class="fbox">' + pizzaSVG(q.L[1], q.L[0], {cls:'xs'}) + fracHTML(q.L[0], q.L[1], 'sm') + '</div>' +
+    '<div style="font-size:2rem;align-self:center;font-weight:bold">' + (q.ans === 'left' ? '&gt;' : q.ans === 'right' ? '&lt;' : '=') + '</div>' +
+    '<div class="fbox">' + pizzaSVG(q.R[1], q.R[0], {cls:'xs'}) + fracHTML(q.R[0], q.R[1], 'sm') + '</div></div>';
+  if (ok) answer(true, '<div class="msg">' + expl + '</div>');
+  else answer(false, '<div class="msg">' + expl + '</div>' + pics + tip, 'Casi. ' + say);
+}
+function onPickOpt(idx){
+  var q = S.qs[S.i], o = q.opts[idx];
+  if (!o) return;
+  var ok = o[0] === q.n && o[1] === q.d;
+  if (ok) answer(true, '<div class="msg">' + q.n + ' pedazos pintados de ' + q.d + ' = <b>' + fracWords(q.n, q.d) + '</b> ' + fracHTML(q.n, q.d, 'sm') + '</div>');
+  else answer(false,
+    '<div class="msg">Hay <b>' + q.n + '</b> pedazos pintados y la pizza tiene <b>' + q.d + '</b> pedazos. Es <b>' + fracWords(q.n, q.d) + '</b> ' + fracHTML(q.n, q.d, 'mid') + '</div>' +
+    pizzaSVG(q.d, q.n, {cls:'sm'}),
+    'Casi. Es ' + fracWords(q.n, q.d) + '.');
+}
+
+function nextQuestion(){
+  if (!S) return;
+  S.i++;
+  S.num = ''; S.den = ''; S.field = 'num'; S.showWords = false;
+  if (S.i >= QUESTIONS_PER_ROUND) renderEnd(); else renderQuestion();
+}
+
+function renderEnd(){
+  view = 'end'; closeOverlay();
+  var pct = S.correct / QUESTIONS_PER_ROUND;
+  var stars = S.correct >= 7 ? 3 : (S.correct >= 5 ? 2 : (S.correct >= 3 ? 1 : 0));
+  var best = loadBest(), prev = best[S.mode], record = !prev || S.score > prev.score;
+  if (record){ best[S.mode] = { score:S.score, correct:S.correct }; saveBest(best); }
+  var win = pct >= 0.8;
+  var M = MODES[S.mode];
+  var h = '<div class="card pop" style="display:flex;flex-direction:column;gap:10px;margin-top:10px">';
+  h += '<div class="trophy">' + (win ? '🏆' : '👨‍🍳') + '</div>';
+  h += win ? '<h1>¡Premio del chef!</h1><p class="center" style="font-size:1.3rem;margin:0">¡Benja, eres un gran chef de las fracciones! 🍕</p>'
+           : '<h1>¡Buen trabajo, chef!</h1><p class="center" style="font-size:1.3rem;margin:0">¡Sigue practicando y ganarás el premio! 💪</p>';
+  h += '<div class="stars">' + '⭐'.repeat(stars) + '<span style="opacity:.25">' + '⭐'.repeat(3 - stars) + '</span></div>';
+  h += '<div class="score-big">' + S.score + ' puntos</div>';
+  h += '<p class="center" style="font-size:1.25rem;margin:0">Correctas: <b>' + S.correct + ' de ' + QUESTIONS_PER_ROUND + '</b>' + (S.bestStreak >= 2 ? ' · Mejor racha 🔥' + S.bestStreak : '') + '</p>';
+  h += record ? '<p class="center" style="font-size:1.25rem;margin:0;color:#2ec27e;font-weight:bold">🎖️ ¡Nuevo récord en ' + esc(M.name) + '!</p>'
+              : '<p class="center small-note" style="margin:0">Tu récord: ' + prev.score + ' puntos</p>';
+  h += '<button type="button" class="btn green" data-act="again">🔁 Jugar otra vez</button>';
+  h += '<button type="button" class="btn blue" data-act="home">🏠 Menú</button></div>';
+  $app.innerHTML = h;
+  window.scrollTo(0, 0);
+  confetti(win ? 220 : 90);
+  Speech.speak(win ? 'Premio del chef. ¡Muy bien, Benja!' : '¡Buen trabajo, chef! Sigue practicando.');
+}
+
+/* ================== OVERLAY / TOAST ================== */
+function openOverlay(inner){
+  closeOverlay();
+  var o = document.createElement('div');
+  o.className = 'overlay'; o.id = 'ov'; o.innerHTML = inner;
+  document.body.appendChild(o);
+}
+function closeOverlay(){ var o = document.getElementById('ov'); if (o && o.parentNode) o.parentNode.removeChild(o); }
+var toastTimer = null;
+function toast(msg){
+  var t = document.getElementById('toast');
+  if (!t){ t = document.createElement('div'); t.id = 'toast'; t.className = 'toast'; document.body.appendChild(t); }
+  t.textContent = msg; t.style.display = 'block';
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ if (t) t.style.display = 'none'; }, 2200);
+  Speech.speak(msg.replace(/[^\wáéíóúñü ,.¡!¿?]/gi, ''));
+}
+
+/* ================== CONFETI (canvas) ================== */
+function confetti(count){
+  try {
+    var old = document.getElementById('confetti'); if (old) old.parentNode.removeChild(old);
+    var cv = document.createElement('canvas'); cv.id = 'confetti';
+    document.body.appendChild(cv);
+    var ctx = cv.getContext('2d'); if (!ctx) return;
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var W = window.innerWidth, H = window.innerHeight;
+    cv.width = W * dpr; cv.height = H * dpr; ctx.scale(dpr, dpr);
+    var colors = ['#ff5a3c','#ff9f1c','#ffd23f','#2ec27e','#3a86ff','#8e44ec','#ff70a6'];
+    var ps = [];
+    for (var i = 0; i < count; i++){
+      ps.push({ x: Math.random() * W, y: -20 - Math.random() * H * 0.6, vx: (Math.random() - 0.5) * 3, vy: 2 + Math.random() * 3.5,
+                s: 6 + Math.random() * 8, r: Math.random() * 6.28, vr: (Math.random() - 0.5) * 0.3, c: pick(colors), shape: Math.random() < 0.15 ? 'pizza' : 'rect' });
+    }
+    var start = null, DUR = 4500;
+    var step = function(ts){
+      if (!start) start = ts;
+      var el = ts - start;
+      ctx.clearRect(0, 0, W, H);
+      for (var j = 0; j < ps.length; j++){
+        var p = ps[j];
+        p.x += p.vx; p.y += p.vy; p.r += p.vr; p.vx += Math.sin((el + j * 50) / 400) * 0.03;
+        ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.r);
+        if (p.shape === 'pizza'){ ctx.font = (p.s * 2) + 'px sans-serif'; ctx.fillText('🍕', -p.s, p.s); }
+        else { ctx.fillStyle = p.c; ctx.fillRect(-p.s / 2, -p.s / 4, p.s, p.s / 2); }
+        ctx.restore();
+      }
+      if (el < DUR && document.body.contains(cv)) requestAnimationFrame(step);
+      else if (cv.parentNode) cv.parentNode.removeChild(cv);
+    };
+    requestAnimationFrame(step);
+  } catch(e){}
+}
+
+/* ================== EVENTOS ================== */
+function onAction(act, el){
+  switch (act){
+    case 'home': renderMenu(); break;
+    case 'names': renderNames(); break;
+    case 'say': Speech.speak(fracWords(+el.getAttribute('data-n'), +el.getAttribute('data-d')), true); break;
+    case 'sound':
+      Speech.enabled = !Speech.enabled;
+      try { localStorage.setItem('chefFracciones.sound', Speech.enabled ? 'on' : 'off'); } catch(e){}
+      if (!Speech.enabled) Speech.stop();
+      document.querySelectorAll('[data-act="sound"]').forEach(function(b){ b.textContent = soundIcon(); });
+      if (Speech.enabled) Speech.speak('Sonido activado');
+      break;
+    case 'mode': startMode(el.getAttribute('data-mode')); break;
+    case 'sayinstr': if (S) Speech.speak(MODES[S.mode].instr, true); break;
+    case 'sayshort': if (S) Speech.speak(MODES[S.mode].short, true); break;
+    case 'entendi': if (S) renderQuestion(); break;
+    case 'next': if (S && S.locked) nextQuestion(); break;
+    case 'again': if (S) startMode(S.mode); else renderMenu(); break;
+  }
+  if (!S || view !== 'game' || S.locked) return;
+  var q = S.qs[S.i];
+  switch (act){
+    case 'slice':
+      if (q.type !== 'pinta') return;
+      var idx = +el.getAttribute('data-i');
+      if (idx >= 0 && idx < q.d){
+        q.sel[idx] = !q.sel[idx];
+        document.getElementById('pz').innerHTML = pizzaSVG(q.d, fillArr(q), {tap:true, popIndex:idx});
+        document.getElementById('cnt').textContent = counterText(q);
+      }
+      break;
+    case 'clear':
+      q.sel = [];
+      document.getElementById('pz').innerHTML = pizzaSVG(q.d, fillArr(q), {tap:true});
+      document.getElementById('cnt').textContent = counterText(q);
+      break;
+    case 'listo': onListo(); break;
+    case 'repeat': Speech.speak(fracWords(q.n, q.d), true); break;
+    case 'words': S.showWords = true; renderQuestionKeepInput(); break;
+    case 'field': S.field = el.getAttribute('data-f') === 'den' ? 'den' : 'num'; renderQuestionKeepInput(); break;
+    case 'digit':
+      var dg = el.getAttribute('data-d');
+      if (S.field === 'num'){
+        if (S.num.length < 2) S.num += dg;
+        if (S.num.length >= 1) S.field = 'den'; // pasa solo al de abajo
+      } else {
+        if (S.den.length < 2) S.den += dg;
+      }
+      renderQuestionKeepInput();
+      break;
+    case 'del':
+      if (S.field === 'den'){ if (S.den) S.den = S.den.slice(0, -1); else { S.field = 'num'; S.num = S.num.slice(0, -1); } }
+      else S.num = S.num.slice(0, -1);
+      renderQuestionKeepInput();
+      break;
+    case 'delall': S.num = ''; S.den = ''; S.field = 'num'; renderQuestionKeepInput(); break;
+    case 'check': onCheck(); break;
+    case 'choose': onChoose(el.getAttribute('data-c')); break;
+    case 'pickopt': onPickOpt(+el.getAttribute('data-o')); break;
+  }
+}
+/* re-dibuja el dictado sin volver a hablar */
+function renderQuestionKeepInput(){
+  var sp = Speech.speak; Speech.speak = function(){};
+  try { renderQuestion(); } finally { Speech.speak = sp; }
+  var st = $app.querySelector('.stage'); if (st) st.classList.remove('pop');
+}
+
+document.addEventListener('click', function(ev){
+  var el = ev.target && ev.target.closest ? ev.target.closest('[data-act]') : null;
+  if (!el) return;
+  try { onAction(el.getAttribute('data-act'), el); }
+  catch(e){ if (window.console) console.warn('Error manejado:', e); try { renderMenu(); } catch(e2){} }
+});
+
+/* ================== INICIO ================== */
+Speech.init();
+renderMenu();
+
+/* acceso para pruebas */
+window.__chef = { state:function(){ return S; }, fracWords:fracWords, cmpFrac:cmpFrac, MODES:MODES,
+  gen:{ pinta:genPinta, dictado:genDictado, grande:genGrande, lee:genLee }, speech:Speech };
+})();
+</script>
+</body>
+</html>

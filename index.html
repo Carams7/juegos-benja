@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Juegos de Benja</title>
+<style>
+  body{margin:0;min-height:100vh;font-family:"Comic Sans MS","Chalkboard SE","Trebuchet MS",sans-serif;
+       background:linear-gradient(135deg,#ffecd2,#fcb69f);display:flex;flex-direction:column;align-items:center;padding:24px;box-sizing:border-box}
+  h1{font-size:clamp(2.2rem,7vw,4rem);color:#6a1b9a;margin:16px 0 8px;text-shadow:3px 3px 0 #fff;text-align:center}
+  p.sub{font-size:1.4rem;color:#4a148c;margin:0 0 28px;text-align:center}
+  ul.juegos{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:20px;width:100%;max-width:520px}
+  a.juego{display:flex;align-items:center;gap:18px;text-decoration:none;background:#fff;border-radius:28px;padding:22px 28px;
+          font-size:clamp(1.4rem,5vw,2rem);font-weight:bold;color:#e65100;box-shadow:0 8px 0 #e65100;transition:transform .1s}
+  a.juego:hover{transform:translateY(-3px)} a.juego:active{transform:translateY(6px);box-shadow:0 2px 0 #e65100}
+  a.juego .emoji{font-size:3rem}
+  a.juego small{display:block;font-size:1rem;color:#795548;font-weight:normal}
+</style>
+</head>
+<body>
+  <h1>🎮 Juegos de Benja</h1>
+  <p class="sub">¡Elige un juego y a divertirse aprendiendo!</p>
+  <ul class="juegos">
+    <!-- Para agregar un juego nuevo, copia un <li> y cambia el enlace -->
+    <li><a class="juego" href="chef-fracciones.html"><span class="emoji">🍕</span><span>El Chef de las Fracciones<small>Aprende fracciones cocinando</small></span></a></li>
+  </ul>
+</body>
+</html>
