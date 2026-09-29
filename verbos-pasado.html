@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#6c4cf5">
+<title>La Máquina del Tiempo ⏰ Verbos en pasado</title>
+<style>
+:root{
+  --bg1:#eef1ff; --bg2:#e0dcff; --red:#ff5a3c; --orange:#ff9f1c; --yellow:#ffd23f;
+  --green:#2ec27e; --blue:#3a86ff; --purple:#7b4dff; --ink:#2b2350; --card:#ffffff;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+html,body{margin:0; padding:0; min-height:100%;}
+body{
+  font-family: "Comic Sans MS","Chalkboard SE","Trebuchet MS","Segoe UI",Roboto,Arial,sans-serif;
+  color:var(--ink);
+  background: radial-gradient(circle at 20% 10%, #fbfbff 0, transparent 40%),
+              repeating-linear-gradient(45deg, var(--bg1) 0 28px, var(--bg2) 28px 56px);
+  min-height:100vh; min-height:100dvh;
+  touch-action: manipulation;
+  -webkit-user-select:none; user-select:none;
+}
+#app{max-width:620px; margin:0 auto; padding:10px 12px calc(20px + env(safe-area-inset-bottom)); min-height:100vh; min-height:100dvh; display:flex; flex-direction:column; gap:10px;}
+button{font-family:inherit; color:inherit; cursor:pointer; touch-action:manipulation; border:none;}
+.btn{
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  min-height:62px; padding:12px 18px; border-radius:20px; font-size:1.35rem; font-weight:bold;
+  background:var(--orange); color:#fff; box-shadow:0 6px 0 rgba(0,0,0,.18); transition:transform .08s;
+  text-shadow:0 1px 1px rgba(0,0,0,.2);
+}
+.btn:active{transform:translateY(4px); box-shadow:0 2px 0 rgba(0,0,0,.18);}
+.btn[disabled]{opacity:.45; filter:grayscale(.5);}
+.btn.green{background:var(--green);} .btn.blue{background:var(--blue);} .btn.red{background:var(--red);}
+.btn.purple{background:var(--purple);} .btn.white{background:#fff; color:var(--ink); text-shadow:none;}
+.btn.small{min-height:50px; font-size:1.1rem; padding:8px 14px;}
+.row{display:flex; gap:10px; justify-content:center; flex-wrap:wrap;}
+.card{background:var(--card); border-radius:24px; padding:16px; box-shadow:0 6px 18px rgba(40,20,120,.15);}
+h1{font-size:1.9rem; margin:6px 0; text-align:center; line-height:1.15;}
+h2{font-size:1.5rem; margin:4px 0; text-align:center;}
+.center{text-align:center;}
+.mascot{font-size:4.2rem; text-align:center; animation:bounce 1.8s ease-in-out infinite; line-height:1.1;}
+@keyframes bounce{0%,100%{transform:translateY(0) rotate(-4deg);}50%{transform:translateY(-10px) rotate(4deg);}}
+@keyframes pop{0%{transform:scale(.6);opacity:0;}70%{transform:scale(1.08);opacity:1;}100%{transform:scale(1);}}
+@keyframes slideUp{from{transform:translateY(60px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+@keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0}}
+.pop{animation:pop .35s ease-out both;}
+.menu-btn{
+  display:flex; align-items:center; gap:14px; width:100%; text-align:left;
+  min-height:80px; padding:10px 16px; border-radius:24px; font-size:1.3rem; font-weight:bold; color:#fff;
+  box-shadow:0 7px 0 rgba(0,0,0,.18); animation:pop .4s ease-out both; text-shadow:0 1px 1px rgba(0,0,0,.25);
+}
+.menu-btn:active{transform:translateY(4px); box-shadow:0 3px 0 rgba(0,0,0,.18);}
+.menu-btn .em{font-size:2.5rem; flex:0 0 auto;}
+.menu-btn .best{display:block; font-size:.95rem; font-weight:normal; opacity:.95; margin-top:2px;}
+.m1{background:linear-gradient(135deg,#ff5a3c,#ff9f1c);} .m2{background:linear-gradient(135deg,#3a86ff,#5ec8ff);}
+.m3{background:linear-gradient(135deg,#7b4dff,#c86bff);} .m4{background:linear-gradient(135deg,#2ec27e,#8fdc5c);}
+.m5{background:linear-gradient(135deg,#e84393,#ff8fb1);}
+.top{display:flex; align-items:center; gap:8px; background:#fff; border-radius:20px; padding:6px 8px; box-shadow:0 4px 10px rgba(40,20,120,.12);}
+.icon{width:52px; height:52px; border-radius:16px; font-size:1.6rem; background:#efedff; flex:0 0 auto; display:flex; align-items:center; justify-content:center;}
+.icon:active{transform:scale(.92);}
+.top .mid{flex:1; text-align:center; font-weight:bold; font-size:1.05rem; line-height:1.2;}
+.chip{background:#efedff; border-radius:14px; padding:6px 10px; font-weight:bold; font-size:1.1rem; white-space:nowrap;}
+.dots{display:flex; gap:6px; justify-content:center;}
+.dot{width:18px; height:18px; border-radius:50%; background:#fff; border:3px solid #c9c2f0;}
+.dot.ok{background:var(--green); border-color:var(--green);} .dot.bad{background:#ffb4a2; border-color:#ff8a70;}
+.dot.now{border-color:var(--purple); transform:scale(1.25);}
+.instr{display:flex; align-items:center; gap:10px; background:#fffbe6; border:3px dashed var(--yellow); border-radius:18px; padding:8px 12px; font-size:1.2rem; font-weight:bold;}
+.instr span{flex:1;}
+.stage{display:flex; flex-direction:column; align-items:center; gap:12px;}
+.verbcard{width:100%; background:#fff; border-radius:24px; padding:12px 14px; box-shadow:0 6px 0 rgba(40,20,120,.12); display:flex; flex-direction:column; align-items:center; gap:4px;}
+.verbcard .lbl{font-size:1.05rem; font-weight:bold; opacity:.75;}
+.verbcard .word{font-size:3.2rem; font-weight:bold; color:var(--purple); line-height:1.1; display:flex; align-items:center; gap:12px;}
+.verbcard .es{font-size:1.2rem; opacity:.8;}
+.timeline{display:flex; align-items:center; justify-content:center; gap:10px; font-size:1.2rem; font-weight:bold; flex-wrap:wrap;}
+.timeline .q{background:#efedff; border-radius:14px; padding:4px 14px; font-size:1.6rem; color:var(--red);}
+.opts{display:grid; grid-template-columns:1fr 1fr; gap:12px; width:100%;}
+.opts.one{grid-template-columns:1fr;}
+.opt{min-height:80px; padding:8px 10px; border-radius:22px; background:#fff; font-size:1.8rem; font-weight:bold; box-shadow:0 6px 0 rgba(0,0,0,.12); border:4px solid #d9d2ff; color:var(--ink);}
+.opt:active{transform:translateY(3px);}
+.bigchoice{display:flex; gap:12px; width:100%;}
+.bigchoice .btn{flex:1; flex-direction:column; min-height:120px; font-size:1.5rem; gap:2px;}
+.bigchoice .btn small{font-size:1rem; font-weight:normal;}
+.sentence{width:100%; background:#fff; border-radius:24px; padding:16px; box-shadow:0 6px 0 rgba(40,20,120,.12); font-size:1.75rem; font-weight:bold; text-align:center; line-height:1.4;}
+.sentence .blank{display:inline-block; min-width:110px; border-bottom:5px solid var(--purple); color:var(--purple);}
+.sentence .hintverb{display:block; font-size:1.15rem; color:#7a6fb0; margin-top:4px;}
+.speakrow{display:flex; gap:10px; justify-content:center; flex-wrap:wrap; width:100%;}
+.bigspeak{font-size:1.5rem; min-height:64px; min-width:190px;}
+.hint{background:#fff; border-radius:16px; padding:6px 14px; font-size:1.4rem; font-weight:bold; color:var(--purple); animation:pop .3s both; text-align:center;}
+.typed{width:100%; max-width:420px; min-height:74px; border-radius:20px; background:#fff; border:4px solid var(--blue); box-shadow:0 0 0 5px rgba(58,134,255,.2);
+  font-size:2.6rem; font-weight:bold; display:flex; align-items:center; justify-content:center; letter-spacing:3px; padding:4px 10px; word-break:break-all;}
+.typed .ph{font-size:1.2rem; letter-spacing:0; opacity:.45; font-weight:normal;}
+.caret{display:inline-block; width:4px; height:1em; background:var(--blue); margin-left:3px; animation:blink 1s infinite; vertical-align:middle;}
+.kb{display:flex; flex-direction:column; gap:7px; width:100%; max-width:520px;}
+.kr{display:flex; gap:4px; justify-content:center;}
+.k{flex:1 1 0; max-width:52px; min-width:0; min-height:54px; border-radius:12px; background:#fff; font-size:1.5rem; font-weight:bold; box-shadow:0 4px 0 rgba(0,0,0,.16); padding:0;}
+.k:active{transform:translateY(3px); box-shadow:0 1px 0 rgba(0,0,0,.16); background:#e8e4ff;}
+.k.del{background:#ffe0d6; flex:1.7 1 0; max-width:88px;}
+.kr .btn{min-height:58px;}
+.overlay{position:fixed; inset:0; background:rgba(20,10,60,.45); display:flex; align-items:flex-end; justify-content:center; z-index:50; padding:10px;}
+.sheet{width:100%; max-width:560px; background:#fff; border-radius:28px; padding:18px 16px calc(18px + env(safe-area-inset-bottom)); display:flex; flex-direction:column; gap:12px; align-items:center; animation:slideUp .3s ease-out both; max-height:94vh; overflow:auto;}
+.sheet.good{border:6px solid var(--green);} .sheet.bad{border:6px solid var(--orange);}
+.sheet .big{font-size:2rem; font-weight:bold; text-align:center;}
+.sheet .msg{font-size:1.25rem; text-align:center; line-height:1.35;}
+.sheet > .btn{width:100%;}
+.pair{font-size:2.2rem; font-weight:bold; text-align:center;} .pair b{color:var(--green);}
+.wrong{color:#d9480f; text-decoration:line-through; font-weight:bold; font-size:1.6rem;}
+.rightword{font-size:3rem; font-weight:bold; letter-spacing:4px; text-align:center;}
+.rightword .d{color:var(--orange); text-decoration:underline;} .rightword .s{color:var(--green);}
+.tip{background:#fffbe6; border-radius:16px; padding:8px 12px; font-size:1.15rem; text-align:center; font-weight:bold;}
+.es-sent{font-size:1.1rem; opacity:.8; text-align:center; font-style:italic;}
+.instr-card .em{font-size:4rem; text-align:center; animation:bounce 1.8s infinite;}
+.instr-card .txt{font-size:1.45rem; line-height:1.4; text-align:center; font-weight:bold;}
+.instr-card .ex{font-size:1.6rem; text-align:center; font-weight:bold; background:#efedff; border-radius:16px; padding:8px; line-height:1.5;}
+.ex b{color:var(--green);} .ex i{color:var(--purple); font-style:normal;}
+.stars{font-size:3rem; letter-spacing:6px; text-align:center;}
+.trophy{font-size:5.5rem; text-align:center; animation:bounce 1.4s infinite;}
+.score-big{font-size:2.4rem; font-weight:bold; text-align:center; color:var(--purple);}
+.review{background:#fffbe6; border-radius:16px; padding:8px 12px; font-size:1.2rem; text-align:center;}
+.toast{position:fixed; left:50%; bottom:24px; transform:translateX(-50%); background:#2b2350; color:#fff; padding:14px 20px; border-radius:18px; font-size:1.2rem; font-weight:bold; z-index:60; animation:pop .3s both; max-width:90vw; text-align:center;}
+.list{display:flex; flex-direction:column; gap:8px;}
+.lrow{display:flex; align-items:center; gap:10px; background:#fff; border-radius:16px; padding:6px 12px; font-size:1.3rem; font-weight:bold; width:100%; text-align:left; box-shadow:0 4px 0 rgba(0,0,0,.1); min-height:58px;}
+.lrow .w{flex:1;} .lrow .p{color:var(--green);} .lrow small{font-weight:normal; opacity:.7; font-size:1rem;}
+.small-note{font-size:.95rem; opacity:.8; text-align:center;}
+.note{background:#fff; border-radius:16px; padding:8px 12px; font-size:1.05rem; text-align:center; font-weight:bold; border:3px dashed #e84393;}
+#confetti{position:fixed; inset:0; pointer-events:none; z-index:70;}
+@media (max-height:700px){ .k{min-height:48px;} .typed{min-height:62px; font-size:2.2rem;} .stage{gap:8px;} .verbcard .word{font-size:2.6rem;} .opt{min-height:66px;} }
+@media (prefers-reduced-motion: reduce){ *{animation:none !important;} }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<noscript><p style="font-size:1.4rem;text-align:center">Este juego necesita JavaScript activado.</p></noscript>
+<script>
+(function(){
+'use strict';
+
+/* ================== DATOS ==================
+   base, past, significado, irregular?, frase (___ = hueco), frase en español, alternativas incorrectas, [tip], [cómo se pronuncia el pasado] */
+var RAW = [
+  ['play','played','jugar',0,'Yesterday I ___ football.','Ayer jugué fútbol.',['plaied','play','playd'],'play termina en vocal + y: solo se agrega -ed.'],
+  ['walk','walked','caminar',0,'We ___ to the park.','Caminamos al parque.',['walkt','walk','walkd']],
+  ['jump','jumped','saltar',0,'The frog ___ into the water.','La rana saltó al agua.',['jumpt','jump','jumpped']],
+  ['watch','watched','mirar / ver (tele)',0,'Last night I ___ TV.','Anoche vi televisión.',['watchd','watch','wached']],
+  ['like','liked','gustar',0,'I ___ the movie.','Me gustó la película.',['likeed','like','likd'],'like termina en e: solo se agrega -d.'],
+  ['dance','danced','bailar',0,'We ___ at the party.','Bailamos en la fiesta.',['danceed','dance','dansed'],'dance termina en e: solo se agrega -d.'],
+  ['cook','cooked','cocinar',0,'Mom ___ pasta yesterday.','Ayer mamá cocinó pasta.',['cookd','cook','cookked']],
+  ['clean','cleaned','limpiar',0,'I ___ my room on Saturday.','El sábado limpié mi pieza.',['cleand','clean','cleanned']],
+  ['help','helped','ayudar',0,'I ___ my dad in the garden.','Ayudé a mi papá en el jardín.',['helpt','help','helpped']],
+  ['open','opened','abrir',0,'She ___ the door.','Ella abrió la puerta.',['openned','open','opend']],
+  ['study','studied','estudiar',0,'I ___ English last night.','Anoche estudié inglés.',['studyed','study','studed'],'study termina en y: la y cambia a -ied.'],
+  ['cry','cried','llorar',0,'The baby ___ all night.','El bebé lloró toda la noche.',['cryed','cry','cryd'],'cry termina en y: la y cambia a -ied.'],
+  ['stop','stopped','parar',0,'The bus ___ at the school.','El bus paró en el colegio.',['stoped','stop','stopd'],'stop: la p se escribe doble → stopped.'],
+  ['go','went','ir',1,'Last Sunday we ___ to the beach.','El domingo pasado fuimos a la playa.',['goed','go','wented']],
+  ['eat','ate','comer',1,'I ___ an apple for lunch.','Comí una manzana en el almuerzo.',['eated','eat','ated']],
+  ['see','saw','ver',1,'I ___ a big dog in the park.','Vi un perro grande en el parque.',['seed','see','sawed']],
+  ['have','had','tener',1,'We ___ a great day.','Tuvimos un día genial.',['haved','have','has']],
+  ['run','ran','correr',1,'Benja ___ very fast in the race.','Benja corrió muy rápido en la carrera.',['runned','run','ranned']],
+  ['drink','drank','beber / tomar',1,'I ___ milk this morning.','Hoy en la mañana tomé leche.',['drinked','drink','dranked']],
+  ['swim','swam','nadar',1,'We ___ in the pool.','Nadamos en la piscina.',['swimmed','swim','swammed']],
+  ['sing','sang','cantar',1,'The children ___ a song.','Los niños cantaron una canción.',['singed','sing','sanged']],
+  ['write','wrote','escribir',1,'I ___ a letter to my grandma.','Le escribí una carta a mi abuela.',['writed','write','wrot'],'wrote empieza con una w que no suena: w-r-o-t-e.'],
+  ['read','read','leer',1,'I ___ a book last night.','Anoche leí un libro.',['readed','red','reed'],'read en pasado se escribe igual, ¡pero suena "red"!','red'],
+  ['come','came','venir',1,'My friend ___ to my house.','Mi amigo vino a mi casa.',['comed','come','camed']],
+  ['make','made','hacer',1,'Mom ___ a cake.','Mamá hizo una torta.',['maked','make','mad']],
+  ['get','got','recibir / conseguir',1,'I ___ a present on my birthday.','Recibí un regalo en mi cumpleaños.',['getted','get','gotted']],
+  ['sit','sat','sentarse',1,'The cat ___ on the chair.','El gato se sentó en la silla.',['sitted','sit','sated']],
+  ['sleep','slept','dormir',1,'I ___ ten hours last night.','Anoche dormí diez horas.',['sleeped','sleep','slepted']],
+  ['buy','bought','comprar',1,'Dad ___ ice cream.','Papá compró helado.',['buyed','buy','bougth'],'bought se escribe b-o-u-g-h-t (la gh no suena).'],
+  ['take','took','tomar / llevar',1,'I ___ a photo of my dog.','Le saqué una foto a mi perro.',['taked','take','tooked']],
+  ['is','was','es / está (ser / estar)',1,'Yesterday it ___ sunny.','Ayer estuvo soleado.',['ised','is','were'],'is → was (uno). are → were (varios).'],
+  ['are','were','son / están (ser / estar)',1,'They ___ happy at the party.','Ellos estaban felices en la fiesta.',['ared','are','was'],'are → were (varios). is → was (uno).']
+];
+var VERBS = RAW.map(function(r){
+  return { base:r[0], past:r[1], es:r[2], irr:!!r[3], sent:r[4], sentEs:r[5], wrong:r[6],
+           tip: r[7] || (r[3] ? '¡Es irregular! Hay que aprenderlo de memoria: ' + r[0] + ' → ' + r[1] + '.' : 'Es regular: se agrega -ed → ' + r[1] + '.'),
+           sayPast: r[8] || r[1] };
+});
+var QUESTIONS_PER_ROUND = 8;
+var WIN_AT = 7;
+var POINTS = 10;
+
+function pick(arr){ return arr[Math.floor(Math.random() * arr.length)]; }
+function shuffle(a){ for (var i = a.length - 1; i > 0; i--){ var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+function norm(s){ return String(s || '').toLowerCase().replace(/[^a-z]/g, ''); }
+
+/* ================== GUARDADO ================== */
+var STORE_KEY = 'maquinaTiempo.v1';
+function loadStore(){ try { var v = localStorage.getItem(STORE_KEY); var o = v ? JSON.parse(v) : {}; if (!o || typeof o !== 'object') o = {}; o.best = o.best || {}; o.miss = o.miss || {}; return o; } catch(e){ return {best:{}, miss:{}}; } }
+function saveStore(o){ try { localStorage.setItem(STORE_KEY, JSON.stringify(o)); } catch(e){} }
+function markVerb(v, ok){
+  var o = loadStore(), m = o.miss[v.base] || 0;
+  o.miss[v.base] = ok ? Math.max(0, m - 1) : Math.min(5, m + 1);
+  saveStore(o);
+}
+
+/* ================== VOZ (español para ayuda, inglés para los verbos) ================== */
+var Speech = {
+  ok:false, es:null, en:null, loaded:false, enabled:true,
+  init: function(){
+    try { if (localStorage.getItem('maquinaTiempo.sound') === 'off') this.enabled = false; } catch(e){}
+    try {
+      if (!('speechSynthesis' in window) || typeof window.SpeechSynthesisUtterance === 'undefined') return;
+      this.ok = true;
+      var self = this;
+      var load = function(){
+        try {
+          var vs = window.speechSynthesis.getVoices() || [];
+          if (vs.length) self.loaded = true;
+          self.es = self.pickVoice(vs, ['es-cl','es-419','es-us','es-mx','es-ar','es-es'], 'es', []);
+          self.en = self.pickVoice(vs, ['en-us','en-gb','en-au','en-ca'], 'en', ['google us english','samantha','google uk english female','daniel','karen','zira','aria','jenny']);
+        } catch(e){}
+      };
+      load();
+      if (window.speechSynthesis.addEventListener) window.speechSynthesis.addEventListener('voiceschanged', load);
+      else window.speechSynthesis.onvoiceschanged = load;
+      setTimeout(function(){ load(); self.loaded = true; if (view === 'game' && S && !S.locked && isTyping(S.mode)) renderQuestionKeep(); }, 1500);
+    } catch(e){ this.ok = false; }
+  },
+  pickVoice: function(vs, prefs, prefix, names){
+    var lang = function(v){ return String(v.lang || '').replace('_','-').toLowerCase(); };
+    for (var n = 0; n < names.length; n++){
+      for (var k = 0; k < vs.length; k++){ if (lang(vs[k]).indexOf(prefix) === 0 && String(vs[k].name).toLowerCase().indexOf(names[n]) >= 0) return vs[k]; }
+    }
+    for (var p = 0; p < prefs.length; p++){
+      for (var i = 0; i < vs.length; i++){ if (lang(vs[i]) === prefs[p]) return vs[i]; }
+    }
+    for (var j = 0; j < vs.length; j++){ if (lang(vs[j]).indexOf(prefix) === 0) return vs[j]; }
+    return null;
+  },
+  enUnavailable: function(){ return !this.ok || (this.loaded && !this.en); },
+  /* items: [{t:'texto', en:true/false, rate:0.8}] ; force = hablar aunque el sonido esté apagado */
+  say: function(items, force){
+    if (!this.ok || (!this.enabled && !force)) return;
+    var self = this;
+    try {
+      window.speechSynthesis.cancel();
+      setTimeout(function(){
+        items.forEach(function(it){
+          try {
+            var u = new SpeechSynthesisUtterance(it.t);
+            var v = it.en ? self.en : self.es;
+            if (v){ u.voice = v; u.lang = v.lang; } else { u.lang = it.en ? 'en-US' : 'es-CL'; }
+            u.rate = it.rate || (it.en ? 0.75 : 0.9); u.pitch = it.en ? 1 : 1.1;
+            window.speechSynthesis.speak(u);
+          } catch(e){}
+        });
+      }, 60);
+    } catch(e){}
+  },
+  es_: function(t, force){ this.say([{t:t}], force); },
+  stop: function(){ try { if (this.ok) window.speechSynthesis.cancel(); } catch(e){} }
+};
+
+/* ================== GENERADORES ================== */
+/* elige n verbos, dando prioridad a los que Benja se ha equivocado antes */
+function pickVerbs(n, nIrr){
+  var miss = loadStore().miss;
+  var score = function(v){ return Math.random() + Math.min(miss[v.base] || 0, 3) * 0.3; };
+  var sortBy = function(list){ return list.map(function(v){ return {v:v, s:score(v)}; }).sort(function(a, b){ return b.s - a.s; }).map(function(x){ return x.v; }); };
+  var irr = sortBy(VERBS.filter(function(v){ return v.irr; })), reg = sortBy(VERBS.filter(function(v){ return !v.irr; }));
+  return shuffle(irr.slice(0, nIrr).concat(reg.slice(0, n - nIrr)));
+}
+function genElige(){
+  return pickVerbs(QUESTIONS_PER_ROUND, 5).map(function(v){
+    return { type:'elige', v:v, opts:shuffle([v.past].concat(v.wrong.slice(0, 3))) };
+  });
+}
+function genDictado(){ return pickVerbs(QUESTIONS_PER_ROUND, 5).map(function(v){ return { type:'dictado', v:v }; }); }
+function genEscucha(){ return pickVerbs(QUESTIONS_PER_ROUND, 5).map(function(v){ return { type:'escucha', v:v }; }); }
+function genRegIrr(){ return pickVerbs(QUESTIONS_PER_ROUND, 4).map(function(v){ return { type:'regirr', v:v }; }); }
+function genFrase(){
+  return pickVerbs(QUESTIONS_PER_ROUND, 5).map(function(v){
+    var o = [v.past];
+    if (v.base !== v.past) o.push(v.base);
+    for (var i = 0; i < v.wrong.length && o.length < 3; i++) if (o.indexOf(v.wrong[i]) < 0) o.push(v.wrong[i]);
+    return { type:'frase', v:v, opts:shuffle(o) };
+  });
+}
+
+/* ================== MODOS ================== */
+var MODES = {
+  elige:   { name:'Elige el pasado', em:'🎯', cls:'m1', gen:genElige,
+             instr:'Mira el verbo. Toca cómo se dice en PASADO.',
+             ex:'<i>go</i> → <b>went</b>', say:'Mira el verbo. Toca cómo se dice en pasado.',
+             short:'Toca el verbo en PASADO.' },
+  dictado: { name:'Dictado 1: ¡al pasado!', em:'👂', cls:'m2', gen:genDictado,
+             instr:'Escucha el verbo en inglés. Escríbelo en PASADO. Después toca "Revisar".',
+             ex:'🔊 <i>play</i> → ✍️ <b>played</b>', say:'Escucha el verbo en inglés. Escríbelo en pasado. Después toca Revisar.',
+             short:'Escucha y escribe el PASADO.' },
+  regirr:  { name:'¿Regular o irregular?', em:'🔀', cls:'m3', gen:genRegIrr,
+             instr:'¿El pasado termina en -ed? Toca REGULAR. ¿La palabra cambia? Toca IRREGULAR.',
+             ex:'<i>play</i> → <b>played</b> ✅ Regular<br><i>go</i> → <b>went</b> 🔀 Irregular', say:'Si el pasado termina en e de, toca regular. Si la palabra cambia, toca irregular.',
+             short:'¿Regular (-ed) o irregular?' },
+  frase:   { name:'Completa la frase', em:'🧩', cls:'m4', gen:genFrase,
+             instr:'Lee la frase. Toca el verbo en PASADO que falta.',
+             ex:'Yesterday I <b>played</b> football.', say:'Lee la frase. Toca el verbo en pasado que falta.',
+             short:'Toca la palabra que falta.' },
+  escucha: { name:'Dictado 2: lo que oyes', em:'✍️', cls:'m5', gen:genEscucha,
+             instr:'Escucha la palabra en pasado. Escríbela igual. Después toca "Revisar".',
+             ex:'🔊 <i>went</i> → ✍️ <b>went</b>', say:'Escucha la palabra en pasado. Escríbela igual. Después toca Revisar.',
+             short:'Escucha y escribe la palabra.' }
+};
+var MODE_ORDER = ['elige','dictado','regirr','frase','escucha'];
+function isTyping(m){ return m === 'dictado' || m === 'escucha'; }
+var PRAISE = ['¡Excelente!','¡Súper, Benja!','¡Muy bien!','¡Eres un crack!','¡Bacán!','¡Perfecto!','¡Genial!'];
+var CHEER = ['¡Casi!','¡Buen intento!','¡No pasa nada!','¡Tú puedes!'];
+
+/* ================== ESTADO ================== */
+var $app = document.getElementById('app');
+var S = null;
+var view = 'menu';
+function soundIcon(){ return Speech.enabled ? '🔊' : '🔇'; }
+
+/* ================== PANTALLAS ================== */
+function stopConfetti(){ var c = document.getElementById('confetti'); if (c && c.parentNode) c.parentNode.removeChild(c); }
+function renderMenu(){
+  view = 'menu'; S = null; Speech.stop(); closeOverlay(); stopConfetti();
+  var best = loadStore().best;
+  var h = '<div class="row" style="justify-content:flex-end"><button type="button" class="icon" data-act="sound" aria-label="Sonido">' + soundIcon() + '</button></div>';
+  h += '<div class="mascot">🕰️🚀</div>';
+  h += '<h1>La Máquina del Tiempo</h1>';
+  h += '<p class="center" style="font-size:1.25rem;margin:0;font-weight:bold">Verbos en pasado · <i>Past Tense</i></p>';
+  h += '<p class="center" style="font-size:1.2rem;margin:0 0 4px">¡Hola, Benja! Viajemos al pasado. ¿A qué quieres jugar?</p>';
+  MODE_ORDER.forEach(function(m, idx){
+    var M = MODES[m], b = best[m];
+    var bestTxt = b ? ('🏅 Mejor: ' + b.score + ' puntos (' + b.correct + '/' + QUESTIONS_PER_ROUND + ')') : '¡Nuevo! Pruébalo';
+    h += '<button type="button" class="menu-btn ' + M.cls + '" style="animation-delay:' + (idx * 0.07) + 's" data-act="mode" data-mode="' + m + '">' +
+         '<span class="em">' + M.em + '</span><span>' + (idx + 1) + '. ' + M.name + '<span class="best">' + bestTxt + '</span></span></button>';
+  });
+  h += '<div class="note">📝 Para el dictado del jueves: ¡juega el 2 y el 5!</div>';
+  h += '<button type="button" class="btn white" data-act="list">📖 Lista de verbos</button>';
+  $app.innerHTML = h;
+}
+
+function renderList(){
+  view = 'list'; Speech.stop();
+  var h = '<div class="top"><button type="button" class="icon" data-act="home" aria-label="Menú">🏠</button><div class="mid">📖 Lista de verbos</div><button type="button" class="icon" data-act="sound">' + soundIcon() + '</button></div>';
+  h += '<div class="card"><p style="font-size:1.2rem;margin:0 0 6px"><b>✅ Regulares:</b> se agrega <b>-ed</b> (play → played).</p><p style="font-size:1.2rem;margin:0"><b>🔀 Irregulares:</b> cambian distinto (go → went). ¡Hay que aprenderlos!</p></div>';
+  h += '<p class="small-note">Toca una fila para escucharla 🔊</p>';
+  [['✅ Regulares', false], ['🔀 Irregulares', true]].forEach(function(g){
+    h += '<h2>' + g[0] + '</h2><div class="list">';
+    VERBS.forEach(function(v, i){
+      if (v.irr !== g[1]) return;
+      h += '<button type="button" class="lrow" data-act="sayverb" data-i="' + i + '"><span class="w">' + v.base + ' → <span class="p">' + v.past + '</span><br><small>' + esc(v.es) + '</small></span><span>🔊</span></button>';
+    });
+    h += '</div>';
+  });
+  h += '<button type="button" class="btn" data-act="home">🏠 Volver al menú</button>';
+  $app.innerHTML = h;
+  window.scrollTo(0, 0);
+}
+
+function startMode(m){
+  if (!MODES[m]) return;
+  stopConfetti(); closeOverlay();
+  S = { mode:m, qs:MODES[m].gen(), i:0, score:0, correct:0, streak:0, bestStreak:0, results:[], locked:false,
+        typed:'', showHint:false, reveal:false, missed:[] };
+  renderInstruction();
+}
+
+function renderInstruction(){
+  view = 'instr';
+  var M = MODES[S.mode];
+  var h = '<div class="top"><button type="button" class="icon" data-act="home" aria-label="Menú">🏠</button><div class="mid">' + M.em + ' ' + M.name + '</div><button type="button" class="icon" data-act="sound">' + soundIcon() + '</button></div>';
+  h += '<div class="card instr-card pop" style="display:flex;flex-direction:column;gap:14px;margin-top:10px">';
+  h += '<div class="em">🤖</div><h2>¿Cómo se juega?</h2><div class="txt">' + esc(M.instr) + '</div>';
+  h += '<div class="ex">' + M.ex + '</div>';
+  h += '<div class="small-note">Son ' + QUESTIONS_PER_ROUND + ' preguntas. ¡Sin apuro! 🐢</div>';
+  h += '<button type="button" class="btn blue small" data-act="sayinstr">🔊 Escuchar otra vez</button>';
+  h += '<button type="button" class="btn green" data-act="entendi" style="font-size:1.6rem;min-height:74px">¡Entendí! 👍</button>';
+  h += '</div>';
+  $app.innerHTML = h;
+  window.scrollTo(0, 0);
+  Speech.es_(M.say);
+}
+
+function headerHTML(){
+  var M = MODES[S.mode];
+  var h = '<div class="top"><button type="button" class="icon" data-act="home" aria-label="Menú">🏠</button>' +
+          '<div class="mid">' + M.em + ' Pregunta ' + (S.i + 1) + ' de ' + QUESTIONS_PER_ROUND + '</div>' +
+          '<span class="chip" id="score">⭐ ' + S.score + '</span>' + (S.streak >= 2 ? '<span class="chip">🔥' + S.streak + '</span>' : '') +
+          '<button type="button" class="icon" data-act="sound" aria-label="Sonido">' + soundIcon() + '</button></div>';
+  h += '<div class="dots">';
+  for (var i = 0; i < QUESTIONS_PER_ROUND; i++){
+    var c = S.results[i] === true ? 'ok' : (S.results[i] === false ? 'bad' : (i === S.i ? 'now' : ''));
+    h += '<span class="dot ' + c + '"></span>';
+  }
+  h += '</div>';
+  h += '<div class="instr"><span>' + esc(M.short) + '</span><button type="button" class="icon" data-act="sayshort" aria-label="Escuchar">🔊</button></div>';
+  return h;
+}
+
+function sentenceHTML(v, fill){
+  var parts = v.sent.split('___');
+  return esc(parts[0]) + (fill ? '<span class="blank">' + esc(fill) + '</span>' : '<span class="blank">&nbsp;?&nbsp;</span>') + esc(parts[1] || '');
+}
+function sentenceSpoken(v, withPast){ return v.sent.replace('___', withPast ? v.sayPast : '...'); }
+
+/* audio de la pregunta (en inglés) */
+function questionAudio(q, slow){
+  var r = slow ? 0.5 : 0.75, v = q.v;
+  if (q.type === 'dictado') return [{t:v.base, en:true, rate:r}];
+  if (q.type === 'escucha') return [{t:v.sayPast, en:true, rate:r}, {t:sentenceSpoken(v, true), en:true, rate:slow ? 0.6 : 0.8}, {t:v.sayPast, en:true, rate:r}];
+  if (q.type === 'frase') return [{t:sentenceSpoken(v, false), en:true, rate:slow ? 0.6 : 0.8}];
+  return [{t:v.base, en:true, rate:r}];
+}
+
+function keyboardHTML(){
+  var rows = ['qwertyuiop','asdfghjkl','zxcvbnm'];
+  var h = '<div class="kb">';
+  rows.forEach(function(r, ri){
+    h += '<div class="kr">';
+    r.split('').forEach(function(ch){ h += '<button type="button" class="k" data-act="key" data-k="' + ch + '">' + ch + '</button>'; });
+    if (ri === 2) h += '<button type="button" class="k del" data-act="bksp" aria-label="Borrar letra">⌫</button>';
+    h += '</div>';
+  });
+  h += '<div class="kr"><button type="button" class="btn white small" data-act="clear" aria-label="Borrar todo">🧽</button>' +
+       '<button type="button" class="btn green" style="flex:1" data-act="check" id="checkbtn">✅ Revisar</button></div>';
+  h += '</div>';
+  return h;
+}
+function typedHTML(){
+  return S.typed ? esc(S.typed) + '<span class="caret"></span>' : '<span class="ph">Escribe aquí con las letras 👇</span><span class="caret"></span>';
+}
+function updateTyped(){ var t = document.getElementById('typed'); if (t) t.innerHTML = typedHTML(); }
+
+function renderQuestion(silent){
+  view = 'game'; S.locked = false; closeOverlay();
+  var q = S.qs[S.i], v = q.v;
+  var h = headerHTML() + '<div class="stage' + (silent ? '' : ' pop') + '">';
+  if (q.type === 'elige'){
+    h += '<div class="verbcard"><div class="timeline"><span>⏰ Hoy:</span><span class="word" style="font-size:2.6rem;color:#7b4dff">' + v.base + '</span><button type="button" class="icon" data-act="repeat" aria-label="Escuchar">🔊</button></div>' +
+         '<div class="es">(' + esc(v.es) + ')</div>' +
+         '<div class="timeline"><span>🕰️ Ayer:</span><span class="q">?</span></div></div>';
+    h += '<div class="opts">';
+    q.opts.forEach(function(o, idx){ h += '<button type="button" class="opt" data-act="pickopt" data-o="' + idx + '">' + esc(o) + '</button>'; });
+    h += '</div>';
+  } else if (q.type === 'regirr'){
+    h += '<div class="verbcard"><div class="lbl">Verbo:</div><div class="word">' + v.base + ' <button type="button" class="icon" data-act="repeat" aria-label="Escuchar">🔊</button></div><div class="es">(' + esc(v.es) + ')</div></div>';
+    h += '<div class="small-note" style="font-size:1.1rem">Piensa: ¿cómo es en pasado? 🤔</div>';
+    h += '<div class="bigchoice"><button type="button" class="btn green" data-act="choose" data-c="reg">✅ Regular<small>termina en -ed</small></button>' +
+         '<button type="button" class="btn purple" data-act="choose" data-c="irr">🔀 Irregular<small>cambia distinto</small></button></div>';
+  } else if (q.type === 'frase'){
+    h += '<div class="sentence">' + sentenceHTML(v) + '<span class="hintverb">(' + v.base + ' = ' + esc(v.es) + ')</span></div>';
+    h += '<div class="speakrow"><button type="button" class="btn blue small" data-act="repeat">🔊 Escuchar la frase</button></div>';
+    h += '<div class="opts one">';
+    q.opts.forEach(function(o, idx){ h += '<button type="button" class="opt" data-act="pickopt" data-o="' + idx + '">' + esc(o) + '</button>'; });
+    h += '</div>';
+  } else {
+    /* dictado / escucha */
+    var noVoice = Speech.enUnavailable();
+    if (noVoice){
+      if (q.type === 'dictado') h += '<div class="hint"><span style="font-size:.95rem;color:#2b2350">🔇 Aquí no hay voz en inglés. Lee el verbo:</span><br>' + v.base + ' <span style="font-size:1rem">(' + esc(v.es) + ')</span></div>';
+      else h += '<div class="hint" style="font-size:1.05rem;color:#2b2350">🔇 Aquí no hay voz en inglés. Pide a un adulto que te dicte la palabra.' +
+                (S.reveal ? '<br><span style="font-size:1.6rem;color:#7b4dff">' + v.past + '</span>' : '<br><button type="button" class="btn white small" data-act="reveal" style="margin:6px auto 0">👀 Mostrar (solo el adulto)</button>') + '</div>';
+    } else {
+      h += '<div class="speakrow"><button type="button" class="btn blue bigspeak" data-act="repeat">🔊 Escuchar</button>' +
+           '<button type="button" class="btn white small" data-act="slow">🐢 Lento</button>' +
+           (S.showHint ? '' : '<button type="button" class="btn white small" data-act="hint">💡 Pista</button>') + '</div>';
+      if (S.showHint) h += '<div class="hint">' + (q.type === 'dictado' ? v.base + ' (' + esc(v.es) + ')' : 'Significa: ' + esc(v.es) + ' · empieza con <b>' + v.past.charAt(0) + '</b>') + '</div>';
+    }
+    h += '<div class="typed" id="typed">' + typedHTML() + '</div>';
+    h += keyboardHTML();
+  }
+  h += '</div>';
+  $app.innerHTML = h;
+  if (!silent){
+    window.scrollTo(0, 0);
+    if (q.type === 'dictado' || q.type === 'escucha') Speech.say(questionAudio(q), true);
+    else Speech.say(questionAudio(q));
+  }
+}
+function renderQuestionKeep(){ renderQuestion(true); }
+
+/* ================== RESPUESTAS ================== */
+function answer(ok, detailHTML, speakItems){
+  if (S.locked) return;
+  S.locked = true;
+  S.results[S.i] = ok;
+  var q = S.qs[S.i];
+  markVerb(q.v, ok);
+  if (!ok && S.missed.indexOf(q.v) < 0) S.missed.push(q.v);
+  var gained = 0, bonus = 0;
+  if (ok){
+    S.correct++; S.streak++; S.bestStreak = Math.max(S.bestStreak, S.streak);
+    gained = POINTS; bonus = S.streak >= 2 ? Math.min(S.streak - 1, 3) * 5 : 0;
+    S.score += gained + bonus;
+  } else {
+    S.streak = 0;
+  }
+  var last = S.i + 1 >= QUESTIONS_PER_ROUND;
+  var h = '<div class="sheet ' + (ok ? 'good' : 'bad') + '">';
+  var items;
+  if (ok){
+    var p = pick(PRAISE);
+    h += '<div class="big">🎉 ' + p + '</div><div class="msg"><b>+' + gained + ' ⭐</b>' + (bonus ? ' &nbsp;<b>+' + bonus + ' racha 🔥' + S.streak + '</b>' : '') + '</div>';
+    items = [{t:p.replace(/[¡!]/g, '')}].concat(speakItems || []);
+  } else {
+    h += '<div class="big">🤗 ' + pick(CHEER) + '</div>';
+    items = speakItems || [];
+  }
+  h += detailHTML || '';
+  h += '<div class="row" style="width:100%"><button type="button" class="btn white small" data-act="sayagain">🔊 Escuchar</button>' +
+       (ok ? '' : '<button type="button" class="btn white small" data-act="spell">🔤 Deletrear</button>') + '</div>';
+  h += '<button type="button" class="btn ' + (ok ? 'green' : '') + '" data-act="next">' + (last ? 'Ver mi premio 🏆' : 'Siguiente ➡️') + '</button></div>';
+  S.lastAudio = speakItems || [];
+  openOverlay(h);
+  Speech.say(items);
+  var chip = document.getElementById('score'); if (chip) chip.textContent = '⭐ ' + S.score;
+}
+function pairAudio(v){ return [{t:v.base + '. ' + v.sayPast + '.', en:true, rate:0.75}]; }
+function pairHTML(v){ return '<div class="pair">' + v.base + ' ➜ <b>' + v.past + '</b></div><div class="es-sent">(' + esc(v.es) + ')</div>'; }
+function tipFor(v, typed){
+  var t = norm(typed);
+  if (t && t === norm(v.past)) return '';
+  if (v.irr && (t === v.base + 'ed' || t === v.base + 'd' || t === v.base + v.base.slice(-1) + 'ed')) return '💡 ' + v.base + ' es IRREGULAR: no lleva -ed. En pasado es ' + v.past + '.' + (v.base === v.past ? ' ' + v.tip : '');
+  if (t === v.base && v.base !== v.past) return '💡 Esa es la palabra de HOY (presente). En pasado es ' + v.past + '.';
+  return '💡 ' + v.tip;
+}
+function spelledHTML(correct, typed){
+  var t = norm(typed), h = '';
+  for (var i = 0; i < correct.length; i++){
+    h += '<span class="' + (t.charAt(i) === correct.charAt(i) ? 's' : 'd') + '">' + correct.charAt(i) + '</span>';
+  }
+  return h;
+}
+
+function onPickOpt(idx){
+  var q = S.qs[S.i], o = q.opts[idx], v = q.v;
+  if (o === undefined) return;
+  var ok = o === v.past;
+  if (q.type === 'frase'){
+    var detail = '<div class="sentence" style="box-shadow:none;padding:4px">' + sentenceHTML(v, v.past) + '</div><div class="es-sent">' + esc(v.sentEs) + '</div>';
+    var audio = [{t:sentenceSpoken(v, true), en:true, rate:0.8}];
+    if (ok) answer(true, detail, audio);
+    else answer(false, '<div class="msg">Elegiste <span class="wrong">' + esc(o) + '</span></div>' + detail + '<div class="tip">' + esc(tipFor(v, o)) + '</div>', [{t:'Casi. Es así:'}].concat(audio));
+  } else {
+    if (ok) answer(true, pairHTML(v), pairAudio(v));
+    else answer(false, '<div class="msg">Elegiste <span class="wrong">' + esc(o) + '</span></div>' + pairHTML(v) + '<div class="tip">' + esc(tipFor(v, o)) + '</div>', [{t:'Casi. Es así:'}].concat(pairAudio(v)));
+  }
+}
+function onChoose(c){
+  var q = S.qs[S.i], v = q.v;
+  var ok = (c === 'irr') === v.irr;
+  var kind = v.irr ? '🔀 IRREGULAR: la palabra cambia.' : '✅ REGULAR: se agrega -ed.';
+  var detail = pairHTML(v) + '<div class="tip">' + kind + '</div>';
+  if (ok) answer(true, detail, pairAudio(v));
+  else answer(false, detail, [{t:'Casi. ' + (v.irr ? 'Es irregular.' : 'Es regular.')}].concat(pairAudio(v)));
+}
+function onCheck(){
+  var q = S.qs[S.i], v = q.v;
+  var t = norm(S.typed);
+  if (!t){ toast('Primero escribe la palabra 🙂'); return; }
+  var ok = t === norm(v.past);
+  var audio = q.type === 'escucha' ? [{t:v.sayPast, en:true, rate:0.75}] : pairAudio(v);
+  if (ok){
+    answer(true, (q.type === 'dictado' ? pairHTML(v) : '<div class="rightword"><span class="s">' + v.past + '</span></div><div class="es-sent">(' + esc(v.es) + ')</div>'), audio);
+  } else {
+    answer(false,
+      '<div class="msg">Escribiste: <span class="wrong">' + esc(t) + '</span></div>' +
+      '<div class="msg">' + (q.type === 'dictado' ? v.base + ' en pasado se escribe:' : 'Se escribe:') + '</div>' +
+      '<div class="rightword">' + spelledHTML(v.past, t) + '</div>' +
+      '<div class="tip">' + esc(tipFor(v, t)) + '</div>',
+      [{t:'Casi. Se escribe así:'}].concat(audio));
+  }
+}
+
+function nextQuestion(){
+  if (!S) return;
+  S.i++;
+  S.typed = ''; S.showHint = false; S.reveal = false;
+  if (S.i >= QUESTIONS_PER_ROUND) renderEnd(); else renderQuestion();
+}
+
+function renderEnd(){
+  view = 'end'; closeOverlay();
+  var stars = S.correct >= WIN_AT ? 3 : (S.correct >= 5 ? 2 : (S.correct >= 3 ? 1 : 0));
+  var store = loadStore(), prev = store.best[S.mode], record = !prev || S.score > prev.score;
+  if (record){ store.best[S.mode] = { score:S.score, correct:S.correct }; saveStore(store); }
+  var win = S.correct >= WIN_AT;
+  var M = MODES[S.mode];
+  var h = '<div class="card pop" style="display:flex;flex-direction:column;gap:10px;margin-top:10px">';
+  h += '<div class="trophy">' + (win ? '🏆' : '🚀') + '</div>';
+  h += win ? '<h1>¡Premio del Viajero del Tiempo!</h1><p class="center" style="font-size:1.3rem;margin:0">¡Benja, eres un campeón del pasado! 🕰️</p>'
+           : '<h1>¡Buen viaje, Benja!</h1><p class="center" style="font-size:1.3rem;margin:0">Con ' + WIN_AT + ' correctas ganas el premio. ¡Tú puedes! 💪</p>';
+  h += '<div class="stars">' + '⭐'.repeat(stars) + '<span style="opacity:.25">' + '⭐'.repeat(3 - stars) + '</span></div>';
+  h += '<div class="score-big">' + S.score + ' puntos</div>';
+  h += '<p class="center" style="font-size:1.25rem;margin:0">Correctas: <b>' + S.correct + ' de ' + QUESTIONS_PER_ROUND + '</b>' + (S.bestStreak >= 2 ? ' · Mejor racha 🔥' + S.bestStreak : '') + '</p>';
+  h += record ? '<p class="center" style="font-size:1.25rem;margin:0;color:#2ec27e;font-weight:bold">🎖️ ¡Nuevo récord en ' + esc(M.name) + '!</p>'
+              : '<p class="center small-note" style="margin:0">Tu récord: ' + prev.score + ' puntos</p>';
+  if (S.missed.length){
+    h += '<div class="review">📝 Para repasar:<br><b>' + S.missed.map(function(v){ return v.base + ' → ' + v.past; }).join(' · ') + '</b></div>';
+  }
+  h += '<button type="button" class="btn green" data-act="again">🔁 Jugar otra vez</button>';
+  h += '<button type="button" class="btn blue" data-act="home">🏠 Menú</button></div>';
+  $app.innerHTML = h;
+  window.scrollTo(0, 0);
+  confetti(win ? 220 : 90);
+  Speech.es_(win ? '¡Premio del viajero del tiempo! ¡Muy bien, Benja!' : '¡Buen viaje, Benja! Sigue practicando.');
+}
+
+/* ================== OVERLAY / TOAST ================== */
+function openOverlay(inner){
+  closeOverlay();
+  var o = document.createElement('div');
+  o.className = 'overlay'; o.id = 'ov'; o.innerHTML = inner;
+  document.body.appendChild(o);
+}
+function closeOverlay(){ var o = document.getElementById('ov'); if (o && o.parentNode) o.parentNode.removeChild(o); }
+var toastTimer = null;
+function toast(msg){
+  var t = document.getElementById('toast');
+  if (!t){ t = document.createElement('div'); t.id = 'toast'; t.className = 'toast'; document.body.appendChild(t); }
+  t.textContent = msg; t.style.display = 'block';
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ if (t) t.style.display = 'none'; }, 2200);
+  Speech.es_(msg.replace(/[^\wáéíóúñü ,.¡!¿?]/gi, ''));
+}
+
+/* ================== CONFETI ================== */
+function confetti(count){
+  try {
+    var old = document.getElementById('confetti'); if (old) old.parentNode.removeChild(old);
+    var cv = document.createElement('canvas'); cv.id = 'confetti';
+    document.body.appendChild(cv);
+    var ctx = cv.getContext('2d'); if (!ctx) return;
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var W = window.innerWidth, H = window.innerHeight;
+    cv.width = W * dpr; cv.height = H * dpr; ctx.scale(dpr, dpr);
+    var colors = ['#ff5a3c','#ff9f1c','#ffd23f','#2ec27e','#3a86ff','#7b4dff','#ff70a6'];
+    var ps = [];
+    for (var i = 0; i < count; i++){
+      ps.push({ x: Math.random() * W, y: -20 - Math.random() * H * 0.6, vx: (Math.random() - 0.5) * 3, vy: 2 + Math.random() * 3.5,
+                s: 6 + Math.random() * 8, r: Math.random() * 6.28, vr: (Math.random() - 0.5) * 0.3, c: pick(colors), shape: Math.random() < 0.15 ? 'emoji' : 'rect' });
+    }
+    var start = null, DUR = 4500;
+    var step = function(ts){
+      if (!start) start = ts;
+      var el = ts - start;
+      ctx.clearRect(0, 0, W, H);
+      for (var j = 0; j < ps.length; j++){
+        var p = ps[j];
+        p.x += p.vx; p.y += p.vy; p.r += p.vr; p.vx += Math.sin((el + j * 50) / 400) * 0.03;
+        ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.r);
+        if (p.shape === 'emoji'){ ctx.font = (p.s * 2) + 'px sans-serif'; ctx.fillText(j % 2 ? '⭐' : '⏰', -p.s, p.s); }
+        else { ctx.fillStyle = p.c; ctx.fillRect(-p.s / 2, -p.s / 4, p.s, p.s / 2); }
+        ctx.restore();
+      }
+      if (el < DUR && document.body.contains(cv)) requestAnimationFrame(step);
+      else if (cv.parentNode) cv.parentNode.removeChild(cv);
+    };
+    requestAnimationFrame(step);
+  } catch(e){}
+}
+
+/* ================== EVENTOS ================== */
+function typeKey(ch){
+  if (S.typed.length >= 12) return;
+  S.typed += ch; updateTyped();
+}
+function onAction(act, el){
+  switch (act){
+    case 'home': renderMenu(); return;
+    case 'list': renderList(); return;
+    case 'sayverb': var vv = VERBS[+el.getAttribute('data-i')]; if (vv) Speech.say(pairAudio(vv), true); return;
+    case 'sound':
+      Speech.enabled = !Speech.enabled;
+      try { localStorage.setItem('maquinaTiempo.sound', Speech.enabled ? 'on' : 'off'); } catch(e){}
+      if (!Speech.enabled) Speech.stop();
+      document.querySelectorAll('[data-act="sound"]').forEach(function(b){ b.textContent = soundIcon(); });
+      if (Speech.enabled) Speech.es_('Sonido activado');
+      return;
+    case 'mode': startMode(el.getAttribute('data-mode')); return;
+    case 'sayinstr': if (S) Speech.es_(MODES[S.mode].say, true); return;
+    case 'sayshort': if (S) Speech.es_(MODES[S.mode].short.replace('-ed', 'e de'), true); return;
+    case 'entendi': if (S && view === 'instr') renderQuestion(); return;
+    case 'next': if (S && S.locked) nextQuestion(); return;
+    case 'sayagain': if (S && S.lastAudio) Speech.say(S.lastAudio, true); return;
+    case 'spell':
+      if (S){ var w = S.qs[S.i].v.past; Speech.say([{t:w.toUpperCase().split('').join(', '), en:true, rate:0.6}, {t:S.qs[S.i].v.sayPast, en:true, rate:0.75}], true); }
+      return;
+    case 'again': if (S) startMode(S.mode); else renderMenu(); return;
+  }
+  if (!S || view !== 'game' || S.locked) return;
+  var q = S.qs[S.i];
+  switch (act){
+    case 'repeat': Speech.say(questionAudio(q), true); break;
+    case 'slow': Speech.say(questionAudio(q, true), true); break;
+    case 'hint': S.showHint = true; renderQuestionKeep(); break;
+    case 'reveal': S.reveal = true; renderQuestionKeep(); break;
+    case 'key': typeKey(el.getAttribute('data-k')); break;
+    case 'bksp': S.typed = S.typed.slice(0, -1); updateTyped(); break;
+    case 'clear': S.typed = ''; updateTyped(); break;
+    case 'check': onCheck(); break;
+    case 'choose': onChoose(el.getAttribute('data-c')); break;
+    case 'pickopt': onPickOpt(+el.getAttribute('data-o')); break;
+  }
+}
+
+document.addEventListener('click', function(ev){
+  var el = ev.target && ev.target.closest ? ev.target.closest('[data-act]') : null;
+  if (!el) return;
+  try { onAction(el.getAttribute('data-act'), el); }
+  catch(e){ if (window.console) console.warn('Error manejado:', e); try { renderMenu(); } catch(e2){} }
+  try { if (document.activeElement && document.activeElement.blur) document.activeElement.blur(); } catch(e){}
+});
+/* teclado físico (computador) */
+document.addEventListener('keydown', function(ev){
+  if (!S || ev.ctrlKey || ev.metaKey || ev.altKey) return;
+  try {
+    if (view === 'instr' && ev.key === 'Enter'){ ev.preventDefault(); renderQuestion(); return; }
+    if (view !== 'game') return;
+    if (S.locked){ if (ev.key === 'Enter'){ ev.preventDefault(); nextQuestion(); } return; }
+    if (!isTyping(S.mode)) return;
+    if (/^[a-zA-Z]$/.test(ev.key)){ ev.preventDefault(); typeKey(ev.key.toLowerCase()); }
+    else if (ev.key === 'Backspace'){ ev.preventDefault(); S.typed = S.typed.slice(0, -1); updateTyped(); }
+    else if (ev.key === 'Enter'){ ev.preventDefault(); onCheck(); }
+  } catch(e){ if (window.console) console.warn('Error manejado:', e); }
+});
+
+/* ================== INICIO ================== */
+Speech.init();
+renderMenu();
+
+/* acceso para pruebas */
+window.__mt = { state:function(){ return S; }, VERBS:VERBS, MODES:MODES, norm:norm, speech:Speech, view:function(){ return view; } };
+})();
+</script>
+</body>
+</html>
