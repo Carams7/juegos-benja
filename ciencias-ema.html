@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f5132">
+<title>Laboratorio Verde · Fotosíntesis y tramas tróficas</title>
+<style>
+:root{--ink:#16302b;--muted:#5b716b;--bg:#eef6f1;--card:#fff;--green:#1f8a4c;--green2:#2fb36b;--teal:#0e7c86;--leaf:#0f5132;
+--amber:#f0a202;--red:#d64545;--line:#d6e6dc;--soft:#e4f3ea;}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;color:var(--ink);
+background:linear-gradient(180deg,#dff1e6 0,#eef6f1 220px,#f5faf7 100%);min-height:100vh;min-height:100dvh;touch-action:manipulation}
+#app{max-width:640px;margin:0 auto;padding:12px 14px calc(24px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:12px}
+button{font-family:inherit;color:inherit;cursor:pointer;border:none;touch-action:manipulation}
+h1{font-size:1.7rem;margin:0;line-height:1.15;letter-spacing:-.01em}
+h2{font-size:1.25rem;margin:0 0 6px}
+h3{font-size:1.05rem;margin:12px 0 4px;color:var(--leaf)}
+p{margin:6px 0;line-height:1.45}
+.hero{background:linear-gradient(135deg,#0f5132,#1f8a4c 60%,#0e7c86);color:#fff;border-radius:22px;padding:18px 18px 16px;box-shadow:0 8px 24px rgba(15,81,50,.25);position:relative;overflow:hidden}
+.hero .tag{font-size:.8rem;text-transform:uppercase;letter-spacing:.12em;opacity:.85;font-weight:700}
+.hero p{opacity:.92;font-size:.98rem}
+.hero .deco{position:absolute;right:-8px;top:-10px;font-size:5.5rem;opacity:.18;transform:rotate(18deg)}
+.card{background:var(--card);border-radius:18px;padding:16px;box-shadow:0 3px 14px rgba(20,60,40,.08);border:1px solid var(--line)}
+.menu{display:flex;flex-direction:column;gap:10px}
+.mbtn{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:#fff;border:1px solid var(--line);border-radius:18px;padding:12px 14px;min-height:74px;box-shadow:0 3px 0 #cfe3d7;transition:transform .08s}
+.mbtn:active{transform:translateY(2px);box-shadow:0 1px 0 #cfe3d7}
+.mbtn .ic{width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.7rem;flex:0 0 auto}
+.mbtn .tx{flex:1}
+.mbtn b{display:block;font-size:1.08rem}
+.mbtn small{display:block;color:var(--muted);font-size:.88rem;margin-top:2px}
+.mbtn .best{font-size:.8rem;color:var(--green);font-weight:700;white-space:nowrap}
+.c1{background:#e3f6e9}.c2{background:#e6f1fb}.c3{background:#fdf0dc}.c4{background:#efe8fb}.c5{background:#dff3f4}.c6{background:#fde6e6}.c0{background:#fff7d6}
+.top{display:flex;align-items:center;gap:8px;background:#fff;border-radius:16px;padding:6px 8px;border:1px solid var(--line)}
+.ib{width:44px;height:44px;border-radius:12px;background:var(--soft);font-size:1.25rem;display:flex;align-items:center;justify-content:center}
+.top .mid{flex:1;font-weight:700;font-size:.98rem;text-align:center;line-height:1.2}
+.chip{background:var(--soft);border-radius:12px;padding:6px 10px;font-weight:700;font-size:.95rem;white-space:nowrap}
+.chip.fire{background:#fff1d6;color:#9a5b00}
+.prog{height:8px;background:#e2ece6;border-radius:8px;overflow:hidden}
+.prog i{display:block;height:100%;background:linear-gradient(90deg,var(--green2),var(--teal));transition:width .3s}
+.qnum{font-size:.82rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.prompt{font-size:1.18rem;font-weight:650;line-height:1.4;margin:6px 0 4px}
+.opts{display:flex;flex-direction:column;gap:9px;margin-top:10px}
+.opt{text-align:left;background:#fff;border:2px solid var(--line);border-radius:14px;padding:13px 14px;font-size:1.02rem;line-height:1.3;min-height:52px;font-weight:550}
+.opt:active{background:var(--soft)}
+.opt.ok{border-color:var(--green);background:#e3f6e9}
+.opt.bad{border-color:var(--red);background:#fdeaea}
+.opt.dim{opacity:.55}
+.opt[disabled]{cursor:default}
+.fb{border-radius:14px;padding:12px 14px;margin-top:10px;font-size:.98rem;line-height:1.45;animation:up .25s ease-out}
+.fb.ok{background:#e3f6e9;border:1px solid #9ed8b3}
+.fb.bad{background:#fdeeee;border:1px solid #f0b3b3}
+.fb b.t{display:block;font-size:1.05rem;margin-bottom:2px}
+@keyframes up{from{transform:translateY(10px);opacity:0}to{transform:none;opacity:1}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.shake{animation:shake .3s}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:10px 20px;border-radius:14px;font-size:1.05rem;font-weight:700;background:var(--green);color:#fff;box-shadow:0 3px 0 #146337}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 #146337}
+.btn.sec{background:#fff;color:var(--ink);border:1px solid var(--line);box-shadow:0 3px 0 #cfe3d7}
+.btn.full{width:100%}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.row .btn{flex:1}
+.eq{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px;background:#f3faf6;border:1px dashed #9ed8b3;border-radius:14px;padding:12px 8px;font-weight:700;font-size:1rem;margin-top:8px}
+.eq .term{background:#fff;border:1px solid var(--line);border-radius:10px;padding:6px 9px}
+.eq .blank{background:#fff7d6;border:2px dashed var(--amber);border-radius:10px;padding:6px 14px;color:#9a5b00}
+.eq .arrow{font-size:.85rem;color:var(--teal);text-align:center;line-height:1.1}
+.chain{display:flex;flex-wrap:wrap;align-items:center;gap:5px;margin:8px 0 2px;font-weight:650}
+.chain .o{background:#f3faf6;border:1px solid var(--line);border-radius:10px;padding:5px 8px;font-size:.95rem}
+.chain .o.hi{background:#fff1d6;border:2px solid var(--amber)}
+.chain .ar{color:var(--teal);font-weight:800}
+/* match */
+.mgrid{display:grid;grid-template-columns:.8fr 1.2fr;gap:8px;margin-top:10px}
+.mcol{display:flex;flex-direction:column;gap:8px}
+.mi{background:#fff;border:2px solid var(--line);border-radius:12px;padding:10px;font-size:.92rem;line-height:1.3;text-align:left;min-height:62px;font-weight:550}
+.mi.l{font-weight:750;font-size:1rem}
+.mi.sel{border-color:var(--teal);background:#dff3f4}
+.mi.done{border-color:var(--green);background:#e3f6e9;opacity:.75}
+.mi.bad{border-color:var(--red);background:#fdeaea}
+/* build */
+.built{min-height:58px;display:flex;flex-wrap:wrap;align-items:center;gap:6px;background:#f3faf6;border:1px dashed #9ed8b3;border-radius:14px;padding:10px;margin-top:10px}
+.built .ph{color:var(--muted);font-size:.95rem}
+.pool{display:flex;flex-wrap:wrap;gap:9px;margin-top:12px}
+.tok{background:#fff;border:2px solid var(--line);border-radius:14px;padding:11px 13px;font-size:1rem;font-weight:650;min-height:50px}
+.tok.used{visibility:hidden}
+.tok.bad{border-color:var(--red);background:#fdeaea}
+.svgbox{background:#fbfdfc;border:1px solid var(--line);border-radius:14px;margin-top:8px;overflow:hidden}
+.svgbox svg{display:block;width:100%;height:auto}
+.hint{font-size:.88rem;color:var(--muted)}
+.score{text-align:center}
+.score .big{font-size:3rem;font-weight:800;color:var(--green);line-height:1}
+.rev{border-left:4px solid var(--red);background:#fffafa;border-radius:10px;padding:10px 12px;margin:8px 0;font-size:.95rem;line-height:1.4}
+.rev .q{font-weight:700}
+.rev .a{color:var(--green);font-weight:700}
+.sum ul{margin:4px 0 8px;padding-left:20px;line-height:1.5}
+.sum li{margin:2px 0}
+.tbl{width:100%;border-collapse:collapse;font-size:.92rem;margin:6px 0}
+.tbl td,.tbl th{border:1px solid var(--line);padding:6px 7px;text-align:left;vertical-align:top}
+.tbl th{background:var(--soft)}
+.foot{text-align:center;font-size:.8rem;color:var(--muted);margin-top:4px}
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+(function(){
+'use strict';
+function $(s){return document.querySelector(s);}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function pick(a){return a[Math.floor(Math.random()*a.length)];}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+var app=document.getElementById('app');
+
+/* ====== ORGANISMOS ====== */
+var EM={'Pasto':'🌱','Arbustos':'🌿','Saltamontes':'🦗','Degú':'🐭','Conejo':'🐇','Lagartija':'🦎','Culebra de cola larga':'🐍','Zorro culpeo':'🦊','Águila mora':'🦅','Puma':'🐆','Guanaco':'🦙',
+'Fitoplancton':'🟢','Zooplancton':'🔹','Krill':'🦐','Anchoveta':'🐟','Sardina':'🐟','Jurel':'🐟','Pingüino de Humboldt':'🐧','Lobo marino':'🦭','Orca':'🐋','Ballena azul':'🐳',
+'Trigo':'🌾','Ratón':'🐁','Lechuga':'🥬','Caracol':'🐌','Zorzal':'🐦','Vaca':'🐄','Ser humano':'🧑','Cernícalo':'🦅','Hongos':'🍄','Bacterias':'🦠'};
+function on(n){return (EM[n]?EM[n]+' ':'')+n;}
+var LEVELS=['Productor','Consumidor primario','Consumidor secundario','Consumidor terciario','Consumidor cuaternario'];
+var LV_OPTS=['Productor','Consumidor primario','Consumidor secundario','Consumidor terciario','Descomponedor'];
+var CHAINS=[
+ ['Pasto','Conejo','Zorro culpeo'],
+ ['Pasto','Saltamontes','Lagartija','Cernícalo'],
+ ['Fitoplancton','Zooplancton','Anchoveta','Pingüino de Humboldt'],
+ ['Fitoplancton','Krill','Sardina','Lobo marino'],
+ ['Arbustos','Guanaco','Puma'],
+ ['Trigo','Ratón','Culebra de cola larga','Águila mora'],
+ ['Lechuga','Caracol','Zorzal'],
+ ['Pasto','Vaca','Ser humano'],
+ ['Lechuga','Ser humano'],
+ ['Fitoplancton','Krill','Ballena azul'],
+ ['Fitoplancton','Zooplancton','Jurel','Lobo marino','Orca']
+];
+function chainHTML(c,hi){return '<div class="chain">'+c.map(function(n,i){return '<span class="o'+(i===hi?' hi':'')+'">'+on(n)+'</span>';}).join('<span class="ar">→</span>')+'</div>';}
+function lc(s){return s.charAt(0).toLowerCase()+s.slice(1);}
+function art(n){var f={'Culebra de cola larga':1,'Lagartija':1,'Vaca':1,'Sardina':1,'Anchoveta':1,'Orca':1,'Ballena azul':1,'Águila mora':1,'Lechuga':1};return (f[n]?'la ':'el ')+(n==='Ser humano'?'ser humano':(n==='Arbustos'?'arbustos':lc(n.indexOf('Pingüino')===0||n.indexOf('Zorro')===0?n:n)));}
+function nm(n){return n==='Ser humano'?'ser humano':(/^(Pingüino de Humboldt|Zorro culpeo|Águila mora)$/.test(n)?n.charAt(0).toLowerCase()+n.slice(1):lc(n));}
+
+/* ====== MODO 1: FOTOSÍNTESIS ====== */
+var FOTO=[
+ {q:'¿Qué es la fotosíntesis?',a:'El proceso en que las plantas fabrican su propio alimento (glucosa) usando luz, agua y dióxido de carbono',w:['El proceso en que las plantas absorben alimento ya hecho desde el suelo','La forma en que los animales obtienen energía al comer plantas','El proceso en que las plantas eliminan el agua que les sobra'],e:'En la fotosíntesis la planta transforma la energía de la luz en energía química guardada en la glucosa. El alimento NO viene del suelo: del suelo solo toma agua y sales minerales.'},
+ {q:'¿En qué organelo de la célula vegetal ocurre la fotosíntesis?',a:'En el cloroplasto',w:['En el núcleo','En la pared celular','En la vacuola'],e:'El cloroplasto contiene clorofila y es donde se realiza la fotosíntesis. Las hojas tienen muchísimos cloroplastos.'},
+ {q:'¿Cuál es la función de la clorofila?',a:'Captar (absorber) la energía de la luz solar',w:['Absorber agua desde el suelo','Transportar la glucosa por la planta','Dejar entrar el dióxido de carbono'],e:'La clorofila es el pigmento verde de los cloroplastos que capta la energía luminosa. Por eso las hojas se ven verdes.'},
+ {q:'¿Qué gas toma la planta del aire para hacer fotosíntesis?',a:'Dióxido de carbono (CO₂)',w:['Oxígeno (O₂)','Nitrógeno (N₂)','Vapor de agua'],e:'El CO₂ entra a la hoja por los estomas. Es uno de los "ingredientes" de la fotosíntesis.'},
+ {q:'¿Qué gas libera la planta al ambiente como producto de la fotosíntesis?',a:'Oxígeno (O₂)',w:['Dióxido de carbono (CO₂)','Hidrógeno','Nitrógeno'],e:'El oxígeno sale por los estomas. Es el oxígeno que respiramos los animales y las personas.'},
+ {q:'¿Por dónde entra el dióxido de carbono a la hoja?',a:'Por los estomas',w:['Por la raíz','Por los pelos absorbentes','Por el floema'],e:'Los estomas son pequeños poros (principalmente en la cara inferior de la hoja) que permiten el intercambio de gases: entra CO₂ y salen O₂ y vapor de agua.'},
+ {q:'¿Cómo llega el agua desde el suelo hasta las hojas?',a:'La absorbe la raíz y sube por el tallo a través del xilema',w:['Entra por los estomas desde la lluvia','La fabrica la hoja en los cloroplastos','Baja desde las hojas por el floema'],e:'La raíz absorbe agua y sales minerales (savia bruta), que suben por los vasos del xilema del tallo hasta las hojas.'},
+ {q:'¿En qué parte de la planta ocurre principalmente la fotosíntesis?',a:'En las hojas',w:['En la raíz','En las flores','En las semillas'],e:'Las hojas son anchas y planas para captar mucha luz y tienen muchos cloroplastos. Los tallos verdes también pueden hacer algo de fotosíntesis.'},
+ {q:'¿Qué transformación de energía ocurre en la fotosíntesis?',a:'Energía luminosa (luz) → energía química (glucosa)',w:['Energía química → energía luminosa','Energía eléctrica → energía térmica','Energía química → energía del movimiento'],e:'La planta "guarda" la energía de la luz en la glucosa. Esa energía química luego pasa a los animales que se comen a la planta.'},
+ {q:'¿Para qué usa la planta la glucosa que fabrica?',a:'Como fuente de energía para vivir y crecer; lo que sobra lo guarda como almidón',w:['La elimina por los estomas','La devuelve al suelo por la raíz','Solo para darle color verde a las hojas'],e:'La glucosa es el alimento de la planta. Con ella obtiene energía, crece y forma sus estructuras; el exceso se almacena como almidón (en raíces, tallos, semillas o frutos).'},
+ {q:'¿Por qué las plantas se llaman "productores" (autótrofos)?',a:'Porque fabrican su propio alimento mediante la fotosíntesis',w:['Porque producen semillas','Porque comen otros seres vivos','Porque descomponen restos de organismos'],e:'Autótrofo = que fabrica su propio alimento. Los animales son heterótrofos: deben comer a otros seres vivos.'},
+ {q:'¿Cuál de estos NO es un ingrediente (reactante) de la fotosíntesis?',a:'Oxígeno',w:['Agua','Dióxido de carbono','Luz solar'],e:'El oxígeno es un PRODUCTO (sale de la fotosíntesis), no un ingrediente. Ingredientes: agua, CO₂ y luz (captada por la clorofila).'},
+ {q:'Si una planta queda varios días en total oscuridad, ¿qué pasa?',a:'No puede hacer fotosíntesis, no fabrica glucosa y se debilita',w:['Hace más fotosíntesis para compensar','No le pasa nada porque saca el alimento del suelo','Empieza a producir más oxígeno'],e:'Sin luz no hay fotosíntesis. La planta gasta sus reservas y, si sigue sin luz, se debilita y puede morir.'},
+ {q:'¿Cuál afirmación es correcta?',a:'Las plantas hacen fotosíntesis y también respiran (usan oxígeno)',w:['Las plantas solo hacen fotosíntesis y nunca respiran','Las plantas respiran solo de noche y hacen fotosíntesis solo de día, nunca a la vez','Solo los animales necesitan oxígeno'],e:'Las plantas respiran todo el día y toda la noche (usan O₂ para sacar energía de la glucosa). La fotosíntesis ocurre solo cuando hay luz.'},
+ {q:'¿Por qué la fotosíntesis es importante para los animales?',a:'Produce el oxígeno que respiran y el alimento que da inicio a las cadenas tróficas',w:['Porque elimina el oxígeno del aire','Porque los animales también hacen fotosíntesis','No es importante para los animales'],e:'Casi toda la energía de los ecosistemas entra por la fotosíntesis de los productores. Sin ellos no habría alimento ni oxígeno.'},
+ {q:'Además de las plantas, ¿quiénes hacen fotosíntesis?',a:'Las algas y el fitoplancton',w:['Los hongos','El zooplancton','Los animales herbívoros'],e:'Las algas y el fitoplancton (algas microscópicas del mar) tienen clorofila y son los productores de los ecosistemas acuáticos. Los hongos NO hacen fotosíntesis.'},
+ {q:'¿Qué absorbe la raíz del suelo?',a:'Agua y sales minerales',w:['Glucosa y almidón','Oxígeno y luz','Dióxido de carbono'],e:'La raíz absorbe agua y sales minerales. La planta no "come" tierra: su alimento (glucosa) lo fabrica en las hojas.'}
+];
+var EQ=['Agua','Dióxido de carbono','Glucosa','Oxígeno'];
+var EQ_DIST=['Sales minerales','Nitrógeno','Almidón','Clorofila','Vapor de agua'];
+function eqHTML(blank){
+ function t(n){return n===blank?'<span class="blank">?</span>':'<span class="term">'+(n==='Agua'?'💧 ':n==='Dióxido de carbono'?'💨 ':n==='Glucosa'?'🍬 ':'🫧 ')+n+'</span>';}
+ var arrow=blank==='Luz'?'<span class="arrow"><span class="blank">?</span><br>───►</span>':'<span class="arrow">☀️ luz solar<br>───►<br><small>clorofila</small></span>';
+ return '<div class="eq">'+t('Agua')+'+'+t('Dióxido de carbono')+arrow+t('Glucosa')+'+'+t('Oxígeno')+'</div>';
+}
+function genFoto(){
+ var qs=shuffle(FOTO).slice(0,7).map(function(f){return {prompt:f.q,a:f.a,opts:shuffle([f.a].concat(f.w)),e:f.e};});
+ var blanks=shuffle(EQ.concat(['Luz'])).slice(0,3);
+ blanks.forEach(function(b){
+  var ans=b==='Luz'?'Luz solar':b;
+  var wrong=shuffle(EQ.filter(function(x){return x!==b;}).concat(EQ_DIST)).slice(0,3);
+  if(b==='Luz'){wrong=['Oxígeno','Sales minerales','Calor del suelo'];}
+  var role=(b==='Glucosa'||b==='Oxígeno')?'producto':'ingrediente';
+  qs.push({prompt:'Completa la ecuación de la fotosíntesis: ¿qué va en el espacio <b>?</b>',extra:eqHTML(b),a:ans,opts:shuffle([ans].concat(wrong)),
+   e:'Ecuación: agua + dióxido de carbono → (luz solar + clorofila) → glucosa + oxígeno. '+(b==='Luz'?'La luz solar es la fuente de energía, captada por la clorofila.':ans+' es un '+role+' de la fotosíntesis.')});
+ });
+ return shuffle(qs);
+}
+
+/* ====== MODO 2: PARTES DE LA PLANTA ====== */
+var PARTS=[
+ ['🌳 Raíz','Absorbe agua y sales minerales del suelo y fija la planta'],
+ ['🪵 Tallo','Sostiene la planta y conduce sustancias entre raíz y hojas'],
+ ['🍃 Hoja','Órgano donde ocurre principalmente la fotosíntesis'],
+ ['🕳️ Estomas','Poros de la hoja por donde entra CO₂ y salen O₂ y vapor de agua'],
+ ['🟩 Cloroplasto','Organelo de la célula vegetal donde se realiza la fotosíntesis'],
+ ['💚 Clorofila','Pigmento verde que capta la energía de la luz'],
+ ['⬆️ Xilema','Vasos que llevan agua y sales minerales (savia bruta) desde la raíz a las hojas'],
+ ['⬇️ Floema','Vasos que llevan la glucosa (savia elaborada) desde las hojas a toda la planta'],
+ ['〰️ Nervaduras','"Venas" de la hoja que contienen los vasos conductores'],
+ ['🧴 Epidermis / cutícula','Capa externa de la hoja que la protege y evita que pierda agua']
+];
+
+/* ====== MODO 3: NIVEL TRÓFICO ====== */
+var DESC=[
+ {c:'Hongos que crecen sobre un tronco caído y lo van deshaciendo',n:'Hongos'},
+ {c:'Bacterias del suelo que descomponen hojas secas y restos de animales',n:'Bacterias'},
+ {c:'Hongos (como el moho) que aparecen sobre una fruta podrida',n:'Hongos'}
+];
+function levelQ(c,i){
+ var n=c[i],ans=LEVELS[i],e;
+ if(i===0)e=on(n)+' es PRODUCTOR: fabrica su propio alimento con la fotosíntesis. Siempre va al inicio de la cadena.';
+ else if(i===1)e=on(n)+' se alimenta de un productor ('+nm(c[0])+'), por eso es CONSUMIDOR PRIMARIO (herbívoro).';
+ else e=on(n)+' se come a '+nm(c[i-1])+', que es '+lc(LEVELS[i-1])+'; por eso '+nm(n)+' es '+lc(ans).toUpperCase()+'. Cuenta la posición: productor → 1° → 2° → 3°.';
+ if(n==='Ser humano')e+=' Ojo: el mismo organismo puede ocupar distintos niveles según lo que coma en esa cadena.';
+ return {prompt:'En esta cadena, ¿qué nivel trófico ocupa <b>'+on(n)+'</b>?',extra:chainHTML(c,i),a:ans,opts:LV_OPTS.slice(),e:e};
+}
+function genNivel(){
+ var qs=[],used={};
+ var hum=Math.random()<.5?7:8; qs.push(levelQ(CHAINS[hum],CHAINS[hum].length-1)); used[hum+'-'+(CHAINS[hum].length-1)]=1;
+ var guard=0;
+ while(qs.length<8&&guard++<200){
+  var ci=Math.floor(Math.random()*CHAINS.length),c=CHAINS[ci];
+  var i=Math.floor(Math.random()*Math.min(c.length,4));
+  if(i===0&&Math.random()<.6)i=Math.min(c.length-1,1+Math.floor(Math.random()*3));
+  if(i>3)continue;
+  var k=ci+'-'+i; if(used[k])continue; used[k]=1; qs.push(levelQ(c,i));
+ }
+ shuffle(DESC).slice(0,2).forEach(function(d){
+  qs.push({prompt:'¿Qué papel cumplen estos organismos en el ecosistema?<br><b>'+on(d.n)+'</b>: '+d.c,a:'Descomponedor',opts:LV_OPTS.slice(),
+   e:'Los hongos y bacterias son DESCOMPONEDORES: se alimentan de restos de seres vivos y devuelven la materia (nutrientes) al suelo, donde la usan los productores. Actúan en todos los niveles.'});
+ });
+ return shuffle(qs);
+}
+
+/* ====== MODO 4: ARMA LA CADENA ====== */
+var BUILD=[0,1,2,3,4,5,6,7,9,10];
+
+/* ====== MODO 5: TRAMAS ====== */
+var WEBS=[
+ {name:'Trama terrestre (zona central de Chile)',
+  nodes:{'Pasto':[105,312],'Arbustos':[285,312],'Saltamontes':[62,238],'Degú':[178,238],'Conejo':[300,238],'Lagartija':[58,165],'Culebra de cola larga':[140,104],'Zorro culpeo':[312,150],'Águila mora':[200,32]},
+  edges:[['Pasto','Saltamontes'],['Pasto','Degú'],['Pasto','Conejo'],['Arbustos','Conejo'],['Saltamontes','Lagartija'],['Lagartija','Culebra de cola larga'],['Degú','Culebra de cola larga'],['Degú','Zorro culpeo'],['Conejo','Zorro culpeo'],['Culebra de cola larga','Águila mora'],['Conejo','Águila mora']],
+  label:{'Culebra de cola larga':'Culebra','Zorro culpeo':'Zorro'},
+  qs:[
+   {q:'¿Cuáles son los productores de esta trama?',a:'Pasto y arbustos',w:['Saltamontes y conejo','Águila mora y zorro culpeo','Solo el degú'],e:'Los productores están en la base: son plantas que hacen fotosíntesis. De ellos NO sale ninguna flecha que llegue a ellos (nadie les da energía, salvo el Sol).'},
+   {q:'¿De qué se alimenta el zorro culpeo en esta trama?',a:'Del degú y del conejo',w:['Del pasto y los arbustos','De la culebra','Del águila mora'],e:'Las flechas que LLEGAN al zorro culpeo vienen del degú y del conejo: la flecha apunta hacia quien come.'},
+   {q:'¿Quién se come al saltamontes?',a:'La lagartija',w:['El pasto','El conejo','El zorro culpeo'],e:'La flecha sale del saltamontes y llega a la lagartija: la energía pasa del saltamontes a la lagartija.'},
+   {q:'¿Qué significa la flecha Conejo → Zorro culpeo?',a:'El conejo es comido por el zorro: la energía pasa del conejo al zorro',w:['El zorro es comido por el conejo','El conejo persigue al zorro','La energía pasa del zorro al conejo'],e:'En cadenas y tramas la flecha indica la dirección de la energía: se lee "es comido por".'},
+   {q:'¿Cuántas cadenas alimentarias forman esta trama?',a:'7',w:['4','5','9'],e:'Cadenas: 1) pasto→saltamontes→lagartija→culebra→águila; 2) pasto→degú→culebra→águila; 3) pasto→degú→zorro; 4) pasto→conejo→zorro; 5) pasto→conejo→águila; 6) arbustos→conejo→zorro; 7) arbustos→conejo→águila. Truco: parte de cada productor y sigue todos los caminos hasta un organismo que nadie se come.'},
+   {q:'¿Qué nivel trófico ocupa el saltamontes?',a:'Consumidor primario',w:['Productor','Consumidor secundario','Descomponedor'],e:'El saltamontes come pasto (productor), por lo tanto es consumidor primario (herbívoro).'},
+   {q:'Si desaparecieran las lagartijas, ¿qué pasaría probablemente con los saltamontes?',a:'Aumentarían, porque ya nadie se los come',w:['Disminuirían por falta de alimento','Se convertirían en productores','No les pasaría nada'],e:'Al desaparecer su depredador, la población de saltamontes crecería; luego podrían comerse más pasto. Además la culebra tendría menos alimento.'},
+   {q:'Si desaparecieran los conejos, ¿qué pasaría con el zorro culpeo?',a:'Tendría menos alimento y comería más degús, que podrían disminuir',w:['Moriría de inmediato porque solo come conejos','Empezaría a comer pasto','No le afectaría en nada'],e:'En una trama los depredadores tienen más de una presa. El zorro dependería más del degú, que disminuiría. También el águila perdería una presa. Por eso las tramas son más estables que una sola cadena.'},
+   {q:'Si aumentara mucho la población de culebras, ¿qué pasaría con degús y lagartijas?',a:'Disminuirían, porque serían más cazados',w:['Aumentarían','Nada, las culebras comen pasto','Se volverían depredadores'],e:'Más depredadores → más presas comidas → las poblaciones de degú y lagartija bajan. Luego el pasto podría aumentar (menos degús) y los saltamontes también (menos lagartijas).'},
+   {q:'¿Cuál de estos organismos ocupa más de un nivel trófico en la trama?',a:'La culebra de cola larga',w:['El saltamontes','El pasto','El degú'],e:'La culebra es consumidor secundario cuando come degú (que es primario), y terciario cuando come lagartija (que es secundaria). El águila también ocupa varios niveles.'},
+   {q:'¿Qué grupo de organismos NO aparece en el diagrama, pero descompone los restos y recicla la materia?',a:'Los descomponedores (hongos y bacterias)',w:['Los productores','Los herbívoros','Los consumidores terciarios'],e:'Los descomponedores transforman restos de plantas y animales en nutrientes para el suelo. Así la MATERIA se recicla, mientras la ENERGÍA fluye en una sola dirección.'},
+   {q:'¿Cuál es la cadena más larga de esta trama?',a:'Pasto → saltamontes → lagartija → culebra → águila mora',w:['Pasto → conejo → zorro culpeo','Arbustos → conejo → águila mora','Pasto → degú → culebra → águila mora'],e:'Tiene 5 eslabones: productor, consumidor primario, secundario, terciario y cuaternario (el águila).'},
+   {q:'Si desapareciera el pasto, ¿qué ocurriría?',a:'Saltamontes y degús se quedarían sin alimento y toda la trama se vería afectada',w:['Solo se afectaría el conejo','Aumentarían los herbívoros','No pasaría nada porque hay arbustos para todos'],e:'Los productores son la base: sostienen toda la trama. En este diagrama los arbustos solo alimentan al conejo, así que saltamontes y degús perderían su única fuente de alimento, y luego sus depredadores.'}
+  ]},
+ {name:'Trama marina (costa de Chile)',
+  nodes:{'Fitoplancton':[180,314],'Zooplancton':[80,240],'Krill':[276,240],'Anchoveta':[55,166],'Sardina':[178,166],'Ballena azul':[296,166],'Pingüino de Humboldt':[90,92],'Lobo marino':[262,98],'Orca':[262,30]},
+  edges:[['Fitoplancton','Zooplancton'],['Fitoplancton','Krill'],['Zooplancton','Anchoveta'],['Zooplancton','Sardina'],['Krill','Sardina'],['Krill','Ballena azul'],['Anchoveta','Pingüino de Humboldt'],['Sardina','Pingüino de Humboldt'],['Anchoveta','Lobo marino'],['Sardina','Lobo marino'],['Lobo marino','Orca']],
+  label:{'Pingüino de Humboldt':'Pingüino'},
+  qs:[
+   {q:'¿Cuál es el productor de esta trama?',a:'El fitoplancton',w:['El krill','El zooplancton','La anchoveta'],e:'El fitoplancton son algas microscópicas que hacen fotosíntesis: son los productores del mar.'},
+   {q:'¿De qué se alimenta la ballena azul en esta trama?',a:'Del krill',w:['Del fitoplancton','Del lobo marino','De la orca'],e:'La flecha va del krill a la ballena azul. ¡El animal más grande del planeta se alimenta de pequeños crustáceos!'},
+   {q:'¿Qué nivel trófico ocupa la ballena azul?',a:'Consumidor secundario',w:['Consumidor primario','Productor','Consumidor terciario'],e:'Fitoplancton (productor) → krill (consumidor primario) → ballena azul (consumidor secundario). El nivel no depende del tamaño, sino de lo que come.'},
+   {q:'¿Quiénes se alimentan de la anchoveta?',a:'El pingüino de Humboldt y el lobo marino',w:['El zooplancton y el krill','Solo la orca','La ballena azul'],e:'Desde la anchoveta salen dos flechas: hacia el pingüino y hacia el lobo marino.'},
+   {q:'Si la sobrepesca hace disminuir mucho la anchoveta y la sardina, ¿qué pasaría con pingüinos y lobos marinos?',a:'Disminuirían, por falta de alimento',w:['Aumentarían','No les afectaría','Se alimentarían de fitoplancton'],e:'Los pingüinos y lobos marinos dependen de estos peces. Además el zooplancton y el krill podrían aumentar al tener menos depredadores.'},
+   {q:'Si desapareciera el fitoplancton, ¿qué pasaría?',a:'Toda la trama colapsaría, porque es la base de la energía',w:['Solo se afectaría el krill','Aumentarían los peces','Las orcas no se verían afectadas'],e:'Sin productores no entra energía al ecosistema: primero se quedan sin alimento zooplancton y krill, y después todos los demás.'},
+   {q:'¿Cuántas cadenas alimentarias hay en esta trama?',a:'7',w:['3','5','11'],e:'1) fito→zoo→anchoveta→pingüino; 2) fito→zoo→anchoveta→lobo→orca; 3) fito→zoo→sardina→pingüino; 4) fito→zoo→sardina→lobo→orca; 5) fito→krill→sardina→pingüino; 6) fito→krill→sardina→lobo→orca; 7) fito→krill→ballena azul.'},
+   {q:'Si desaparecieran las orcas, ¿qué pasaría probablemente?',a:'Aumentarían los lobos marinos y podrían disminuir anchovetas y sardinas',w:['Disminuirían los lobos marinos','Aumentaría el fitoplancton de inmediato','No pasaría nada'],e:'Sin su depredador, los lobos marinos aumentarían y comerían más peces. Un cambio en una especie afecta a otras de la trama.'},
+   {q:'En la cadena fitoplancton → zooplancton → anchoveta → lobo marino, ¿qué nivel ocupa el lobo marino?',a:'Consumidor terciario',w:['Consumidor secundario','Consumidor primario','Productor'],e:'Fitoplancton = productor, zooplancton = 1°, anchoveta = 2°, lobo marino = 3° (terciario).'},
+   {q:'¿Qué organismo está en el nivel trófico más alto de esta trama?',a:'La orca',w:['La ballena azul','El pingüino de Humboldt','El krill'],e:'La orca se alimenta del lobo marino, que ya es un consumidor terciario: la orca llega a ser consumidor cuaternario.'},
+   {q:'¿Qué significa la flecha Krill → Ballena azul?',a:'El krill es comido por la ballena: la energía pasa del krill a la ballena',w:['La ballena es comida por el krill','La ballena produce krill','La energía pasa de la ballena al krill'],e:'La flecha siempre apunta hacia el organismo que come ("es comido por").'},
+   {q:'¿Qué diferencia hay entre una cadena y una trama trófica?',a:'La cadena es una sola secuencia lineal; la trama son varias cadenas conectadas',w:['Son exactamente lo mismo','La trama no tiene productores','La cadena siempre es más grande que la trama'],e:'En la naturaleza los organismos comen y son comidos por varios otros: por eso las cadenas se entrelazan formando tramas.'}
+  ]}
+];
+function webSVG(web){
+ var W=360,H=340,s='<svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg" font-family="system-ui,Segoe UI,Roboto,Arial,sans-serif">';
+ s+='<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0e7c86"/></marker></defs>';
+ var box={};
+ Object.keys(web.nodes).forEach(function(n){var lab=(web.label&&web.label[n])||n;var w=Math.max(64,lab.length*7.3+34);box[n]={x:web.nodes[n][0],y:web.nodes[n][1],w:w,h:30,lab:lab};});
+ web.edges.forEach(function(e){var a=box[e[0]],b=box[e[1]];var dx=b.x-a.x,dy=b.y-a.y;
+  function trim(bx,sx,sy){var t=Math.min(Math.abs(dx)>0.01?(bx.w/2+2)/Math.abs(dx):1e9,Math.abs(dy)>0.01?(bx.h/2+2)/Math.abs(dy):1e9);return [bx.x+sx*dx*t,bx.y+sy*dy*t];}
+  var p1=trim(a,1,1),p2=trim(b,-1,-1);
+  s+='<line x1="'+p1[0].toFixed(1)+'" y1="'+p1[1].toFixed(1)+'" x2="'+p2[0].toFixed(1)+'" y2="'+p2[1].toFixed(1)+'" stroke="#0e7c86" stroke-width="2" marker-end="url(#ah)" opacity=".85"/>';});
+ Object.keys(box).forEach(function(n){var b=box[n];var prod=!web.edges.some(function(e){return e[1]===n;});
+  s+='<g><rect x="'+(b.x-b.w/2)+'" y="'+(b.y-b.h/2)+'" width="'+b.w+'" height="'+b.h+'" rx="10" fill="'+(prod?'#e3f6e9':'#ffffff')+'" stroke="'+(prod?'#1f8a4c':'#9fb9ad')+'" stroke-width="1.5"/>';
+  s+='<text x="'+b.x+'" y="'+(b.y+5)+'" text-anchor="middle" font-size="13" font-weight="600" fill="#16302b">'+(EM[n]||'')+' '+esc(b.lab)+'</text></g>';});
+ s+='<text x="6" y="'+(H-4)+'" font-size="10" fill="#5b716b">La flecha indica hacia dónde va la energía ("es comido por")</text></svg>';
+ return '<div class="svgbox">'+s+'</div>';
+}
+var webIdx=Math.floor(Math.random()*2);
+function genTrama(){
+ webIdx=(webIdx+1)%2; var web=WEBS[webIdx];
+ var sv=webSVG(web);
+ return shuffle(web.qs).slice(0,9).map(function(f){return {prompt:f.q,a:f.a,opts:shuffle([f.a].concat(f.w)),e:f.e,extra:sv,head:web.name};});
+}
+function genMix(){
+ var a=genFoto().slice(0,4),b=genNivel().slice(0,3),c=genTrama().slice(0,3);
+ return a.concat(b).concat(c);
+}
+
+/* ====== ESTADO ====== */
+var MODES=[
+ {id:'foto',t:'Quiz de fotosíntesis',d:'Conceptos + completa la ecuación',ic:'☀️',c:'c1',kind:'mc',gen:genFoto},
+ {id:'partes',t:'Partes de la planta',d:'Une cada estructura con su función',ic:'🍃',c:'c2',kind:'match'},
+ {id:'nivel',t:'¿Qué nivel trófico?',d:'Productor, consumidor 1°, 2°, 3° o descomponedor',ic:'🔺',c:'c3',kind:'mc',gen:genNivel},
+ {id:'cadena',t:'Arma la cadena',d:'Toca los organismos en el orden de la energía',ic:'🔗',c:'c4',kind:'build'},
+ {id:'trama',t:'Lee la trama',d:'Interpreta un diagrama de trama trófica',ic:'🕸️',c:'c5',kind:'mc',gen:genTrama},
+ {id:'mix',t:'Ensayo del test',d:'Mezcla de todo, como en la prueba',ic:'🎯',c:'c6',kind:'mc',gen:genMix}
+];
+var KEY='labVerdeEma.v1';
+function store(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(e){return {};}}
+function saveBest(id,v){try{var o=store();if(!o[id]||v>o[id]){o[id]=v;localStorage.setItem(KEY,JSON.stringify(o));}}catch(e){}}
+var S=null;
+
+function menu(){
+ var b=store();
+ var h='<div class="hero"><div class="deco">🌿</div><div class="tag">Ciencias · 6° básico · Test criterio A</div><h1>Laboratorio Verde</h1><p>Fotosíntesis y relaciones tróficas. Juega rondas cortas, suma puntos y revisa tus errores al final.</p></div>';
+ h+='<div class="menu">';
+ h+='<button class="mbtn" data-go="resumen"><span class="ic c0">📘</span><span class="tx"><b>Resumen para repasar</b><small>Lo esencial en una pantalla</small></span></button>';
+ MODES.forEach(function(m,i){h+='<button class="mbtn" data-mode="'+i+'"><span class="ic '+m.c+'">'+m.ic+'</span><span class="tx"><b>'+(i<5?(i+1)+'. ':'')+m.t+'</b><small>'+m.d+'</small></span>'+(b[m.id]?'<span class="best">🏆 '+b[m.id]+'</span>':'')+'</button>';});
+ h+='</div><div class="foot">Unidad "Interacción entre los seres vivos" · Hecho para Ema, 6°A 💚</div>';
+ app.innerHTML=h;
+ app.querySelectorAll('[data-mode]').forEach(function(el){el.onclick=function(){start(+el.getAttribute('data-mode'));};});
+ app.querySelector('[data-go="resumen"]').onclick=resumen;
+ window.scrollTo(0,0);
+}
+function topBar(){
+ var m=MODES[S.mode],pct=Math.round(100*S.i/S.total);
+ return '<div class="top"><button class="ib" id="home" aria-label="Menú">⌂</button><div class="mid">'+m.ic+' '+m.t+'</div><span class="chip">⭐ '+S.pts+'</span><span class="chip fire">🔥 '+S.streak+'</span></div><div class="prog"><i style="width:'+pct+'%"></i></div>';
+}
+function bindHome(){var h=$('#home');if(h)h.onclick=function(){if(S&&S.i>0&&S.i<S.total&&!confirm('¿Salir de la ronda? Se perderá el avance.'))return;menu();};}
+function start(mi){
+ var m=MODES[mi];
+ S={mode:mi,i:0,pts:0,streak:0,maxStreak:0,ok:0,miss:[]};
+ if(m.kind==='mc'){S.qs=m.gen();S.total=S.qs.length;showMC();}
+ else if(m.kind==='match'){S.boards=[];var p=shuffle(PARTS);S.boards=[p.slice(0,5),p.slice(5,10)];S.total=10;S.b=0;showMatch();}
+ else {S.chains=shuffle(BUILD).slice(0,8).map(function(k){return CHAINS[k];});S.total=8;showBuild();}
+}
+function award(ok){
+ if(ok){S.streak++;S.ok++;S.maxStreak=Math.max(S.maxStreak,S.streak);S.pts+=10+(S.streak>=3?5:0);}
+ else S.streak=0;
+}
+function fbHTML(ok,txt,ans){
+ return '<div class="fb '+(ok?'ok':'bad')+'"><b class="t">'+(ok?(S.streak>=3?'¡Correcto! Racha x'+S.streak+' (+5 bonus)':'¡Correcto!'):'No era esa.')+'</b>'+(ok?'':'Respuesta correcta: <b>'+ans+'</b><br>')+txt+'</div>';
+}
+/* --- MC --- */
+function showMC(){
+ var q=S.qs[S.i];
+ var h=topBar()+'<div class="card"><div class="qnum">Pregunta '+(S.i+1)+' de '+S.total+(q.head?' · '+q.head:'')+'</div>'+(q.extra||'')+'<div class="prompt">'+q.prompt+'</div><div class="opts">';
+ q.opts.forEach(function(o,k){h+='<button class="opt" data-k="'+k+'">'+esc(o)+'</button>';});
+ h+='</div><div id="fb"></div></div>';
+ app.innerHTML=h;bindHome();window.scrollTo(0,0);
+ var done=false;
+ app.querySelectorAll('.opt').forEach(function(b){b.onclick=function(){
+  if(done)return;done=true;var o=q.opts[+b.getAttribute('data-k')],ok=o===q.a;
+  award(ok);
+  app.querySelectorAll('.opt').forEach(function(x){var v=q.opts[+x.getAttribute('data-k')];x.disabled=true;if(v===q.a)x.classList.add('ok');else if(x===b)x.classList.add('bad');else x.classList.add('dim');});
+  if(!ok)S.miss.push({q:q.prompt.replace(/<br>/g,' ')+(q.extra&&q.extra.indexOf('chain')>0?' '+q.extra.replace(/<[^>]+>/g,' ').replace(/\s+/g,' '):''),a:q.a,your:o,e:q.e});
+  $('#fb').innerHTML=fbHTML(ok,q.e,esc(q.a))+'<div style="margin-top:10px"><button class="btn full" id="next">'+(S.i+1<S.total?'Siguiente →':'Ver resultado')+'</button></div>';
+  app.querySelector('.chip').textContent='⭐ '+S.pts;app.querySelector('.chip.fire').textContent='🔥 '+S.streak;
+  $('#next').onclick=function(){S.i++;if(S.i<S.total)showMC();else finish();};
+  setTimeout(function(){var n=$('#next');if(n&&n.scrollIntoView)n.scrollIntoView({behavior:'smooth',block:'nearest'});},60);
+ };});
+}
+/* --- MATCH --- */
+function showMatch(){
+ var board=S.boards[S.b],left=shuffle(board),right=shuffle(board);
+ var h=topBar()+'<div class="card"><div class="qnum">Tablero '+(S.b+1)+' de 2</div><div class="prompt">Toca una estructura y luego su función.</div><div class="mgrid"><div class="mcol">';
+ left.forEach(function(p){h+='<button class="mi l" data-l="'+esc(p[0])+'">'+p[0]+'</button>';});
+ h+='</div><div class="mcol">';
+ right.forEach(function(p){h+='<button class="mi r" data-r="'+esc(p[0])+'">'+p[1]+'</button>';});
+ h+='</div></div><div id="fb"></div></div>';
+ app.innerHTML=h;bindHome();window.scrollTo(0,0);
+ var selL=null,selR=null,failed={},doneN=0;
+ function upd(){app.querySelector('.chip').textContent='⭐ '+S.pts;app.querySelector('.chip.fire').textContent='🔥 '+S.streak;app.querySelector('.prog i').style.width=Math.round(100*S.i/S.total)+'%';}
+ function tryPair(){
+  if(!selL||!selR)return;
+  var l=selL.getAttribute('data-l'),r=selR.getAttribute('data-r'),L=selL,R=selR;selL=selR=null;
+  if(l===r){
+   L.classList.remove('sel');R.classList.remove('sel');L.classList.add('done');R.classList.add('done');L.disabled=R.disabled=true;
+   if(!failed[l])award(true);S.i++;doneN++;upd();
+   if(doneN===5){
+    var last=S.b===1;
+    $('#fb').innerHTML='<div class="fb ok"><b class="t">¡Tablero completo!</b>Recuerda: raíz absorbe → tallo (xilema) transporta → hoja fabrica (cloroplastos, clorofila) → floema reparte la glucosa.</div><div style="margin-top:10px"><button class="btn full" id="next">'+(last?'Ver resultado':'Siguiente tablero →')+'</button></div>';
+    $('#next').onclick=function(){if(last)finish();else{S.b++;showMatch();}};
+   }
+  } else {
+   L.classList.add('bad','shake');R.classList.add('bad','shake');
+   if(!failed[l]){failed[l]=1;award(false);var p=PARTS.filter(function(x){return x[0]===l;})[0];
+    var yours=PARTS.filter(function(x){return x[0]===r;})[0];
+    S.miss.push({q:'¿Cuál es la función de: '+l+'?',a:p[1],your:yours[1],e:'La función que elegiste corresponde a '+yours[0]+'.'});}
+   upd();
+   setTimeout(function(){L.classList.remove('bad','shake','sel');R.classList.remove('bad','shake','sel');},450);
+  }
+ }
+ app.querySelectorAll('.mi.l').forEach(function(b){b.onclick=function(){if(b.disabled)return;app.querySelectorAll('.mi.l').forEach(function(x){x.classList.remove('sel');});b.classList.add('sel');selL=b;tryPair();};});
+ app.querySelectorAll('.mi.r').forEach(function(b){b.onclick=function(){if(b.disabled)return;app.querySelectorAll('.mi.r').forEach(function(x){x.classList.remove('sel');});b.classList.add('sel');selR=b;tryPair();};});
+}
+/* --- BUILD --- */
+function showBuild(){
+ var c=S.chains[S.i],pool=shuffle(c);
+ var h=topBar()+'<div class="card"><div class="qnum">Cadena '+(S.i+1)+' de '+S.total+'</div><div class="prompt">Arma la cadena trófica: toca los organismos en el orden en que fluye la energía, empezando por el productor.</div>';
+ h+='<div class="built" id="built"><span class="ph">☀️ Sol →</span></div><div class="pool">';
+ pool.forEach(function(n,k){h+='<button class="tok" data-n="'+esc(n)+'">'+on(n)+'</button>';});
+ h+='</div><div class="hint" style="margin-top:8px">La flecha → se lee "es comido por".</div><div id="fb"></div></div>';
+ app.innerHTML=h;bindHome();window.scrollTo(0,0);
+ var pos=0,err=false,first=null;
+ app.querySelectorAll('.tok').forEach(function(b){b.onclick=function(){
+  if(pos>=c.length||b.classList.contains('used'))return;
+  var n=b.getAttribute('data-n');
+  if(n===c[pos]){
+   b.classList.add('used');
+   $('#built').insertAdjacentHTML('beforeend',(pos>0?'<span class="ar" style="color:#0e7c86;font-weight:800">→</span>':'')+'<span class="o" style="background:#fff;border:1px solid #d6e6dc;border-radius:10px;padding:5px 8px;font-weight:650">'+on(n)+'<br><small style="color:#5b716b;font-weight:500">'+LEVELS[pos].replace('Consumidor','Cons.')+'</small></span>');
+   pos++;
+   if(pos===c.length){
+    award(!err);
+    var ex='Productor ('+nm(c[0])+') → consumidor primario ('+nm(c[1])+')'+(c[2]?' → secundario ('+nm(c[2])+')':'')+(c[3]?' → terciario ('+nm(c[3])+')':'')+(c[4]?' → cuaternario ('+nm(c[4])+')':'')+'. La energía del Sol entra por el productor y pasa de un eslabón al siguiente.';
+    if(err)S.miss.push({q:'Ordenar la cadena: '+shuffle(c).join(', '),a:c.join(' → '),your:first,e:ex});
+    $('#fb').innerHTML=fbHTML(!err,ex,c.join(' → '))+'<div style="margin-top:10px"><button class="btn full" id="next">'+(S.i+1<S.total?'Siguiente →':'Ver resultado')+'</button></div>';
+    app.querySelector('.chip').textContent='⭐ '+S.pts;app.querySelector('.chip.fire').textContent='🔥 '+S.streak;
+    $('#next').onclick=function(){S.i++;if(S.i<S.total)showBuild();else finish();};
+   }
+  } else {
+   if(!err){err=true;first='Pusiste '+nm(n)+' en la posición '+(pos+1);}
+   b.classList.add('bad','shake');setTimeout(function(){b.classList.remove('bad','shake');},450);
+   var tip=pos===0?'Empieza por el PRODUCTOR: el organismo que hace fotosíntesis.':'¿Quién se come a '+nm(c[pos-1])+'?';
+   var fb=$('#fb');fb.innerHTML='<div class="fb bad"><b class="t">Todavía no.</b>'+tip+'</div>';
+  }
+ };});
+}
+/* --- FIN --- */
+function finish(){
+ var m=MODES[S.mode];saveBest(m.id,S.pts);
+ var pct=S.ok/S.total,msg=pct===1?'¡Perfecto! Estás lista para el test. 🌟':pct>=.8?'¡Muy bien! Repasa los detalles de abajo.':pct>=.6?'Bien, pero vale la pena repasar y jugar otra ronda.':'Repasa el resumen y vuelve a intentarlo. ¡Tú puedes!';
+ var h='<div class="card score"><div class="qnum">'+m.ic+' '+m.t+' · Resultado</div><div class="big">'+S.pts+'</div><div>puntos</div><p><b>'+S.ok+' de '+S.total+'</b> correctas · mejor racha 🔥 '+S.maxStreak+'</p><p>'+msg+'</p><div class="row"><button class="btn" id="again">Otra ronda</button><button class="btn sec" id="menu">Menú</button></div></div>';
+ if(S.miss.length){h+='<div class="card"><h2>📌 Para repasar</h2>';S.miss.forEach(function(x){h+='<div class="rev"><div class="q">'+x.q+'</div><div>Tu respuesta: '+esc(x.your||'—')+'</div><div class="a">✔ '+esc(x.a)+'</div><div>'+x.e+'</div></div>';});h+='</div>';}
+ else h+='<div class="card center"><p>Sin errores en esta ronda. 💚</p></div>';
+ app.innerHTML=h;window.scrollTo(0,0);
+ $('#again').onclick=function(){start(S.mode);};$('#menu').onclick=menu;
+}
+/* --- RESUMEN --- */
+function resumen(){
+ var h='<div class="top"><button class="ib" id="home2">⌂</button><div class="mid">📘 Resumen para repasar</div></div><div class="card sum">';
+ h+='<h3>☀️ Fotosíntesis</h3><p>Proceso en que los <b>productores</b> (plantas, algas, fitoplancton) fabrican su propio alimento. Ocurre en los <b>cloroplastos</b>, principalmente de las <b>hojas</b>.</p>'+eqHTML('')+'<ul><li><b>Ingredientes:</b> agua (entra por la raíz), dióxido de carbono (entra por los estomas), luz solar (la capta la clorofila).</li><li><b>Productos:</b> glucosa (alimento/energía de la planta; el exceso se guarda como almidón) y oxígeno (sale por los estomas).</li><li>Transforma <b>energía luminosa → energía química</b>.</li><li>Las plantas también <b>respiran</b> (día y noche).</li></ul>';
+ h+='<h3>🍃 Estructuras</h3><table class="tbl"><tr><th>Estructura</th><th>Función</th></tr>'+PARTS.map(function(p){return '<tr><td><b>'+p[0]+'</b></td><td>'+p[1]+'</td></tr>';}).join('')+'</table>';
+ h+='<h3>🔺 Niveles tróficos</h3><ul><li><b>Productores:</b> hacen fotosíntesis (pasto, arbustos, fitoplancton).</li><li><b>Consumidor primario:</b> herbívoro, come productores (conejo, degú, krill).</li><li><b>Consumidor secundario:</b> come consumidores primarios (zorro culpeo, sardina).</li><li><b>Consumidor terciario:</b> come consumidores secundarios (lobo marino, águila).</li><li><b>Descomponedores:</b> hongos y bacterias; descomponen restos y devuelven nutrientes al suelo.</li><li>El nivel depende de <b>lo que come en esa cadena</b>, no del tamaño (la ballena azul es consumidor secundario).</li></ul>';
+ h+='<h3>🔗 Cadenas y tramas</h3>'+chainHTML(['Pasto','Conejo','Zorro culpeo'],-1)+chainHTML(['Fitoplancton','Zooplancton','Anchoveta','Pingüino de Humboldt'],-1)+'<ul><li>La <b>flecha</b> apunta hacia quien come: indica hacia dónde va la <b>energía</b> ("es comido por").</li><li><b>Cadena:</b> una sola secuencia lineal. <b>Trama:</b> varias cadenas conectadas.</li><li>Siempre empiezan con un <b>productor</b>. La energía entra con la luz del Sol.</li><li>La <b>energía fluye</b> en una dirección; la <b>materia se recicla</b> gracias a los descomponedores.</li><li><b>Contar cadenas:</b> parte en cada productor y sigue cada camino hasta el final.</li></ul>';
+ h+='<h3>⚖️ Si una especie cambia…</h3><ul><li>Si <b>desaparece un depredador</b> → sus presas aumentan (y luego comen más de lo que ellas comen).</li><li>Si <b>desaparece una presa</b> → sus depredadores tienen menos alimento, disminuyen o comen más de otras presas.</li><li>Si <b>desaparecen los productores</b> → se afecta toda la trama.</li></ul>';
+ h+='<button class="btn full" id="back" style="margin-top:8px">Volver al menú</button></div>';
+ app.innerHTML=h;window.scrollTo(0,0);$('#home2').onclick=menu;$('#back').onclick=menu;
+}
+window.__lab={start:start,S:function(){return S;},menu:menu,resumen:resumen};
+menu();
+})();
+</script>
+</body>
+</html>
