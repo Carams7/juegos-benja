@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1d3557">
+<title>Archivo 1973 · Chile en la segunda mitad del siglo XX</title>
+<style>
+:root{--ink:#1b2433;--muted:#5d6878;--bg:#f1f3f8;--card:#fff;--navy:#1d3557;--blue:#2f5d9a;--red:#b23a48;--green:#1f8a4c;
+--amber:#e09f1f;--line:#dbe1ec;--soft:#e8edf6;--der:#c8553d;--cen:#d9a21b;--izq:#3b6fb6;}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;color:var(--ink);
+background:linear-gradient(180deg,#dfe5f1 0,#eef1f7 220px,#f6f7fb 100%);min-height:100vh;min-height:100dvh;touch-action:manipulation}
+#app{max-width:660px;margin:0 auto;padding:12px 14px calc(24px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:12px}
+button{font-family:inherit;color:inherit;cursor:pointer;border:none;touch-action:manipulation}
+h1{font-size:1.65rem;margin:0;line-height:1.15;letter-spacing:-.01em}
+h2{font-size:1.25rem;margin:0 0 6px}
+h3{font-size:1.05rem;margin:14px 0 4px;color:var(--navy)}
+p{margin:6px 0;line-height:1.45}
+.hero{background:linear-gradient(135deg,#1d3557,#2f5d9a 60%,#b23a48);color:#fff;border-radius:22px;padding:18px 18px 16px;box-shadow:0 8px 24px rgba(29,53,87,.25);position:relative;overflow:hidden}
+.hero .tag{font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;opacity:.85;font-weight:700}
+.hero p{opacity:.92;font-size:.97rem}
+.hero .deco{position:absolute;right:-6px;top:-8px;font-size:5.3rem;opacity:.18;transform:rotate(14deg)}
+.card{background:var(--card);border-radius:18px;padding:16px;box-shadow:0 3px 14px rgba(20,30,60,.08);border:1px solid var(--line)}
+.menu{display:flex;flex-direction:column;gap:10px}
+.mbtn{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:#fff;border:1px solid var(--line);border-radius:18px;padding:12px 14px;min-height:72px;box-shadow:0 3px 0 #ccd5e5;transition:transform .08s}
+.mbtn:active{transform:translateY(2px);box-shadow:0 1px 0 #ccd5e5}
+.mbtn .ic{width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex:0 0 auto}
+.mbtn .tx{flex:1}
+.mbtn b{display:block;font-size:1.06rem}
+.mbtn small{display:block;color:var(--muted);font-size:.87rem;margin-top:2px}
+.mbtn .best{font-size:.8rem;color:var(--blue);font-weight:700;white-space:nowrap}
+.c1{background:#fde9e4}.c2{background:#e6eefb}.c3{background:#fdf2d9}.c4{background:#efe8fb}.c5{background:#e1f2f1}.c6{background:#fde6ea}.c7{background:#eceff3}.c0{background:#fff6d6}
+.top{display:flex;align-items:center;gap:8px;background:#fff;border-radius:16px;padding:6px 8px;border:1px solid var(--line)}
+.ib{width:44px;height:44px;border-radius:12px;background:var(--soft);font-size:1.25rem;display:flex;align-items:center;justify-content:center}
+.top .mid{flex:1;font-weight:700;font-size:.95rem;text-align:center;line-height:1.2}
+.chip{background:var(--soft);border-radius:12px;padding:6px 10px;font-weight:700;font-size:.95rem;white-space:nowrap}
+.chip.fire{background:#fff1d6;color:#9a5b00}
+.prog{height:8px;background:#e1e6ef;border-radius:8px;overflow:hidden}
+.prog i{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--red));transition:width .3s}
+.qnum{font-size:.8rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.prompt{font-size:1.15rem;font-weight:650;line-height:1.4;margin:6px 0 4px}
+.item{font-size:1.15rem;font-weight:700;background:#f6f8fc;border:2px dashed #b9c6dc;border-radius:14px;padding:14px;margin-top:8px;text-align:center;line-height:1.35}
+.src{background:#fbf8f1;border:1px solid #e7dcc3;border-left:5px solid #b08d4a;border-radius:12px;padding:10px 12px;margin-top:8px;font-size:.95rem;line-height:1.45}
+.src .who{display:block;font-size:.78rem;font-weight:800;color:#7a5d24;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
+.src q{font-style:italic}
+.opts{display:flex;flex-direction:column;gap:9px;margin-top:10px}
+.opts.three{flex-direction:row}
+.opts.three .opt{flex:1;text-align:center;font-weight:800;padding:14px 4px;color:#fff;border:3px solid transparent}
+.opts.three .opt:nth-child(1){background:var(--der)}.opts.three .opt:nth-child(2){background:var(--cen)}.opts.three .opt:nth-child(3){background:var(--izq)}
+.opts.three .opt.ok{border-color:#0d5c2f;box-shadow:0 0 0 3px #9ed8b3}
+.opts.three .opt.bad{border-color:#7a1020;box-shadow:0 0 0 3px #f0b3b3}
+.opts.grid4{display:grid;grid-template-columns:1fr 1fr}
+.opt{text-align:left;background:#fff;border:2px solid var(--line);border-radius:14px;padding:13px 14px;font-size:1rem;line-height:1.3;min-height:52px;font-weight:550}
+.opt:active{background:var(--soft)}
+.opt.ok{border-color:var(--green);background:#e3f6e9}
+.opt.bad{border-color:var(--red);background:#fdeaea}
+.opt.dim{opacity:.5}
+.opt[disabled]{cursor:default}
+.fb{border-radius:14px;padding:12px 14px;margin-top:10px;font-size:.97rem;line-height:1.45;animation:up .25s ease-out}
+.fb.ok{background:#e3f6e9;border:1px solid #9ed8b3}
+.fb.bad{background:#fdeeee;border:1px solid #f0b3b3}
+.fb b.t{display:block;font-size:1.05rem;margin-bottom:2px}
+@keyframes up{from{transform:translateY(10px);opacity:0}to{transform:none;opacity:1}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.shake{animation:shake .3s}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:10px 20px;border-radius:14px;font-size:1.05rem;font-weight:700;background:var(--navy);color:#fff;box-shadow:0 3px 0 #0e1d33}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 #0e1d33}
+.btn.sec{background:#fff;color:var(--ink);border:1px solid var(--line);box-shadow:0 3px 0 #ccd5e5}
+.btn[disabled]{opacity:.45}
+.btn.full{width:100%}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.row .btn{flex:1}
+.seq{display:flex;flex-direction:column;gap:7px;margin-top:10px;min-height:60px;background:#f3f6fb;border:1px dashed #b9c6dc;border-radius:14px;padding:9px}
+.seq .ph{color:var(--muted);font-size:.93rem;text-align:center;padding:10px}
+.ev{display:flex;align-items:center;gap:10px;text-align:left;background:#fff;border:2px solid var(--line);border-radius:12px;padding:10px 12px;font-size:.98rem;font-weight:600;line-height:1.3;min-height:50px;width:100%}
+.ev .n{flex:0 0 28px;height:28px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:800}
+.ev .d{flex:0 0 auto;font-weight:800;color:var(--red);font-size:.88rem}
+.ev.ok{border-color:var(--green);background:#e3f6e9}
+.ev.bad{border-color:var(--red);background:#fdeaea}
+.pool{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.score{text-align:center}
+.score .big{font-size:3rem;font-weight:800;color:var(--navy);line-height:1}
+.rev{border-left:4px solid var(--red);background:#fffafa;border-radius:10px;padding:10px 12px;margin:8px 0;font-size:.95rem;line-height:1.4}
+.rev .q{font-weight:700}
+.rev .a{color:var(--green);font-weight:700}
+.rev .y{color:var(--red)}
+.sum ul{margin:4px 0 8px;padding-left:20px;line-height:1.5}
+.sum li{margin:2px 0}
+.tbl{width:100%;border-collapse:collapse;font-size:.9rem;margin:6px 0}
+.tbl td,.tbl th{border:1px solid var(--line);padding:5px 6px;text-align:left;vertical-align:top}
+.tbl th{background:var(--soft)}
+.vt{font-size:.66rem}
+.vt td,.vt th{text-align:center;padding:4px 1px}
+.src .scroll{margin:0 -6px}
+.vt td:first-child,.vt th:first-child{text-align:left;font-weight:700}
+.vt tr.d td:first-child{border-left:5px solid var(--der)}.vt tr.c td:first-child{border-left:5px solid var(--cen)}.vt tr.i td:first-child{border-left:5px solid var(--izq)}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.cols{display:grid;grid-template-columns:1fr;gap:8px}
+.col{border-radius:14px;padding:10px 12px;font-size:.93rem;line-height:1.4}
+.col h4{margin:0 0 4px;font-size:1.02rem}
+.col.d{background:#fbe7e2;border-left:6px solid var(--der)}.col.c{background:#fbf1d6;border-left:6px solid var(--cen)}.col.i{background:#e3ecf8;border-left:6px solid var(--izq)}
+.tl{list-style:none;padding:0;margin:6px 0;border-left:3px solid var(--blue)}
+.tl li{position:relative;padding:4px 0 6px 14px;line-height:1.35;font-size:.95rem}
+.tl li:before{content:"";position:absolute;left:-7px;top:9px;width:11px;height:11px;border-radius:50%;background:var(--red)}
+.tl b{color:var(--navy)}
+.pr{background:#f6f8fc;border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:8px 0}
+.pr .ans{margin-top:8px;background:#e3f6e9;border-radius:10px;padding:8px 10px;font-size:.94rem;line-height:1.45}
+.badge{display:inline-block;background:#fff1d6;color:#8a5200;border-radius:8px;padding:2px 8px;font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em}
+.hint{font-size:.88rem;color:var(--muted)}
+.foot{text-align:center;font-size:.8rem;color:var(--muted);margin-top:4px}
+.hidden{display:none!important}
+@media (min-width:560px){.cols{grid-template-columns:1fr 1fr 1fr}.vt{font-size:.9rem}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+"use strict";
+var KEY="historiaEma1973";
+// ===== 1. Derecha / Centro / Izquierda =====
+var DCI=["Derecha","Centro","Izquierda"];
+var CL=[
+["Partido Liberal (1841)","Derecha","El Partido Liberal es uno de los partidos de la derecha, junto al Conservador y al Nacional."],
+["Partido Conservador (1857)","Derecha","El Partido Conservador era de derecha. Su votación bajó mucho: de 21,3% (1937) a 5,3% (1965)."],
+["Partido Nacional","Derecha","El Partido Nacional nació de la fusión de liberales y conservadores; es de derecha. En 1973 obtuvo 21,3%."],
+["Partido Radical (1863)","Centro","El Partido Radical era de centro. Fue muy fuerte (23% en 1941) pero en 1973 bajó a 3,7%."],
+["Falange Nacional (1938)","Centro","La Falange Nacional era de centro y dio origen al Partido Demócrata Cristiano (1957)."],
+["Partido Demócrata Cristiano (1957)","Centro","La DC era de centro; con ella gobernó Eduardo Frei Montalva (1964–1970)."],
+["Partido Comunista (1922)","Izquierda","El Partido Comunista era de izquierda, junto al Partido Socialista."],
+["Partido Socialista (1933)","Izquierda","El Partido Socialista era de izquierda; Salvador Allende era socialista."],
+["Defender la mantención del orden político y de las jerarquías sociales","Derecha","La derecha defendía mantener el orden político y las jerarquías sociales."],
+["Ser reticentes a reformas profundas, como ampliar el rol del Estado","Derecha","La derecha desconfiaba de las reformas profundas y de ampliar el rol del Estado."],
+["Proponer cambios moderados que beneficiaran a grupos medios y populares","Centro","El centro proponía cambios moderados (ni mantener todo igual, ni grandes transformaciones)."],
+["En su interior convivían visiones socialcristianas y laicas","Centro","En el centro convivían visiones socialcristianas (DC) y laicas (radicales)."],
+["Abogar por mejores condiciones para los trabajadores","Izquierda","La izquierda abogaba por mejores condiciones para los trabajadores."],
+["Buscar una distribución más equitativa de la riqueza y grandes reformas sociales","Izquierda","La izquierda buscaba distribuir más equitativamente la riqueza mediante grandes reformas sociales."],
+["Fortalecer el rol del Estado","Izquierda","La izquierda quería fortalecer el rol del Estado (por ejemplo, en la economía)."],
+["Su principal apoyo provenía de la oligarquía y de algunos sectores medios y populares","Derecha","El apoyo principal de la derecha era la oligarquía (el grupo reducido con más poder y riqueza)."],
+["Tuvo alto apoyo entre la clase media, y en parte de los sectores populares y la oligarquía","Centro","El centro se apoyaba sobre todo en la clase media."],
+["Tuvo amplia adhesión entre sectores populares y en parte de los grupos medios","Izquierda","La izquierda tenía amplia adhesión entre los sectores populares."],
+["Gobierno de Jorge Alessandri (1958–1964)","Derecha","El proyecto de la derecha se llevó a la práctica con Jorge Alessandri (1958–1964)."],
+["Gobierno de Eduardo Frei Montalva (1964–1970)","Centro","El proyecto del centro se llevó a la práctica con Eduardo Frei Montalva (1964–1970)."],
+["Gobierno de Salvador Allende (1970–1973)","Izquierda","El proyecto de la izquierda se llevó a la práctica con Salvador Allende (1970–1973)."]
+];
+// ===== 2. Línea de tiempo =====
+var EV=[
+[1922,"1922","Se funda el Partido Comunista"],
+[1933,"1933","Se funda el Partido Socialista"],
+[1938,"1938","Se funda la Falange Nacional"],
+[1957,"1957","Se funda el Partido Demócrata Cristiano"],
+[1958,"1958","Jorge Alessandri es elegido presidente"],
+[1964,"1964","Comienza el gobierno de Eduardo Frei Montalva («Revolución en Libertad»)"],
+[1970,"1970","Comienza el gobierno de Salvador Allende (Unidad Popular)"],
+[1971,"1971","Nacionalización del cobre"],
+[1972,"1972","Fuerte crisis económica: desabastecimiento y filas (1972–1973)"],
+[1973.03,"mar 1973","Elección parlamentaria: ningún sector logra mayoría"],
+[1973.06,"jun 1973","«Tanquetazo»: intento de golpe de Estado"],
+[1973.09,"11 sep 1973","Golpe de Estado: las FF.AA. derrocan a Allende"],
+[1973.0921,"21 sep 1973","Decreto Ley 27: se disuelve el Congreso Nacional"],
+[1974.06,"jun 1974","Decreto Ley 527: la Junta asume los poderes Constituyente, Legislativo y Ejecutivo"],
+[1990,"1990","Fin de la dictadura (casi 17 años): vuelve la democracia"]
+];
+// ===== 3. ¿Qué gobierno fue? =====
+var GOV=["Jorge Alessandri","Eduardo Frei Montalva","Salvador Allende","Junta Militar"];
+var GV=[
+["«Revolución en Libertad»","Eduardo Frei Montalva","«Revolución en Libertad» fue el lema del gobierno de Frei Montalva (1964–1970)."],
+["Chilenización del cobre","Eduardo Frei Montalva","Con Frei, el Estado se asoció con las empresas extranjeras del cobre comprando parte de ellas: la chilenización."],
+["Impulso a la Reforma Agraria y a la sindicalización campesina","Eduardo Frei Montalva","Frei impulsó con fuerza la Reforma Agraria y la sindicalización campesina (los campesinos pudieron formar sindicatos)."],
+["Promoción popular (organizaciones como juntas de vecinos y centros de madres)","Eduardo Frei Montalva","La promoción popular de Frei buscaba organizar y hacer participar a los sectores populares."],
+["Gobierno de la Democracia Cristiana, de centro","Eduardo Frei Montalva","Frei era del Partido Demócrata Cristiano, de centro."],
+["Nacionalización del cobre (1971)","Salvador Allende","En 1971, con Allende, el cobre pasó a ser propiedad del Estado. Fue apoyada ampliamente por el Congreso y la ciudadanía."],
+["Plan de expropiaciones a sectores estratégicos (industrias, empresas y fundos)","Salvador Allende","Allende transfirió al Estado industrias, empresas y fundos para distribuir mejor la riqueza y fortalecer el control estatal."],
+["Profundizó la Reforma Agraria","Salvador Allende","La Reforma Agraria empezó antes, pero Allende la profundizó (más expropiaciones de fundos)."],
+["Gobierno de la Unidad Popular (izquierda)","Salvador Allende","La Unidad Popular era la coalición de izquierda que llevó a Allende a la presidencia."],
+["Crisis económica con desabastecimiento de alimentos (1972–1973)","Salvador Allende","En 1972–1973, durante el gobierno de Allende, hubo una fuerte crisis económica con desabastecimiento y filas."],
+["Fue derrocado por un golpe de Estado el 11 de septiembre de 1973","Salvador Allende","El 11 de septiembre de 1973 las FF.AA. derrocaron al gobierno de Salvador Allende."],
+["Gobierno de derecha (1958–1964) de un ex ministro de Hacienda","Jorge Alessandri","Jorge Alessandri, ex ministro de Hacienda, fue elegido en 1958 y gobernó con el proyecto de la derecha."],
+["Puso en práctica el proyecto de la derecha","Jorge Alessandri","El proyecto de la derecha se llevó a la práctica durante el gobierno de Jorge Alessandri (1958–1964)."],
+["Clausura del Congreso Nacional (Decreto Ley 27)","Junta Militar","La Junta Militar disolvió el Congreso el 21 de septiembre de 1973 (DL 27)."],
+["Supresión de las elecciones populares y de los registros electorales","Junta Militar","La Junta Militar suprimió las elecciones: la ciudadanía ya no podía elegir a sus autoridades."],
+["Prohibición de los partidos de izquierda y receso de los demás","Junta Militar","La Junta prohibió los partidos de izquierda y declaró en receso (sin funcionar) a los otros."],
+["Estado de sitio y fuerte represión","Junta Militar","La Junta declaró estado de sitio y hubo fuerte represión: se violaron los derechos humanos."],
+["Asumió los poderes Constituyente, Legislativo y Ejecutivo (Decreto Ley 527)","Junta Militar","Con el DL 527 (1974) la Junta concentró todos esos poderes: se acabó la separación de poderes."],
+["Encabezada por Augusto Pinochet","Junta Militar","La Junta Militar estaba formada por los generales de las FF.AA. y Carabineros, con Augusto Pinochet al mando."],
+["Suspensión de los derechos y libertades civiles","Junta Militar","Tras el golpe, la Junta suspendió derechos y libertades civiles."]
+];
+// ===== 4. Lee la fuente =====
+var VT=[["Conserv.","d",[21.3,17.2,23.6,14.4,17.6,14.3,5.3,null]],["Liberal","d",[20.7,14.0,20.1,10.9,15.3,16.6,7.5,null]],["Nacional","d",[null,null,null,null,null,null,null,21.3]],
+["DC (Falange)","c",[null,3.4,2.6,2.9,9.4,15.9,43.6,29.1]],["Radical","c",[18.7,23.0,19.9,15.6,22.1,21.4,13.3,3.7]],["Socialista","i",[11.2,22.1,12.8,14.2,10.7,11.1,10.6,18.7]],
+["Comunista","i",[4.2,11.8,10.3,null,null,11.8,12.7,16.2]],["Otros","",[14.5,2.8,5.3,32.7,19.8,3.8,9.2,11.0]]];
+var VY=[1937,1941,1945,1953,1957,1961,1965,1973];
+function fmt(n){return n==null?"–":String(n.toFixed(1)).replace(".",",");}
+function voteTable(){
+ var h='<div class="src"><span class="who">Fuente A · Ricardo Gamboa: votación por partido en elecciones de diputados (%)</span><div class="scroll"><table class="tbl vt"><tr><th>Partido</th>'+VY.map(function(y){return "<th>"+y+"</th>";}).join("")+"</tr>";
+ VT.forEach(function(r){h+='<tr class="'+r[1]+'"><td>'+r[0]+"</td>"+r[2].map(function(v){return "<td>"+fmt(v)+"</td>";}).join("")+"</tr>";});
+ return h+'</table></div><span class="hint">Borde: <b style="color:#c8553d">derecha</b> · <b style="color:#b8860b">centro</b> · <b style="color:#3b6fb6">izquierda</b></span></div>';
+}
+function S_(who,txt){return '<div class="src"><span class="who">'+who+"</span>"+txt+"</div>";}
+var ALL=S_("Fuente B · Último mensaje de Salvador Allende, Radio Magallanes, 11 sep 1973","<q>Tienen la fuerza, podrán avasallarnos, pero no se detienen los procesos sociales ni con el crimen ni con la fuerza. La historia es nuestra y la hacen los pueblos.</q>");
+var PIN=S_("Fuente C · Augusto Pinochet, Memorias (1990) — idea central, adaptada","Según Pinochet, el gobierno de Allende buscaba imponer de modo «irreversible» el marxismo-leninismo, y por eso los Institutos Armados habrían ejercido el «legítimo derecho de rebelión».");
+var PRE=S_("Fuente B · Bernedo y Porath: «La prensa y la polarización política» (adaptado)","Hasta fines de los años 60 la prensa fue fiel a la convivencia democrática. Al polarizarse, abandonó esa tradición: entregó información parcial, con injurias, insultos y un alto compromiso político-ideológico, y difundió soluciones fuera de la Constitución.");
+var DL=S_("Fuente D · Decretos leyes de la Junta","<b>DL 27 (21 sep 1973):</b> disuelve el Congreso Nacional.<br><b>DL 527 (17 jun 1974):</b> la Junta de Gobierno asume los poderes Constituyente, Legislativo y Ejecutivo.");
+var SRC=[
+{src:voteTable(),q:"¿Qué partido obtuvo la mayor votación en 1965?",a:"Falange/DC (Demócrata Cristiano)",o:["Radical","Liberal","Socialista"],x:"En 1965 la DC llegó a 43,6%, la votación más alta de toda la tabla (era el gobierno de Frei)."},
+{src:voteTable(),q:"Según la tabla, ¿qué partidos CRECIERON entre 1937 y 1973?",a:"Socialista, Comunista y Demócrata Cristiano",o:["Conservador, Liberal y Radical","Radical, Liberal y Socialista","Solo el Partido Radical"],x:"Crecieron la DC (de 3,4% a 29,1%), los socialistas (11,2→18,7) y los comunistas (4,2→16,2)."},
+{src:voteTable(),q:"Según la tabla, ¿qué partidos DISMINUYERON?",a:"Conservador, Liberal y Radical",o:["Socialista y Comunista","Demócrata Cristiano y Comunista","Ninguno disminuyó"],x:"Bajaron conservadores (21,3→5,3), liberales (20,7→7,5) y radicales (18,7→3,7 en 1973)."},
+{src:voteTable(),q:"¿Por qué en 1973 ya no aparecen el Partido Conservador ni el Liberal, y sí el Nacional?",a:"Porque conservadores y liberales se fusionaron en el Partido Nacional",o:["Porque la Junta Militar los prohibió","Porque se unieron a la Unidad Popular","Porque se transformaron en el Partido Radical"],x:"Tras su caída electoral, liberales y conservadores se unieron y formaron el Partido Nacional (derecha), que obtuvo 21,3% en 1973."},
+{src:voteTable(),q:"¿Qué le pasó al Partido Radical (centro) en 1973?",a:"Bajó a solo 3,7%",o:["Llegó a su máximo histórico","Superó a la DC","Desapareció en 1937"],x:"El Radical fue fuerte (23,0% en 1941; 22,1% en 1957), pero en 1973 cayó a 3,7%."},
+{src:voteTable(),q:"Si sumas socialistas y comunistas en 1973 (18,7 + 16,2), ¿qué muestra eso?",a:"Que la izquierda tenía un apoyo importante (casi 35%)",o:["Que la izquierda casi no tenía votos","Que la derecha era mayoría absoluta","Que el centro superaba el 60%"],x:"18,7 + 16,2 = 34,9%. La izquierda creció mucho, y la sociedad estaba dividida en tres grandes tendencias."},
+{src:PRE,q:"Según la fuente, ¿qué hizo la prensa cuando el país se polarizó?",a:"Abandonó la convivencia democrática: información parcial, insultos y compromiso ideológico",o:["Se mantuvo neutral y objetiva","Dejó de publicar noticias políticas","Apoyó unánimemente al gobierno"],x:"Bernedo y Porath explican que la prensa dejó su tradición democrática, informó de forma parcial y con injurias."},
+{src:PRE,q:"¿Cómo contribuyó la prensa al quiebre de la democracia?",a:"Difundiendo soluciones extraconstitucionales (fuera de la Constitución)",o:["Organizando elecciones","Pidiendo diálogo entre todos los sectores","Prohibiendo los partidos políticos"],x:"Al difundir salidas fuera de la Constitución, la prensa aumentó la polarización y contribuyó al quiebre."},
+{src:ALL,q:"¿Qué expresa Allende en su último mensaje?",a:"Que, aunque tengan la fuerza, los procesos sociales no se detienen y la historia la hacen los pueblos",o:["Que apoya la intervención de las FF.AA.","Que renuncia y pide calma a sus partidarios para entregar el poder","Que la crisis económica fue culpa de su gobierno"],x:"Es la visión de Allende: denuncia el golpe (y acusa al capital extranjero unido a «la reacción») y confía en que la historia es de los pueblos."},
+{src:PIN,q:"¿Qué argumento usa Pinochet para justificar el golpe?",a:"Que Allende quería imponer de modo irreversible el marxismo-leninismo",o:["Que Allende había perdido una elección presidencial","Que el Congreso pidió a las FF.AA. gobernar por 17 años","Que la Constitución ordenaba un golpe"],x:"Esa es la perspectiva de Pinochet: habla de un «legítimo derecho de rebelión». Es una visión, no un hecho neutral."},
+{src:ALL+PIN,q:"¿Por qué las fuentes de Allende y Pinochet explican tan distinto el 11 de septiembre?",a:"Porque son protagonistas de lados opuestos: cada uno lo interpreta desde su punto de vista",o:["Porque una de ellas habla de otro país","Porque las dos fueron escritas por historiadores neutrales","Porque se refieren a años diferentes"],x:"El libro destaca que estos hechos se interpretan desde distintos puntos de vista; hay que saber quién escribe la fuente y con qué intención."},
+{src:DL,q:"¿Qué significa el Decreto Ley 27?",a:"Que se cerró el Congreso: la ciudadanía perdió a sus representantes elegidos",o:["Que se convocó a elecciones","Que se nacionalizó el cobre","Que se fundó un nuevo partido"],x:"Al disolver el Congreso desaparece el Poder Legislativo elegido por la ciudadanía: es una medida antidemocrática."},
+{src:DL,q:"¿Por qué el Decreto Ley 527 es antidemocrático?",a:"Porque la Junta concentró los poderes y se acabó la separación de poderes",o:["Porque aumentó el número de diputados","Porque devolvió el poder al Congreso","Porque creó tribunales independientes"],x:"En democracia los poderes Ejecutivo, Legislativo y Judicial están separados para controlarse. La Junta los concentró."},
+{src:S_("Fuente D · Elección parlamentaria de marzo de 1973","Ningún sector logró mayoría. La Unidad Popular obtuvo más del 40% de los votos; la oposición no logró los votos necesarios para destituir al presidente."),q:"¿Qué consecuencia tuvo esta elección?",a:"Las negociaciones se estancaron y la crisis siguió sin solución",o:["La oposición destituyó a Allende","La Unidad Popular obtuvo mayoría absoluta y se acabó la crisis","Se suspendieron las elecciones"],x:"Ninguno ganó claramente: la UP no pudo contener la presión ni enfrentar la crisis, y la oposición no podía destituirlo."},
+{src:S_("Fuente C · Fotografía, Calbuco, 1972","Personas haciendo una larga fila para comprar alimentos."),q:"¿Qué problema muestra esta fuente?",a:"El desabastecimiento de alimentos durante la crisis económica de 1972–1973",o:["Una votación popular","La celebración de la nacionalización del cobre","El bombardeo a La Moneda"],x:"Las filas muestran el desabastecimiento: faltaban productos básicos en el comercio."},
+{src:S_("Fuente E · Senador socialista Aniceto Rodríguez, 3 de julio de 1973","Advierte en el Senado que el país va por «el camino del golpismo», tras el «tanquetazo»."),q:"¿A qué hecho alude el senador?",a:"Al «tanquetazo», un intento de golpe de Estado en junio de 1973",o:["A la elección de Frei en 1964","A la fundación de la Falange Nacional","Al plebiscito de 1988"],x:"El «tanquetazo» (29 de junio de 1973) fue un intento de golpe en el que murieron 22 personas."},
+{src:S_("Fuente A · Afiche «Cobre chileno» (Larrea y Albornoz, 1972)","Afiche que celebra que el cobre pasa a ser de Chile."),q:"¿Qué medida promovía este afiche?",a:"La nacionalización del cobre (1971)",o:["La chilenización del cobre de 1964","La privatización de las minas","El estado de sitio"],x:"La nacionalización del cobre de 1971 fue apoyada ampliamente por el Congreso y la ciudadanía."}
+];
+// ===== 5. Conceptos =====
+var CO=[
+["Polarización","División de la población en posiciones de extremos opuestos, que debilita el diálogo y los puntos de encuentro."],
+["Golpe de Estado","Toma del poder por la fuerza, sin respetar la Constitución, derrocando a un gobierno legítimo."],
+["Dictadura","Régimen en que el poder se concentra sin control ni elecciones, y se restringen derechos y libertades."],
+["Junta Militar","Grupo de generales de las FF.AA. y Carabineros que asumió la dirección del país tras el golpe."],
+["Nacionalización","Paso de una riqueza o empresa a manos del Estado (como el cobre en 1971)."],
+["Expropiación","Transferencia obligatoria de una propiedad privada (industrias, empresas, fundos) al Estado."],
+["Reforma Agraria","Redistribución de la tierra: se expropiaban grandes fundos para entregarlos a campesinos."],
+["Estado de sitio","Estado de excepción en que se restringen libertades, como reunirse o moverse libremente."],
+["Separación de poderes","Principio democrático: Ejecutivo, Legislativo y Judicial están en manos distintas y se controlan."],
+["Desabastecimiento","Falta de alimentos y productos básicos en el comercio, que provoca largas filas."],
+["Chilenización del cobre","Política de Frei: el Estado compró parte de las grandes minas y se asoció con las empresas extranjeras."],
+["Oligarquía","Grupo reducido que concentra el poder político y económico."],
+["Sindicalización campesina","Derecho de los trabajadores del campo a organizarse en sindicatos."],
+["Derechos humanos","Derechos que tienen todas las personas por el solo hecho de serlo, como la vida y la libertad."],
+["Unidad Popular","Coalición de partidos de izquierda que llevó a Salvador Allende a la presidencia en 1970."]
+];
+// ===== 7. Bonus =====
+var BO=[
+{q:"Durante la dictadura, ¿qué ocurrió con los derechos humanos?",a:"Se violaron: hubo detenidos, torturados, ejecutados, desaparecidos y exiliados",o:["Fueron plenamente respetados","Solo se afectó el derecho a votar","Se crearon más libertades"],x:"Hubo graves violaciones a los DD.HH. Organismos como la DINA (después la CNI) participaron en la represión."},
+{q:"¿Qué institución de la Iglesia católica defendió a las víctimas de violaciones a los DD.HH.?",a:"La Vicaría de la Solidaridad",o:["La Junta Militar","El Partido Nacional","La DINA"],x:"La Vicaría de la Solidaridad (1976) dio ayuda legal y apoyo a perseguidos y familiares de víctimas."},
+{q:"¿Qué modelo económico aplicó la dictadura?",a:"Neoliberal: privatizaciones, apertura al comercio exterior y menor rol del Estado",o:["Nacionalización de todas las empresas","Profundizar la Reforma Agraria","Chilenización del cobre"],x:"Economistas llamados «Chicago boys» aplicaron el modelo neoliberal: libre mercado y Estado subsidiario."},
+{q:"¿En qué año se aprobó la Constitución que impuso la dictadura?",a:"1980",o:["1973","1988","1990"],x:"La Constitución de 1980 se aprobó en un plebiscito sin registros electorales ni libertades, por lo que fue muy cuestionado."},
+{q:"¿Qué se decidió en el plebiscito del 5 de octubre de 1988?",a:"Ganó el «No»: Pinochet no siguió y se llamó a elecciones",o:["Ganó el «Sí» y Pinochet siguió 8 años más","Se aprobó la Constitución de 1980","Se eligió a Salvador Allende"],x:"El «No» ganó con cerca del 56%. Así se abrió el camino a las elecciones de 1989."},
+{q:"¿Quién asumió la presidencia en 1990, con el retorno a la democracia?",a:"Patricio Aylwin",o:["Eduardo Frei Montalva","Jorge Alessandri","Augusto Pinochet"],x:"Patricio Aylwin (DC, Concertación) ganó en 1989 y asumió el 11 de marzo de 1990."},
+{q:"¿Cuánto duró aproximadamente la dictadura militar?",a:"Casi 17 años (1973–1990)",o:["3 años (1970–1973)","6 años (1964–1970)","40 años"],x:"Desde el 11 de septiembre de 1973 hasta el 11 de marzo de 1990: casi 17 años."},
+{q:"En los años 80, tras la crisis económica de 1982, ¿qué ocurrió?",a:"Hubo protestas nacionales contra la dictadura (desde 1983)",o:["Se nacionalizó el cobre","Se fundó el Partido Comunista","Hubo elecciones presidenciales libres cada año"],x:"La crisis de 1982 provocó desempleo y desde 1983 hubo jornadas de protesta nacional."}
+];
+function $(s){return document.querySelector(s);}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+var app=document.getElementById("app");
+var MODES=[
+{id:"dci",ic:"⚖️",c:"c1",t:"Derecha, centro o izquierda",d:"Clasifica partidos, ideas y gobiernos",gen:genDCI},
+{id:"tl",ic:"🗓️",c:"c2",t:"Línea de tiempo",d:"Ordena los hechos de 1922 a 1990",gen:genTL},
+{id:"gov",ic:"🏛️",c:"c3",t:"¿Qué gobierno fue?",d:"Alessandri, Frei, Allende o Junta Militar",gen:genGOV},
+{id:"src",ic:"📜",c:"c4",t:"Lee la fuente",d:"Tabla de votaciones, prensa, Allende y Pinochet",gen:genSRC},
+{id:"con",ic:"🔑",c:"c5",t:"Conceptos clave",d:"Polarización, golpe de Estado, expropiación…",gen:genCON},
+{id:"mix",ic:"📝",c:"c6",t:"Ensayo de la prueba",d:"Mezcla de todo (12 preguntas)",gen:genMIX},
+{id:"bon",ic:"⭐",c:"c7",t:"Bonus: la dictadura (1973–1990)",d:"DD.HH., modelo económico, 1980, 1988, 1990",gen:genBON}
+];
+function mc(q,a,o,x,extra){var r={t:"mc",q:q,a:a,o:o,x:x};for(var k in extra)r[k]=extra[k];return r;}
+function qDCI(r){return mc("¿Derecha, centro o izquierda?",r[1],DCI,r[2],{item:r[0],fixed:"three"});}
+function qGOV(r){return mc("¿A qué gobierno corresponde?",r[1],GOV,r[2],{item:r[0],fixed:"grid4"});}
+function qSRC(s){return mc(s.q,s.a,[s.a].concat(s.o),s.x,{src:s.src});}
+function qCON(r,mode){
+ var others=shuffle(CO.filter(function(c){return c[0]!==r[0];})).slice(0,3);
+ if(mode===0)return mc("¿Qué concepto corresponde a esta definición?",r[0],[r[0]].concat(others.map(function(c){return c[0];})),"<b>"+r[0]+":</b> "+r[1],{item:r[1]});
+ return mc("¿Qué significa «"+r[0]+"»?",r[1],[r[1]].concat(others.map(function(c){return c[1];})),"<b>"+r[0]+":</b> "+r[1]);
+}
+function qTL(n){var ev=shuffle(EV).slice(0,n);return {t:"order",q:"Ordena del más antiguo al más reciente",ev:ev};}
+function genDCI(){return shuffle(CL).slice(0,10).map(qDCI);}
+function genGOV(){return shuffle(GV).slice(0,10).map(qGOV);}
+function genSRC(){return shuffle(SRC).slice(0,10).map(qSRC);}
+function genCON(){return shuffle(CO).slice(0,10).map(function(r,i){return qCON(r,i%2);});}
+function genTL(){var a=[];for(var i=0;i<8;i++)a.push(qTL(i<4?4:5));return a;}
+function genBON(){return shuffle(BO).map(function(s){return mc(s.q,s.a,[s.a].concat(s.o),s.x);});}
+function genMIX(){
+ var a=[].concat(shuffle(CL).slice(0,2).map(qDCI),shuffle(GV).slice(0,3).map(qGOV),shuffle(SRC).slice(0,3).map(qSRC),shuffle(CO).slice(0,2).map(function(r,i){return qCON(r,i);}));
+ a=shuffle(a);a.splice(4,0,qTL(4));a.push(qTL(5));return a;
+}
+// ===== state =====
+var S=null;
+function store(){try{return JSON.parse(localStorage.getItem(KEY)||"{}")||{};}catch(e){return {};}}
+function saveBest(id,v){try{var o=store();if(!o[id]||v>o[id]){o[id]=v;localStorage.setItem(KEY,JSON.stringify(o));}}catch(e){}}
+function menu(){
+ S=null;var b=store();
+ var h='<div class="hero"><span class="deco">🏛️</span><div class="tag">Historia 6° · Lección 11 · págs. 223–239</div><h1>Archivo 1973</h1><p>Chile en la segunda mitad del siglo XX: de la polarización al golpe de Estado. Elige un modo y gana puntos; las rachas suman bonus 🔥.</p></div>';
+ h+='<button class="mbtn" id="resBtn"><span class="ic c0">📚</span><span class="tx"><b>Resumen para repasar</b><small>Tabla de los 3 sectores, línea de tiempo, conceptos y preguntas de desarrollo</small></span></button>';
+ h+='<div class="menu">';
+ MODES.forEach(function(m,i){h+='<button class="mbtn" data-m="'+i+'"><span class="ic '+m.c+'">'+m.ic+'</span><span class="tx"><b>'+m.t+'</b><small>'+m.d+'</small></span>'+(b[m.id]?'<span class="best">🏆 '+b[m.id]+'</span>':'')+'</button>';});
+ h+='</div><p class="foot">Basado en el libro «Valientes» (SM), Lección 11. ¡Éxito en la prueba, Ema! 💪</p>';
+ app.innerHTML=h;window.scrollTo(0,0);
+ $("#resBtn").onclick=resumen;
+ [].forEach.call(app.querySelectorAll("[data-m]"),function(el){el.onclick=function(){start(+el.getAttribute("data-m"));};});
+}
+function start(mi){var m=MODES[mi];S={m:m,qs:m.gen(),i:0,pts:0,streak:0,best:0,ok:0,wrong:[]};S.total=S.qs.length;show();}
+function topBar(){
+ return '<div class="top"><button class="ib" id="home" aria-label="Menú">🏠</button><div class="mid">'+S.m.ic+' '+S.m.t+'</div><span class="chip">⭐ '+S.pts+'</span><span class="chip fire">🔥 '+S.streak+'</span></div><div class="prog"><i style="width:'+Math.round(100*S.i/S.total)+'%"></i></div>';
+}
+function bindHome(){$("#home").onclick=function(){if(S&&S.i>0&&!confirm("¿Salir de la ronda? Se perderá el avance."))return;menu();};}
+function award(ok,q,yours,correct){
+ if(ok){S.streak++;S.ok++;if(S.streak>S.best)S.best=S.streak;var bonus=S.streak>=2?Math.min(50,(S.streak-1)*10):0;S.pts+=100+bonus;return bonus;}
+ S.streak=0;S.wrong.push({q:q,y:yours,a:correct,x:q.x});return 0;
+}
+function fbHTML(ok,bonus,q,extra){
+ return '<div class="fb '+(ok?"ok":"bad")+'"><b class="t">'+(ok?"✅ ¡Correcto! +100"+(bonus?" (+"+bonus+" racha 🔥)":""):"❌ No era esa.")+"</b>"+(extra||"")+(q.x?q.x:"")+'</div><button class="btn full" id="next" style="margin-top:10px">'+(S.i+1<S.total?"Siguiente ➜":"Ver resultado 🏁")+"</button>";
+}
+function show(){
+ if(S.i>=S.total)return finish();
+ var q=S.qs[S.i];
+ if(q.t==="order")return showOrder(q);
+ var opts=q.fixed?q.o.slice():shuffle(q.o);
+ var h=topBar()+'<div class="card"><div class="qnum">Pregunta '+(S.i+1)+" de "+S.total+'</div><div class="prompt">'+q.q+"</div>"+(q.src||"")+(q.item?'<div class="item">'+q.item+"</div>":"")+'<div class="opts '+(q.fixed||"")+'">';
+ opts.forEach(function(o,k){h+='<button class="opt" data-k="'+k+'">'+esc(o)+"</button>";});
+ h+='</div><div id="fbx"></div></div>';
+ app.innerHTML=h;window.scrollTo(0,0);bindHome();
+ var bs=app.querySelectorAll(".opt");
+ [].forEach.call(bs,function(b){b.onclick=function(){
+  var ch=opts[+b.getAttribute("data-k")],ok=ch===q.a;
+  [].forEach.call(bs,function(x){x.disabled=true;var v=opts[+x.getAttribute("data-k")];if(v===q.a)x.classList.add("ok");else if(x===b)x.classList.add("bad");else x.classList.add("dim");});
+  if(!ok)b.classList.add("shake");
+  var bonus=award(ok,q,ch,q.a);
+  $("#fbx").innerHTML=fbHTML(ok,bonus,q,ok?"":"La respuesta correcta es: <b>"+esc(q.a)+"</b>. ");
+  upd();$("#next").onclick=function(){S.i++;show();};
+  $("#next").scrollIntoView({behavior:"smooth",block:"nearest"});
+ };});
+}
+function upd(){var c=app.querySelectorAll(".chip");c[0].textContent="⭐ "+S.pts;c[1].textContent="🔥 "+S.streak;app.querySelector(".prog i").style.width=Math.round(100*(S.i+1)/S.total)+"%";}
+function evBtn(e,n,cls){return '<button class="ev '+(cls||"")+'" data-id="'+e[0]+'">'+(n?'<span class="n">'+n+"</span>":"")+(cls?'<span class="d">'+e[1]+"</span>":"")+"<span>"+e[2]+"</span></button>";}
+function showOrder(q){
+ var pool=q.ev.slice(),seq=[],done=false;
+ function render(){
+  var h=topBar()+'<div class="card"><div class="qnum">Pregunta '+(S.i+1)+" de "+S.total+' · Línea de tiempo</div><div class="prompt">'+q.q+'</div><p class="hint">Toca los hechos en orden (1 = el más antiguo). Toca uno de tu lista para quitarlo.</p><div class="seq" id="seq">';
+  if(!seq.length)h+='<div class="ph">Tu línea de tiempo aparecerá aquí</div>';
+  seq.forEach(function(e,k){h+=evBtn(e,k+1);});
+  h+='</div><div class="pool" id="pool">';pool.forEach(function(e){h+=evBtn(e,0);});
+  h+='</div><button class="btn full" id="chk" style="margin-top:12px"'+(pool.length?" disabled":"")+'>Comprobar ✔</button><div id="fbx"></div></div>';
+  app.innerHTML=h;bindHome();
+  [].forEach.call(app.querySelectorAll("#pool .ev"),function(b){b.onclick=function(){var id=+b.getAttribute("data-id");var k=pool.findIndex(function(e){return e[0]===id;});seq.push(pool.splice(k,1)[0]);render();};});
+  [].forEach.call(app.querySelectorAll("#seq .ev"),function(b){b.onclick=function(){var id=+b.getAttribute("data-id");var k=seq.findIndex(function(e){return e[0]===id;});pool.push(seq.splice(k,1)[0]);render();};});
+  $("#chk").onclick=check;
+ }
+ function check(){
+  if(pool.length||done)return;done=true;
+  var right=q.ev.slice().sort(function(a,b){return a[0]-b[0];});
+  var ok=seq.every(function(e,k){return e[0]===right[k][0];});
+  var bonus=award(ok,{q:"Ordenar: "+right.map(function(e){return e[2];}).join(" / "),x:""},seq.map(function(e){return e[1];}).join(" → "),right.map(function(e){return e[1]+" "+e[2];}).join(" → "));
+  if(!ok)S.wrong[S.wrong.length-1].x="Orden correcto: "+right.map(function(e){return "<b>"+e[1]+"</b> "+e[2];}).join(" → ");
+  var h="";seq.forEach(function(e,k){h+=evBtn(e,k+1,e[0]===right[k][0]?"ok":"bad");});
+  $("#seq").innerHTML=h;$("#pool").remove();$("#chk").remove();
+  var extra=ok?"Todas las fechas en su lugar.":"Orden correcto:<br>"+right.map(function(e,k){return (k+1)+". <b>"+e[1]+"</b> – "+e[2];}).join("<br>");
+  $("#fbx").innerHTML=fbHTML(ok,bonus,{x:""},extra);
+  upd();$("#next").onclick=function(){S.i++;show();};
+  $("#next").scrollIntoView({behavior:"smooth",block:"nearest"});
+ }
+ render();window.scrollTo(0,0);
+}
+function finish(){
+ saveBest(S.m.id,S.pts);
+ var pct=S.ok/S.total,st=pct>=.9?"🏆 ¡Excelente! Lista para la prueba.":pct>=.7?"👏 ¡Muy bien! Revisa los errores y vuelve a jugar.":pct>=.5?"💪 Vas bien. Repasa el resumen y vuelve a intentarlo.":"📚 Lee el resumen y vuelve a jugar: ¡la segunda vez sale mejor!";
+ var h='<div class="card score"><div class="qnum">'+S.m.ic+" "+S.m.t+'</div><div class="big">'+S.pts+'</div><div>puntos</div><p><b>'+S.ok+" de "+S.total+"</b> correctas · mejor racha 🔥 "+S.best+"</p><p>"+st+'</p><div class="row"><button class="btn" id="again">🔁 Otra ronda</button><button class="btn sec" id="back">🏠 Menú</button></div></div>';
+ h+='<div class="card" id="res"><h2>Para repasar</h2>';
+ if(!S.wrong.length)h+="<p>¡Sin errores! 🎉 Prueba otro modo o el Ensayo de la prueba.</p>";
+ S.wrong.forEach(function(w){h+='<div class="rev"><div class="q">'+(w.q.item?esc(w.q.item)+" — ":"")+w.q.q+'</div><div class="y">Tu respuesta: '+esc(w.y)+'</div><div class="a">Correcta: '+esc(w.a)+"</div><div>"+(w.x||"")+"</div></div>";});
+ h+='<button class="btn sec full" id="toRes" style="margin-top:6px">📚 Ver resumen</button></div>';
+ app.innerHTML=h;window.scrollTo(0,0);
+ var mi=MODES.indexOf(S.m);$("#again").onclick=function(){start(mi);};$("#back").onclick=menu;$("#toRes").onclick=resumen;
+}
+function resumen(){
+ S=null;
+ var h='<div class="top"><button class="ib" id="home2" aria-label="Menú">🏠</button><div class="mid">📚 Resumen para repasar</div></div><div class="card sum">';
+ h+='<h2>1. Chile entre 1960 y 1970</h2><p>A principios del siglo XX los partidos principales (Liberal, Conservador y Radical) representaban a la <b>oligarquía</b>. En la primera mitad del siglo surgieron <b>nuevos partidos</b> para sectores medios y populares, y las fuerzas políticas se ordenaron en <b>tres grandes tendencias: izquierda, centro y derecha</b>.</p><p>En los años 70 hubo alta confrontación y creciente <b>polarización</b>: la población se dividió en posiciones de extremos opuestos y se debilitaron el diálogo y los puntos de encuentro.</p>';
+ h+='<h3>Principales sectores y proyectos (1930–1970)</h3><div class="cols">';
+ h+='<div class="col d"><h4>Derecha</h4><b>Partidos:</b> Liberal (1841), Conservador (1857), Nacional (fusión de ambos; el libro indica 1964).<br><b>Ideas:</b> mantener el orden político y las jerarquías sociales; reticentes a reformas profundas y a ampliar el rol del Estado.<br><b>Apoyo:</b> oligarquía y algunos sectores medios y populares.<br><b>Gobierno:</b> Jorge Alessandri (1958–1964).</div>';
+ h+='<div class="col c"><h4>Centro</h4><b>Partidos:</b> Radical (1863), Falange Nacional (1938), Demócrata Cristiano (1957).<br><b>Ideas:</b> cambios moderados para beneficiar a grupos medios y populares; convivían visiones socialcristianas y laicas.<br><b>Apoyo:</b> clase media, parte de sectores populares y de la oligarquía.<br><b>Gobierno:</b> Eduardo Frei Montalva (1964–1970).</div>';
+ h+='<div class="col i"><h4>Izquierda</h4><b>Partidos:</b> Comunista (1922), Socialista (1933).<br><b>Ideas:</b> mejores condiciones para los trabajadores, distribución más equitativa de la riqueza, grandes reformas sociales y fortalecer el rol del Estado.<br><b>Apoyo:</b> sectores populares y parte de los grupos medios.<br><b>Gobierno:</b> Salvador Allende (1970–1973).</div></div>';
+ h+='<h3>Los tres gobiernos</h3><ul><li><b>Jorge Alessandri (1958–1964):</b> derecha; había sido ministro de Hacienda.</li><li><b>Eduardo Frei Montalva (1964–1970):</b> «Revolución en Libertad»: Reforma Agraria, sindicalización campesina, chilenización del cobre, promoción popular.</li><li><b>Salvador Allende (1970–1973):</b> Unidad Popular: nacionalización del cobre (1971), profundizó la Reforma Agraria, expropiaciones de industrias, empresas y fundos.</li></ul>';
+ h+='<h3>Tendencia electoral (Fuente A, Gamboa)</h3>'+voteTable()+'<p>Crecieron la <b>DC</b>, los <b>socialistas</b> y los <b>comunistas</b>; disminuyeron <b>conservadores</b> y <b>liberales</b> (se fusionaron en el Partido Nacional) y <b>radicales</b>.</p>';
+ h+='<h2 style="margin-top:16px">2. El contexto previo al golpe</h2><ul><li>Frei y Allende hicieron transformaciones a favor de sectores populares y medios: tuvieron popularidad, pero también reacciones contrapuestas.</li><li>Con Allende: conflictos con la oposición (derecha y centro) y <b>crisis económica 1972–1973</b> (desabastecimiento, filas, protestas).</li><li><b>Nacionalización del cobre (1971)</b>: apoyada ampliamente por el Congreso y la ciudadanía. <b>Expropiaciones</b> a sectores estratégicos para distribuir la riqueza y fortalecer el control estatal.</li><li><b>La prensa</b> se polarizó: información parcial, insultos, y difundió soluciones fuera de la Constitución.</li><li><b>Marzo 1973:</b> elección parlamentaria sin mayoría; la UP sacó más del 40%, la oposición no tuvo votos para destituir al presidente.</li><li><b>Junio 1973:</b> «tanquetazo», intento de golpe (22 muertos).</li><li>Algunos sectores promovieron la intervención de las FF.AA. → <b>quiebre de la democracia</b>.</li></ul>';
+ h+='<h2 style="margin-top:16px">3. El golpe de Estado (11 sep 1973)</h2><p>Las FF.AA. derrocaron al gobierno de Salvador Allende (bombardeo a La Moneda). Asumió una <b>Junta Militar</b> (generales de las FF.AA. y Carabineros) con <b>Augusto Pinochet</b> al mando. Se impuso una <b>dictadura</b> que duró <b>casi 17 años</b>, con apoyo de sectores civiles.</p><p><b>Medidas:</b></p><ul><li>Suspensión de derechos y libertades civiles.</li><li>Clausura del Congreso (DL 27, 21 sep 1973).</li><li>Supresión de elecciones y registros electorales.</li><li>Prohibición de partidos de izquierda y receso de los otros.</li><li>Estado de sitio y fuerte represión: violaciones a los DD.HH., perseguidos, muertos y desaparecidos.</li><li>DL 527 (1974): la Junta asume los poderes Constituyente, Legislativo y Ejecutivo → fin de la <b>separación de poderes</b>.</li></ul>';
+ h+='<h3>Dos perspectivas (fuentes)</h3><ul><li><b>Allende</b> (Radio Magallanes): «La historia es nuestra y la hacen los pueblos»; denuncia el golpe y acusa al capital extranjero unido a «la reacción».</li><li><b>Pinochet</b> (Memorias, 1990): dice que Allende quería imponer de forma «irreversible» el marxismo-leninismo y que las FF.AA. ejercieron un «legítimo derecho de rebelión».</li></ul><p class="hint">Son visiones opuestas de protagonistas: siempre pregúntate quién escribe la fuente y desde qué punto de vista.</p>';
+ h+='<h3>Línea de tiempo</h3><ul class="tl">'+EV.map(function(e){return "<li><b>"+e[1]+":</b> "+e[2]+"</li>";}).join("")+"</ul>";
+ h+='<h3>Conceptos clave</h3><ul>'+CO.map(function(c){return "<li><b>"+c[0]+":</b> "+c[1]+"</li>";}).join("")+"</ul>";
+ h+='<h2 style="margin-top:16px"><span class="badge">Bonus</span> Después del golpe (1973–1990)</h2><ul><li>Graves violaciones a los DD.HH. (DINA, luego CNI); la Vicaría de la Solidaridad defendió a las víctimas.</li><li>Modelo económico <b>neoliberal</b>: privatizaciones, apertura comercial, menor rol del Estado.</li><li><b>Constitución de 1980</b>, aprobada en un plebiscito cuestionado.</li><li>Crisis de 1982 y protestas nacionales desde 1983.</li><li><b>Plebiscito del 5 de octubre de 1988</b>: gana el «No».</li><li><b>1990</b>: asume Patricio Aylwin, vuelve la democracia.</li></ul></div>';
+ var P=[
+ ["Menciona dos avances y dos problemas del gobierno de Allende.","<b>Avances:</b> la nacionalización del cobre (1971), apoyada por el Congreso y la ciudadanía; profundizó la Reforma Agraria y expropió industrias y fundos para distribuir mejor la riqueza.<br><b>Problemas:</b> la fuerte crisis económica de 1972–1973 (desabastecimiento, filas, protestas) y los conflictos con la oposición de derecha y centro en un clima de polarización (incluso la prensa)."],
+ ["¿Por qué el golpe de Estado de 1973 significó un quiebre de la democracia? Da dos ejemplos.","Porque las FF.AA. derrocaron por la fuerza a un gobierno elegido por la ciudadanía y la Junta Militar gobernó sin control democrático. Ejemplos: se clausuró el Congreso (DL 27), se suprimieron las elecciones y los registros electorales, se prohibieron o recesaron los partidos, y la Junta concentró los poderes (DL 527), terminando con la separación de poderes."],
+ ["¿Qué es la polarización y cómo influyó en la crisis de 1973?","Es la división de la sociedad en posiciones de extremos opuestos. Al debilitarse el diálogo y los puntos de encuentro, los sectores no lograron acuerdos (por ejemplo, tras la elección de marzo de 1973), la prensa difundió soluciones fuera de la Constitución y algunos sectores promovieron la intervención militar."]
+ ];
+ h+='<div class="card"><h2>✍️ Practica preguntas de desarrollo</h2><p class="hint">Responde en tu cuaderno o en voz alta y después compara con la respuesta modelo.</p>';
+ P.forEach(function(p,k){h+='<div class="pr"><b>'+(k+1)+". "+p[0]+'</b><div class="ans hidden" id="ans'+k+'">'+p[1]+'</div><button class="btn sec full" data-a="'+k+'" style="margin-top:8px">👀 Ver respuesta modelo</button></div>';});
+ h+='</div><button class="btn full" id="back2">🎮 Volver a jugar</button>';
+ app.innerHTML=h;window.scrollTo(0,0);
+ $("#home2").onclick=menu;$("#back2").onclick=menu;
+ [].forEach.call(app.querySelectorAll("[data-a]"),function(b){b.onclick=function(){var a=$("#ans"+b.getAttribute("data-a"));var hid=a.classList.toggle("hidden");b.textContent=hid?"👀 Ver respuesta modelo":"🙈 Ocultar respuesta";};});
+}
+menu();
+</script>
+</body>
+</html>
