@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1d4e89">
+<title>Misión Decimal · Fracciones y decimales</title>
+<style>
+:root{--ink:#14263d;--muted:#5a6b80;--card:#fff;--blue:#1d4e89;--teal:#0e7c86;--green:#1f8a4c;--amber:#f0a202;--red:#d64545;--line:#d8e2ee;--soft:#eaf1f9}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:linear-gradient(180deg,#dde8f5 0,#eef3f9 220px,#f6f9fc 100%);min-height:100vh;touch-action:manipulation}
+#app{max-width:640px;margin:0 auto;padding:12px 14px 28px;display:flex;flex-direction:column;gap:12px}
+button{font-family:inherit;color:inherit;cursor:pointer;border:none}
+h1{font-size:1.65rem;margin:0;line-height:1.15}
+h2{font-size:1.2rem;margin:0 0 6px}
+h3{font-size:1.03rem;margin:14px 0 4px;color:var(--blue)}
+p{margin:6px 0;line-height:1.45}
+.hero{background:linear-gradient(135deg,#1d4e89,#0e7c86 65%,#1f8a4c);color:#fff;border-radius:22px;padding:18px;box-shadow:0 8px 24px rgba(29,78,137,.25);position:relative;overflow:hidden}
+.hero .tag{font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;opacity:.85;font-weight:700}
+.hero .deco{position:absolute;right:-6px;top:-8px;font-size:5.3rem;opacity:.18;transform:rotate(15deg)}
+.card{background:var(--card);border-radius:18px;padding:16px;box-shadow:0 3px 14px rgba(20,40,70,.08);border:1px solid var(--line)}
+.menu{display:flex;flex-direction:column;gap:10px}
+.mbtn{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:#fff;border:1px solid var(--line);border-radius:18px;padding:12px 14px;min-height:72px;box-shadow:0 3px 0 #cddbea}
+.mbtn:active{transform:translateY(2px)}
+.mbtn .ic{width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex:0 0 auto;background:var(--soft)}
+.mbtn b{display:block;font-size:1.05rem}.mbtn small{display:block;color:var(--muted);font-size:.86rem;margin-top:2px}
+.mbtn .best{font-size:.78rem;color:var(--green);font-weight:700;white-space:nowrap}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px;font-weight:700;font-size:.92rem}
+.pill{background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 12px}
+.bar{height:8px;background:#dbe5f0;border-radius:99px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--teal),var(--green));transition:width .3s}
+.q{font-size:1.07rem;font-weight:600;line-height:1.4}
+.ctx{background:var(--soft);border-radius:12px;padding:10px 12px;font-size:.95rem;line-height:1.45;margin-bottom:8px}
+.opts{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.opt{text-align:left;background:#fff;border:2px solid var(--line);border-radius:14px;padding:12px 14px;font-size:.98rem;line-height:1.35}
+.opt.ok{border-color:var(--green);background:#e5f6ec}.opt.bad{border-color:var(--red);background:#fdeaea}
+.opt:disabled{cursor:default}
+.big{display:block;width:100%;background:var(--blue);color:#fff;border-radius:14px;padding:14px;font-size:1.05rem;font-weight:700;margin-top:12px}
+.big.alt{background:#fff;color:var(--blue);border:2px solid var(--blue)}
+.fb{margin-top:10px;border-radius:12px;padding:10px 12px;line-height:1.45;font-size:.95rem}
+.fb.ok{background:#e5f6ec;border-left:5px solid var(--green)}.fb.bad{background:#fdeaea;border-left:5px solid var(--red)}
+input.num{font-size:1.15rem;padding:10px;border:2px solid var(--line);border-radius:12px;width:130px;text-align:center;font-family:inherit}
+input.num.ok{border-color:var(--green);background:#e5f6ec}input.num.bad{border-color:var(--red);background:#fdeaea}
+table{border-collapse:collapse;width:100%;font-size:.88rem;margin:6px 0}
+th,td{border:1px solid #b9c8da;padding:6px 4px;text-align:center}th{background:#e3ecf6;font-size:.82rem}
+td input.num{width:72px;font-size:1rem;padding:6px}
+.anom{background:#fff3cd;font-weight:700}
+svg{width:100%;height:auto;display:block;background:#fff;border-radius:10px}
+.sum h3:first-child{margin-top:0}.sum li{margin:4px 0;line-height:1.4}
+.small{font-size:.85rem;color:var(--muted)}
+.mist{border-left:4px solid var(--red);padding:6px 10px;margin:8px 0;background:#fff8f8;border-radius:8px;font-size:.92rem}
+.score{font-size:2.6rem;font-weight:800;text-align:center;color:var(--blue)}
+.center{text-align:center}
+.frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 3px;line-height:1.05}.frac span:first-child{border-bottom:2px solid currentColor;padding:0 3px}
+.streak{color:var(--amber)}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+"use strict";
+const $=s=>document.querySelector(s);
+const R=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const gcd=(a,b)=>b?gcd(b,a%b):Math.abs(a);
+const F=(n,d)=>`<span class="frac"><span>${n}</span><span>${d}</span></span>`;
+function simp(n,d){const g=gcd(n,d);return[n/g,d/g]}
+function FS(n,d){[n,d]=simp(n,d);return d===1?String(n):F(n,d)}
+// decimales como enteros en milésimos
+const D=x=>{let s=(x/1000).toFixed(3).replace(/0+$/,'').replace(/\.$/,'');return s.replace('.',',')};
+const Dp=(x,p)=>(x/1000).toFixed(p).replace('.',',');
+const U=['','uno','dos','tres','cuatro','cinco','seis','siete','ocho','nueve','diez','once','doce','trece','catorce','quince','dieciséis','diecisiete','dieciocho','diecinueve','veinte','veintiuno','veintidós','veintitrés','veinticuatro','veinticinco','veintiséis','veintisiete','veintiocho','veintinueve'];
+const T=['','','','treinta','cuarenta','cincuenta','sesenta','setenta','ochenta','noventa'];
+const C=['','ciento','doscientos','trescientos','cuatrocientos','quinientos','seiscientos','setecientos','ochocientos','novecientos'];
+function W(n){if(n===0)return'cero';if(n===100)return'cien';let s='';if(n>=100){s=C[Math.floor(n/100)];n%=100;if(n)s+=' '}if(n<30)return s+U[n];s+=T[Math.floor(n/10)];if(n%10)s+=' y '+U[n%10];return s}
+function words(ent,dec,p){const nm=['','décimos','centésimos','milésimos'][p];const e=ent===1?'un entero':W(ent)+' enteros';const d=(dec===1?(p===1?'un décimo':p===2?'un centésimo':'un milésimo'):W(dec)+' '+nm);return ent===0?d:e+' '+d}
+function wordsX(ent,dec,p){return words(ent,dec,p).replace(/^uno /,'un ')}
+// Pregunta: {topic,q,ctx?,opts:[html],ans:index,exp}
+function mk(q,correct,wrongs,exp,ctx){const set=[correct];for(const w of wrongs){if(!set.includes(w)&&set.length<4)set.push(w)}const o=shuf(set);return{q,ctx,opts:o,ans:o.indexOf(correct),exp}}
+
+const G={
+frac(){const t=R(0,3);
+ if(t<2){let a=R(1,7),b=R(a+1,9),c=R(1,7),d=R(c+1,9);if(t===0){const ok=FS(a*c,b*d);return mk(`¿Cuánto es ${F(a,b)} × ${F(c,d)}?`,ok,[FS(a*d,b*c),FS(a+c,b+d),FS(a*c,b+d),FS(a*c+1,b*d)],`Para multiplicar fracciones: <b>numerador × numerador</b> y <b>denominador × denominador</b>: ${F(a+'·'+c,b+'·'+d)} = ${F(a*c,b*d)}${gcd(a*c,b*d)>1?' y se simplifica a '+ok:''}.`)}
+  const ok=FS(a*d,b*c);return mk(`¿Cuánto es ${F(a,b)} : ${F(c,d)}?`,ok,[FS(a*c,b*d),FS(b*c,a*d),FS(a+d,b+c),FS(a*d+1,b*c)],`Para dividir, se multiplica la primera por el <b>inverso</b> de la segunda: ${F(a,b)} × ${F(d,c)} = ${F(a*d,b*c)}${gcd(a*d,b*c)>1?' = '+ok:''}.`)}
+ if(t===2){const n=R(2,12),a=R(1,4),b=pick([2,3,4,5,6,8]);const ok=FS(n*a,b);return mk(`¿Cuánto es ${n} × ${F(a,b)}?`,ok,[FS(a,n*b),FS(n*a,n*b),FS(n+a,b),FS(n*a+b,b)],`Un número entero es como ${F(n,1)}. Multiplicamos solo el numerador: ${F(n+'·'+a,b)} = ${F(n*a,b)}${gcd(n*a,b)>1?' = '+ok:''}.`)}
+ const a=R(1,5),b=R(a+1,8),n=R(2,6);const ok=FS(a,b*n);return mk(`¿Cuánto es ${F(a,b)} : ${n}?`,ok,[FS(a*n,b),FS(n,a*b),FS(a,b+n),FS(b,a*n),FS(a+1,b*n),FS(a,b*n+1)],`Dividir por ${n} es multiplicar por ${F(1,n)}: ${F(a,b)} × ${F(1,n)} = ${F(a,b*n)}${gcd(a,b*n)>1?' = '+ok:''}.`)},
+frac2(){const p=pick([['🍕 Una pizza',' de pizza'],['🍫 Un chocolate',' del chocolate'],['🧃 Un jugo',' del jugo']]);const a=R(1,3),b=R(a+1,5),c=R(1,3),d=R(c+1,6);const ok=FS(a*c,b*d);return mk(`Quedaba ${F(a,b)}${p[1]}. Ema se comió ${F(c,d)} de lo que quedaba. ¿Qué fracción del total se comió?`,ok,[FS(a+c,b+d),FS(a*d,b*c),FS(c,d),FS(a*c+1,b*d)],`"${F(c,d)} de ${F(a,b)}" significa <b>multiplicar</b>: ${F(c,d)} × ${F(a,b)} = ${F(a*c,b*d)}${gcd(a*c,b*d)>1?' = '+ok:''}.`)},
+lect(){const t=R(0,2),p=R(1,3),ent=pick([0,R(1,9),R(10,99)]),dec=R(1,Math.pow(10,p)-1),x=ent*1000+dec*Math.pow(10,3-p),num=ent+','+String(dec).padStart(p,'0');
+ if(t===0){const others=[1,2,3].filter(k=>k!==p).map(k=>wordsX(ent,dec,k));return mk(`¿Cómo se lee <b>${num}</b>?`,wordsX(ent,dec,p),[...others,wordsX(dec,ent||1,p)],`${num} tiene ${p} cifra${p>1?'s':''} decimal${p>1?'es':''}, por eso la parte decimal se lee en <b>${['','décimos','centésimos','milésimos'][p]}</b>.`)}
+ if(t===1){const alt=k=>ent+','+String(dec).padStart(k,'0');return mk(`¿Qué número es "<b>${wordsX(ent,dec,p)}</b>"?`,num,[alt(p+1),alt(p+2),String(dec)+','+ent,ent+','+dec+'0'].filter(s=>s!==num),`Los ${['','décimos','centésimos','milésimos'][p]} ocupan ${p} lugar${p>1?'es':''} después de la coma, por eso es ${num}.`)}
+ const n=R(10,99)*1000+R(100,999),s=D(n).padEnd(6,'0'),pos=pick(['décimos','centésimos','milésimos','unidades']),dig={unidades:s[1],décimos:s[3],centésimos:s[4],milésimos:s[5]};return mk(`En el número <b>${s}</b>, ¿qué cifra está en el lugar de los <b>${pos}</b>?`,dig[pos],[s[0],s[1],s[3],s[4],s[5],...shuf("0123456789".split(""))].filter(c=>c!==dig[pos]),`Después de la coma: 1° lugar décimos (${s[3]}), 2° centésimos (${s[4]}), 3° milésimos (${s[5]}). Antes de la coma están las unidades (${s[1]}).`)},
+conv(){const opts=[[1,2],[1,4],[3,4],[1,5],[2,5],[3,5],[4,5],[1,10],[3,10],[7,10],[9,10],[1,20],[3,20],[7,20],[1,25],[6,25],[1,8],[3,8],[1,100],[17,100],[3,50],[9,1000],[123,1000],[3,2],[5,4],[7,5]];const [n,d]=pick(opts),x=Math.round(n*1000/d);
+ if(Math.random()<.5){const how=d===10||d===100||d===1000?`Con denominador ${d} se escribe directo: ${['','','','1','','','','','','','10'].length&&''}${d===10?'1':d===100?'2':'3'} cifra(s) decimal(es).`:`Se amplifica a denominador 10, 100 o 1000 (o se divide ${n} : ${d}).`;return mk(`Escribe ${F(n,d)} como número decimal.`,D(x),[D(x*10),D(Math.round(x/10)),n+','+d,D(x+(x>=100?100:10))],`${how} ${F(n,d)} = ${D(x)}.`)}
+ const p=d===1000||x%10?3:x%100?2:1,den=Math.pow(10,p),num=x/Math.pow(10,3-p),[sn,sd]=simp(num,den);return mk(`¿Qué fracción es igual a <b>${D(x)}</b>?`,F(sn,sd),[F(num,den*10),F(sd,sn),F(num+1,den),F(sn,sd*2)],`${D(x)} = ${F(num,den)} (${p} decimal${p>1?'es':''} → denominador ${den})${sd!==den?', y simplificando: '+F(sn,sd):''}.`)},
+orden(){const t=R(0,2);
+ if(t===0){const base=R(0,9)*1000;let a=base+R(1,9)*100,b=base+R(1,99)*10;if(Math.random()<.3)b=a;const s=a>b?'>':a<b?'<':'=';return mk(`¿Qué signo va? &nbsp;<b>${D(a)} ☐ ${D(b)}</b>`,s,['>','<','='],`Compara cifra por cifra desde la izquierda (puedes completar con ceros): ${Dp(a,2)} y ${Dp(b,2)}. ¡Más cifras no significa más grande!`)}
+ if(t===1){const b=R(1,9)*1000;let xs=shuf([b+R(1,9)*100,b+R(1,99)*10,b+R(1,999),b+R(1,9)*10]);xs=[...new Set(xs)];const asc=xs.slice().sort((a,b)=>a-b),f=a=>a.map(D).join(' < ');return mk(`Ordena de <b>menor a mayor</b>:<br>${xs.map(D).join(' ; ')}`,f(asc),[f(xs.slice().sort((a,b)=>D(a).length-D(b).length||a-b)),f(asc.slice().reverse()),f(shuf(xs))],`Completa con ceros para que todos tengan 3 decimales: ${asc.map(v=>Dp(v,3)).join(', ')}. Así se ve claro el orden.`)}
+ const a=R(1,50)*100,b=a+100,x=a+R(1,99);return mk(`En la recta numérica, ¿qué número está <b>entre ${D(a)} y ${D(b)}</b>?`,D(x),[D(b+R(1,9)*10),D(a-R(1,9)*10),D(a+1000)],`Entre ${Dp(a,2)} y ${Dp(b,2)} hay centésimos: ${D(a+10)}, ${D(a+20)}… ${D(b-10)}. ${D(x)} está ahí.`)},
+suma(){const s=Math.random()<.5;let a=R(1,99999)*pick([1,10,100]),b=R(1,9999)*pick([1,10,100]);a%=100000;b%=100000;if(!s&&b>a)[a,b]=[b,a];const r=s?a+b:a-b;const wrong=[r+pick([1,10,100]),Math.abs(r-pick([10,100])),r+1000,r+9];return mk(`¿Cuánto es <b>${D(a)} ${s?'+':'−'} ${D(b)}</b>?`,D(r),wrong.map(D),`Ubica los números <b>coma bajo coma</b> y completa con ceros: ${Dp(a,3)} ${s?'+':'−'} ${Dp(b,3)} = ${Dp(r,3)} → ${D(r)}.`)},
+suma2(){const a=R(500,9999)*10,b=R(100,a/10-1)*10,it=pick(['un cuaderno','un lápiz','una regla']);const t=pick([0,1]);if(t)return mk(`Ema tenía $${D(a)} mil y gastó $${D(b)} mil en ${it}. ¿Cuántos miles le quedan?`,D(a-b),[D(a+b),D(a-b+100),D(Math.abs(a-b-10))],`Es una resta (gastó): ${Dp(a,2)} − ${Dp(b,2)} = ${Dp(a-b,2)}.`);const c=R(100,3000)*10;return mk(`Un ciclista recorre ${D(a)} km en la mañana y ${D(c)} km en la tarde. ¿Cuántos km en total?`,D(a+c),[D(a+c+100),D(Math.abs(a-c)),D(a+c+1000)],`"En total" es suma: ${Dp(a,2)} + ${Dp(c,2)} = ${Dp(a+c,2)} km.`)},
+pot(){const k=R(1,3),m=Math.random()<.5,P=Math.pow(10,k),x=R(1,9999)*pick([1,10]);const r=m?x*P:x/P;const fx=v=>{const s=(v/1000).toFixed(6).replace(/0+$/,'').replace(/\.$/,'');return s.replace('.',',')};const w=[1,2,3].filter(j=>j!==k).map(j=>fx(m?x*Math.pow(10,j):x/Math.pow(10,j)));w.push(fx(m?x/P:x*P));return mk(`¿Cuánto es <b>${D(x)} ${m?'×':':'} ${P}</b>?`,fx(r),w,`${m?'Multiplicar':'Dividir'} por ${P} (${k} cero${k>1?'s':''}) mueve la coma <b>${k} lugar${k>1?'es':''} a la ${m?'derecha':'izquierda'}</b>. Si faltan cifras, se agregan ceros.`)},
+pot2(){const k=R(1,3),P=Math.pow(10,k),x=R(1,999),m=Math.random()<.5;const r=m?x*P:x;const a=m?x:x*P;return mk(`Completa: <b>${D(a)} ${m?'×':':'} ☐ = ${D(m?r:x)}</b>`,String(P),['10','100','1000','10000'].filter(s=>s!==String(P)),`La coma se movió ${k} lugar${k>1?'es':''} a la ${m?'derecha':'izquierda'}, eso es ${m?'multiplicar':'dividir'} por ${P}.`)}
+};
+const LEVELS=[
+ {id:'frac',ic:'🍕',n:'Nivel 1 · Fracciones × y :',d:'Multiplicación y división de fracciones',g:['frac','frac','frac2']},
+ {id:'lect',ic:'📖',n:'Nivel 2 · Leer y escribir decimales',d:'Décimos, centésimos, milésimos y valor posicional',g:['lect']},
+ {id:'conv',ic:'🔄',n:'Nivel 3 · Fracción ⇄ decimal',d:'Transformar fracciones a decimales y viceversa',g:['conv']},
+ {id:'orden',ic:'📏',n:'Nivel 4 · Ordenar y comparar',d:'>, <, =, ordenar y la recta numérica',g:['orden']},
+ {id:'suma',ic:'➕',n:'Nivel 5 · Sumar y restar decimales',d:'Coma bajo coma, también problemas',g:['suma','suma','suma2']},
+ {id:'pot',ic:'🚀',n:'Nivel 6 · × y : por 10, 100 y 1000',d:'Mover la coma',g:['pot','pot','pot2']},
+ {id:'jefe',ic:'🏆',n:'Desafío final · Prueba mixta',d:'15 preguntas de todo, ¡como la prueba!',g:['frac','frac2','lect','conv','orden','suma','suma2','pot','pot2']}
+];
+let S={};const best=JSON.parse(localStorage.getItem('mdEma')||'{}');
+function menu(){$('#app').innerHTML=`<div class="hero"><div class="deco">🔢</div><div class="tag">6°A · Prueba Matemática mié 21 oct</div><h1>Misión Decimal</h1><p>Fracciones y decimales, sin calculadora. Cada nivel tiene 10 preguntas distintas cada vez. ¡Gana 3 ⭐ con 9 o más!</p></div><div class="menu">${LEVELS.map((l,i)=>`<button class="mbtn" onclick="start(${i})"><span class="ic">${l.ic}</span><span style="flex:1"><b>${l.n}</b><small>${l.d}</small></span><span class="best">${best[l.id]!=null?'⭐'.repeat(best[l.id]):''}</span></button>`).join('')}</div><div class="card small">Temario (Classroom, Miss Julia Pastenes): multiplicación y división de fracciones; lectura y escritura de decimales; fracciones ⇄ decimales; orden y comparación; suma y resta; × y : por potencias de 10. Repasa también las guías 6–8 del Booklet y las guías 1–3 de decimales.</div>`;scrollTo(0,0)}
+function start(i){const L=LEVELS[i],N=L.id==='jefe'?15:10;const qs=[];const seen=new Set();let guard=0;while(qs.length<N&&guard++<500){const q=G[pick(L.g)]();const k=q.q+q.opts.join();if(!seen.has(k)&&q.ans>=0&&q.opts.length>=3){seen.add(k);qs.push(q)}}S={i,qs,k:0,ok:0,pts:0,st:0,miss:[]};show()}
+function show(){const q=S.qs[S.k],L=LEVELS[S.i];$('#app').innerHTML=`<div class="top"><button class="pill" onclick="menu()">← Menú</button><span class="pill">${S.k+1}/${S.qs.length}</span><span class="pill">⭐ ${S.pts} pts <span class="streak">${S.st>1?'🔥'+S.st:''}</span></span></div><div class="bar"><i style="width:${S.k/S.qs.length*100}%"></i></div><div class="card"><div class="small">${L.ic} ${L.n}</div><p class="q">${q.q}</p><div class="opts">${q.opts.map((o,j)=>`<button class="opt" onclick="ans(${j})">${o}</button>`).join('')}</div><div id="fb"></div></div>`;scrollTo(0,0)}
+function ans(j){const q=S.qs[S.k],good=j===q.ans,bs=document.querySelectorAll('.opt');bs.forEach((b,x)=>{b.disabled=true;if(x===q.ans)b.classList.add('ok');else if(x===j)b.classList.add('bad')});if(good){S.ok++;S.st++;S.pts+=10+(S.st>2?5:0)}else{S.st=0;S.miss.push(q)}$('#fb').innerHTML=`<div class="fb ${good?'ok':'bad'}"><b>${good?pick(['¡Bacán! ✅','¡Excelente, Ema! ✅','¡La raja! ✅','¡Muy bien! ✅']):'Casi… ❌ La correcta es: '+q.opts[q.ans]}</b><br>${q.exp}</div><button class="big" onclick="next()">${S.k+1<S.qs.length?'Siguiente →':'Ver resultado'}</button>`;$('#fb').scrollIntoView({behavior:'smooth',block:'nearest'})}
+function next(){S.k++;if(S.k<S.qs.length)show();else end()}
+function end(){const L=LEVELS[S.i],n=S.qs.length,r=S.ok/n,st=r>=.9?3:r>=.7?2:r>=.5?1:0;if((best[L.id]||0)<st||best[L.id]==null){best[L.id]=Math.max(st,best[L.id]||0);localStorage.setItem('mdEma',JSON.stringify(best))}$('#app').innerHTML=`<div class="card center"><h2>${L.ic} ${L.n}</h2><div class="score">${S.ok}/${n}</div><p>${'⭐'.repeat(st)||'Sigue practicando 💪'} · ${S.pts} puntos</p><p>${st===3?'¡Estás lista para la prueba! 🎉':st>=1?'¡Bien! Repite para llegar a 3 ⭐.':'Lee bien las explicaciones y vuelve a intentarlo, ¡tú puedes!'}</p></div>${S.miss.length?`<div class="card sum"><h3>Para repasar</h3>${S.miss.map(q=>`<div class="mist">${q.q}<br><b>→ ${q.opts[q.ans]}</b><br><span class="small">${q.exp}</span></div>`).join('')}</div>`:''}<button class="big" onclick="start(${S.i})">Jugar otra vez (preguntas nuevas)</button><button class="big alt" onclick="menu()">Volver al menú</button>`;scrollTo(0,0)}
+menu();
+</script>
+</body>
+</html>
